@@ -1,0 +1,87 @@
+@import url("https://fonts.googleapis.com/css2?family=Birthstone&display=swap");
+
+@import "tailwindcss";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* ===========================
+            STARS
+=========================== */
+
+.stars {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: #C89A5A;
+
+box-shadow:
+  0 0 4px rgba(200,154,90,.8),
+  0 0 10px rgba(200,154,90,.55),
+  0 0 18px rgba(200,154,90,.25);
+
+  animation: twinkle ease-in-out infinite;
+}
+
+.star:nth-child(5n){
+  background:#DDBA86;
+}
+
+.star:nth-child(9n){
+  background:#C89A5A;
+}
+
+.star:nth-child(13n){
+  background:#B57A2A;
+}
+
+@keyframes twinkle {
+  0% {
+    opacity: 0.15;
+    transform: scale(0.6);
+  }
+
+  25% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.4;
+    transform: scale(0.75);
+  }
+
+  75% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+
+  100% {
+    opacity: 0.2;
+    transform: scale(0.7);
+  }
+}
+
+
+.font-welcome {
+  font-family: "Birthstone", cursive;
+}
