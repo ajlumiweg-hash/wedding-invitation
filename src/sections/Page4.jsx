@@ -104,7 +104,7 @@ function Page4() {
 
   {/* Top Ornament */}
   <div className="flex items-center justify-center gap-3">
-    <span className="h-px w-20 sm:w-28 bg-[#C89A58]/35" />
+    <span className="h-px w-14 sm:w-24 bg-[#C89A58]/35" />
 
     <div
       className="
