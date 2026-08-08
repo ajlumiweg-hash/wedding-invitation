@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Birthstone&display=swap");
-
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 @import "tailwindcss";
 
 * {
@@ -86,3 +86,6 @@ box-shadow:
   font-family: "Birthstone", cursive;
 }
 
+@theme {
+  --breakpoint-3xl: 141rem;
+}
