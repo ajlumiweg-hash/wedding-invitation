@@ -49,7 +49,7 @@ function Background() {
 
   useEffect(() => {
     const handleWheel = ({ deltaY }) => {
-      if (Math.abs(deltaY) < 5 || wheelLocked.current) return;
+      if (Math.abs(deltaY) < 15 || wheelLocked.current) return;
 
       wheelLocked.current = true;
 
@@ -61,9 +61,10 @@ function Background() {
 
       setTimeout(() => {
         wheelLocked.current = false;
-      }, 600);
+      }, 500);
     };
 
+    // 📱 Mobile swipe
     let touchStartY = 0;
 
     const handleTouchStart = (event) => {
@@ -89,13 +90,13 @@ function Background() {
 
       setTimeout(() => {
         wheelLocked.current = false;
-      }, 600);
+      }, 500);
     };
 
-    window.addEventListener("wheel", handleWheel, {
-      passive: true,
-    });
+    // Desktop
+    window.addEventListener("wheel", handleWheel, { passive: true });
 
+    // Mobile
     window.addEventListener("touchstart", handleTouchStart, {
       passive: true,
     });
@@ -106,6 +107,7 @@ function Background() {
 
     return () => {
       window.removeEventListener("wheel", handleWheel);
+
       window.removeEventListener("touchstart", handleTouchStart);
       window.removeEventListener("touchend", handleTouchEnd);
     };
