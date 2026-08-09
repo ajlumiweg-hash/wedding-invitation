@@ -48,22 +48,44 @@ function Background() {
   const wheelLocked = useRef(false);
 
   useEffect(() => {
-    const handleWheel = (event) => {
-      const { deltaY } = event;
-
-      if (Math.abs(deltaY) < 5 || wheelLocked.current) {
-        return;
-      }
+    const handleWheel = ({ deltaY }) => {
+      if (Math.abs(deltaY) < 5 || wheelLocked.current) return;
 
       wheelLocked.current = true;
 
-      setCurrentPage((prev) => {
-        if (deltaY > 0) {
-          return Math.min(prev + 1, TOTAL_PAGES - 1);
-        }
+      setCurrentPage((prev) =>
+        deltaY > 0
+          ? Math.min(prev + 1, TOTAL_PAGES - 1)
+          : Math.max(prev - 1, 0)
+      );
 
-        return Math.max(prev - 1, 0);
-      });
+      setTimeout(() => {
+        wheelLocked.current = false;
+      }, 600);
+    };
+
+    let touchStartY = 0;
+
+    const handleTouchStart = (event) => {
+      touchStartY = event.touches[0].clientY;
+    };
+
+    const handleTouchEnd = (event) => {
+      if (wheelLocked.current) return;
+
+      const touchEndY = event.changedTouches[0].clientY;
+      const deltaY = touchStartY - touchEndY;
+
+      // Ignore very small finger movements
+      if (Math.abs(deltaY) < 50) return;
+
+      wheelLocked.current = true;
+
+      setCurrentPage((prev) =>
+        deltaY > 0
+          ? Math.min(prev + 1, TOTAL_PAGES - 1)
+          : Math.max(prev - 1, 0)
+      );
 
       setTimeout(() => {
         wheelLocked.current = false;
@@ -74,8 +96,18 @@ function Background() {
       passive: true,
     });
 
+    window.addEventListener("touchstart", handleTouchStart, {
+      passive: true,
+    });
+
+    window.addEventListener("touchend", handleTouchEnd, {
+      passive: true,
+    });
+
     return () => {
       window.removeEventListener("wheel", handleWheel);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchend", handleTouchEnd);
     };
   }, []);
 
