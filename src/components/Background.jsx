@@ -11,13 +11,16 @@ import Page4 from "../sections/Page4";
 import Page5 from "../sections/Page5";
 import Page6 from "../sections/Page6";
 
-/* ==========================================================================
-   Constants
-=========================================================================== */
-
 const TOTAL_PAGES = 6;
 
-const pages = [Page1, Page2, Page3, Page4, Page5, Page6];
+const pages = [
+  Page1,
+  Page2,
+  Page3,
+  Page4,
+  Page5,
+  Page6,
+];
 
 const pageAnimation = {
   initial: {
@@ -25,80 +28,65 @@ const pageAnimation = {
     y: 40,
     scale: 0.99,
   },
+
   animate: {
     opacity: 1,
     y: 0,
     scale: 1,
   },
+
   exit: {
     opacity: 0,
     y: -40,
     scale: 1.01,
   },
-  transition: {
-    duration: 0.5,
-    ease: [0.22, 1, 0.36, 1],
-  },
 };
 
-/* ==========================================================================
-   Background Component
-=========================================================================== */
-
 function Background() {
-  const [scrollY, setScrollY] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
 
   const wheelLocked = useRef(false);
 
-  /* ==========================================================================
-     Wheel Page Navigation
-  =========================================================================== */
-
   useEffect(() => {
-    const handleWheel = ({ deltaY }) => {
-      if (Math.abs(deltaY) < 15 || wheelLocked.current) return;
+    const handleWheel = (event) => {
+      const { deltaY } = event;
+
+      if (Math.abs(deltaY) < 5 || wheelLocked.current) {
+        return;
+      }
 
       wheelLocked.current = true;
 
-      setCurrentPage((prev) =>
-        deltaY > 0
-          ? Math.min(prev + 1, TOTAL_PAGES - 1)
-          : Math.max(prev - 1, 0)
-      );
+      setCurrentPage((prev) => {
+        if (deltaY > 0) {
+          return Math.min(prev + 1, TOTAL_PAGES - 1);
+        }
+
+        return Math.max(prev - 1, 0);
+      });
 
       setTimeout(() => {
         wheelLocked.current = false;
-      }, 500);
+      }, 600);
     };
 
-    window.addEventListener("wheel", handleWheel, { passive: true });
+    window.addEventListener("wheel", handleWheel, {
+      passive: true,
+    });
 
-    return () => window.removeEventListener("wheel", handleWheel);
-  }, []);
-
-  /* ==========================================================================
-     Background Parallax
-  =========================================================================== */
-
-  useEffect(() => {
-    const handleScroll = () =>
-      requestAnimationFrame(() => setScrollY(window.scrollY));
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("wheel", handleWheel);
+    };
   }, []);
 
   const CurrentPage = pages[currentPage];
 
   return (
-    <div>
-      {/* ==========================================================================
-          Fixed Background
-      =========================================================================== */}
+    <div className="relative min-h-screen overflow-hidden">
 
+      {/* Fixed Background */}
       <div className="fixed inset-0 z-0 overflow-hidden">
+
         {/* Night Sky */}
         <div
           className="absolute inset-0"
@@ -126,12 +114,7 @@ function Background() {
         />
 
         {/* Stars */}
-        <div
-          className="absolute inset-0"
-          style={{
-            transform: `translateY(${scrollY * 0.02}px)`,
-          }}
-        >
+        <div className="absolute inset-0">
           <Stars />
         </div>
 
@@ -145,11 +128,9 @@ function Background() {
         />
       </div>
 
-      {/* ==========================================================================
-          Page Content
-      =========================================================================== */}
-
+      {/* Page Content */}
       <main className="relative z-10 min-h-screen">
+
         <AnimatePresence mode="wait">
           <motion.div
             key={currentPage}
@@ -157,18 +138,20 @@ function Background() {
             initial={pageAnimation.initial}
             animate={pageAnimation.animate}
             exit={pageAnimation.exit}
-            transition={pageAnimation.transition}
+            transition={{
+              duration: 0.5,
+              ease: [0.22, 1, 0.36, 1],
+            }}
           >
             <CurrentPage />
           </motion.div>
         </AnimatePresence>
+
       </main>
 
-      {/* ==========================================================================
-          Floating Card
-      =========================================================================== */}
-
+      {/* Floating Card */}
       <FloatingCard />
+
     </div>
   );
 }
