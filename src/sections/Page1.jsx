@@ -7,13 +7,13 @@ export default function Page1() {
       {/* Main Content */}
       <div
         className="
-          relative z-10 flex min-h-screen items-center justify-center px-3 -translate-y-52
-          sm:-translate-y-52
-          md:-translate-y-52
-          lg:-translate-y-60
-          xl:-translate-y-84
-          2xl:-translate-y-98
-          3xl:-translate-y-180
+          relative z-10 flex min-h-screen items-center justify-center px-3
+          -translate-y-[30vh]
+          sm:-translate-y-[30vh]
+          md:-translate-y-[30vh]
+          lg:-translate-y-[25vh]
+          xl:-translate-y-[25vh]
+          2xl:-translate-y-[24vh] 
         "
       >
         <motion.div
@@ -28,10 +28,10 @@ export default function Page1() {
             className=" text-[24px] font-bold leading-[1.8] text-[#9E6F3D]
               sm:text-[24px]
               md:text-[24px]
-              lg:text-[34px]
+              lg:text-[30px]
               xl:text-[40px]
-              2xl:text-[52px]
-              3xl:text-[100px]  
+              2xl:text-[47px]
+              
             "
             style={{fontFamily: "serif", textShadow: "0 0 25px rgba(158,111,61,0.18)", }}         
           >
@@ -43,13 +43,13 @@ export default function Page1() {
 
       {/* Welcome Content */}
       <div
-        className="absolute inset-x-0 z-10 px-6 text-center top-[calc(5%+180px)]
-          sm:top-[calc(5%+180px)]
-          md:top-[calc(5%+180px)]
-          lg:top-[calc(5%+180px)]
-          xl:top-[calc(8%+180px)]
-          2xl:top-[calc(12%+180px)]
-          3xl:top-[calc(22%+180px)]    
+        className="absolute inset-x-0 z-10 px-6 text-center
+          top-[28vh]
+          sm:top-[28vh]
+          md:top-[28vh]
+          lg:top-[34vh]
+          xl:top-[34vh]
+          2xl:top-[36vh]
         "
       >
         <motion.div
@@ -60,12 +60,12 @@ export default function Page1() {
           {/* Welcome */}
           <motion.h1
             className="whitespace-nowrap leading-none text-[#9E6F3D]  text-[60px]
-              sm:text-[70px]
-              md:text-[80px]
-              lg:text-[90px]
+              sm:text-[60px]
+              md:text-[60px]
+              lg:text-[76px]
               xl:text-[100px]
-              2xl:text-[130px]
-              3xl:text-[250px]      
+              2xl:text-[120px]
+                   
             "
             style={{fontFamily: "'Great Vibes', cursive",}}
           >
@@ -77,10 +77,10 @@ export default function Page1() {
             className="mt-2 w-full text-center text-[9px] uppercase translate-x-1 text-[#9E6F3D] tracking-[0.32em] font-semibold  whitespace-nowrap
               sm:text-xs sm:tracking-[0.35em] sm:translate-x-1   
               md:text-xs md:tracking-[0.32em] md:translate-x-2    
-              lg:text-lg lg:tracking-[0.32em] lg:translate-x-2
+              lg:text-base lg:tracking-[0.32em] lg:translate-x-2
               xl:text-xl xl:tracking-[0.32em] xl:translate-x-2
               2xl:text-2xl 2xl:tracking-[0.32em] 2xl:translate-x-3
-              3xl:text-5xl 3xl:tracking-[0.32em] 3xl:translate-x-3   
+               
             "
           >
             To Our Wedding Reception
@@ -95,14 +95,14 @@ export default function Page1() {
             {/* Left Line */}
             <motion.span
               className="h-px w-29 bg-[#9E6F3D] origin-right
-                sm:w-20 md:w-24 lg:w-45 xl:w-50 2xl:w-61  3xl:w-122 
-              "
+                sm:w-29 md:w-29 lg:w-base xl:w-base 2xl:w-base"
+              
               variants={{hidden: { scaleX: 0, opacity: 0 },visible: {scaleX: 1, opacity: 1,transition: {duration: 0.8, ease: [0.22, 1, 0.36, 1],},},}} 
             />
 
             {/* Heart */}
             <motion.span
-              className="text-sm text-[#9E6F3D] sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl" 
+              className="text-sm text-[#9E6F3D] sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl " 
               initial={{ opacity: 0, scale: 0 }}
               animate={{opacity: 1, scale: [1, 1.18, 1, 1.12, 1],}}       
               transition={{opacity: {duration: 0.4, }, scale: {delay: 0.4, duration: 1.2, ease: "easeInOut", repeat: Infinity, repeatDelay: 2,},}} 
@@ -113,8 +113,8 @@ export default function Page1() {
             {/* Right Line */}
             <motion.span
               className="h-px w-29 bg-[#9E6F3D] origin-left
-                sm:w-20 md:w-24 lg:w-45 xl:w-50 2xl:w-61  3xl:w-122 
-              "
+                sm:w-29 md:w-29 lg:w-base xl:w-base 2xl:w-base"
+    
               variants={{hidden: { scaleX: 0, opacity: 0 },visible: {scaleX: 1,opacity: 1,transition: {duration: 0.8, ease: [0.22, 1, 0.36, 1],},},}}                                        
             />
           </motion.div>
@@ -124,20 +124,20 @@ export default function Page1() {
 
       {/* Wedding Story */}
       <div
-        className="absolute inset-x-0 z-10 px-6 text-center top-[calc(23%+180px)]
-          sm:top-[calc(23%+180px)]
-          md:top-[calc(23%+180px)]
-          lg:top-[calc(31%+180px)]
-          xl:top-[calc(29%+180px)]
-          2xl:top-[calc(34%+180px)]
-          3xl:top-[calc(44%+180px)]    
+        className="absolute inset-x-0 z-10 px-6 text-center
+          top-[45vh]
+          sm:top-[45vh]
+          md:top-[45vh]
+          lg:top-[55vh]
+          xl:top-[55vh]
+          2xl:top-[63vh]       
         "
       >
         <motion.div
           initial={{opacity: 0,y: 20,}}  
           animate={{opacity: 1,y: 0,}}  
           transition={{delay: 0.6, duration: 1.2, ease: [0.22, 1, 0.36, 1],}}  
-          className="flex flex-col items-center gap-4 sm:gap-4 md:gap-5 lg:gap-7 xl:gap-8 2xl:gap-13 3xl:gap-22"
+          className="flex flex-col items-center gap-4 sm:gap-4 md:gap-5 lg:gap-7 xl:gap-7 2xl:gap-8 "
 
         >
           <p
@@ -147,7 +147,7 @@ export default function Page1() {
               lg:text-lg lg:tracking-[0.32em] lg:translate-x-2
               xl:text-xl xl:tracking-[0.32em] xl:translate-x-2
               2xl:text-2xl 2xl:tracking-[0.32em] 2xl:translate-x-3
-              3xl:text-5xl 3xl:tracking-[0.32em] 3xl:translate-x-3    
+                 
             "
           >
             With Allah's blessings
@@ -159,7 +159,7 @@ export default function Page1() {
               lg:text-lg lg:tracking-[0.32em] lg:translate-x-2
               xl:text-xl xl:tracking-[0.32em] xl:translate-x-2
               2xl:text-2xl 2xl:tracking-[0.32em] 2xl:translate-x-3
-              3xl:text-5xl 3xl:tracking-[0.32em] 3xl:translate-x-3       
+                    
             "
           >
            and endless grace, 
@@ -171,7 +171,7 @@ export default function Page1() {
               lg:text-lg lg:tracking-[0.32em] lg:translate-x-2
               xl:text-xl xl:tracking-[0.32em] xl:translate-x-2
               2xl:text-2xl 2xl:tracking-[0.32em] 2xl:translate-x-3
-              3xl:text-5xl 3xl:tracking-[0.32em] 3xl:translate-x-3      
+                
             "
           >
             two hearts become one 
@@ -183,7 +183,7 @@ export default function Page1() {
               lg:text-lg lg:tracking-[0.32em] lg:translate-x-2
               xl:text-xl xl:tracking-[0.32em] xl:translate-x-2
               2xl:text-2xl 2xl:tracking-[0.32em] 2xl:translate-x-3
-              3xl:text-5xl 3xl:tracking-[0.32em] 3xl:translate-x-3    
+               
             "
           >
             eternal story.
