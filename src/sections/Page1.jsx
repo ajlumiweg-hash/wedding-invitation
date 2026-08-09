@@ -10,9 +10,9 @@ export default function Page1() {
           relative z-10 flex min-h-screen items-center justify-center px-3 -translate-y-52
           sm:-translate-y-52
           md:-translate-y-52
-          lg:-translate-y-70
-          xl:-translate-y-98
-          2xl:-translate-y-118
+          lg:-translate-y-60
+          xl:-translate-y-88
+          2xl:-translate-y-108
           3xl:-translate-y-[650px]
         "
       >
@@ -46,9 +46,9 @@ export default function Page1() {
         className="absolute inset-x-0 z-10 px-6 text-center top-[calc(5%+180px)]
           sm:top-[calc(5%+180px)]
           md:top-[calc(5%+180px)]
-          lg:top-[calc(2%+180px)]
-          xl:top-[calc(5%+180px)]
-          2xl:top-[calc(5%+180px)]
+          lg:top-[calc(5%+180px)]
+          xl:top-[calc(8%+180px)]
+          2xl:top-[calc(8%+180px)]
           3xl:top-[calc(12%+180px)]    
         "
       >
@@ -80,7 +80,7 @@ export default function Page1() {
               lg:text-base lg:tracking-[0.45em] lg:translate-x-2
               xl:text-base xl:tracking-[0.55em] xl:translate-x-2
               2xl:text-base 2xl:tracking-[0.80em] 2xl:translate-x-3
-              3xl:text-base 3xl:tracking-[0.90em] 3xl:translate-x-3   
+              3xl:text-base 3xl:tracking-[0.99em] 3xl:translate-x-3   
             "
           >
             To Our Wedding Reception
@@ -119,6 +119,75 @@ export default function Page1() {
             />
           </motion.div>
 
+        </motion.div>
+      </div>
+
+      {/* Wedding Story */}
+      <div
+        className="absolute inset-x-0 z-10 px-6 text-center top-[calc(23%+180px)]
+          sm:top-[calc(23%+180px)]
+          md:top-[calc(23%+180px)]
+          lg:top-[calc(29%+180px)]
+          xl:top-[calc(29%+180px)]
+          2xl:top-[calc(29%+180px)]
+          3xl:top-[calc(29%+180px)]    
+        "
+      >
+        <motion.div
+          initial={{opacity: 0,y: 20,}}  
+          animate={{opacity: 1,y: 0,}}  
+          transition={{delay: 0.6, duration: 1.2, ease: [0.22, 1, 0.36, 1],}}  
+          className="flex flex-col items-center gap-4 sm:gap-4 md:gap-5 lg:gap-7 xl:gap-8 2xl:gap-8 3xl:gap-9"
+
+        >
+          <p
+            className="w-full text-center text-[9px] uppercase translate-x-1 text-[#9E6F3D] tracking-[0.32em] font-bold  whitespace-nowrap
+              sm:text-xs sm:tracking-[0.35em] sm:translate-x-1   
+              md:text-xs md:tracking-[0.32em] md:translate-x-2    
+              lg:text-base lg:tracking-[0.45em] lg:translate-x-2
+              xl:text-base xl:tracking-[0.65em] xl:translate-x-2
+              2xl:text-base 2xl:tracking-[0.95em] 2xl:translate-x-3
+              3xl:text-base 3xl:tracking-[0.105em] 3xl:translate-x-3   
+            "
+          >
+            With Allah's blessings
+          </p>
+          <p
+            className="w-full text-center text-[9px] uppercase translate-x-1 text-[#9E6F3D] tracking-[0.32em] font-bold  whitespace-nowrap
+              sm:text-xs sm:tracking-[0.35em] sm:translate-x-1   
+              md:text-xs md:tracking-[0.32em] md:translate-x-2    
+              lg:text-base lg:tracking-[0.45em] lg:translate-x-2
+              xl:text-base xl:tracking-[0.65em] xl:translate-x-2
+              2xl:text-base 2xl:tracking-[0.95em] 2xl:translate-x-3
+              3xl:text-base 3xl:tracking-[0.105em] 3xl:translate-x-3   
+            "
+          >
+           and endless grace, 
+          </p>
+          <p
+            className="w-full text-center text-[9px] uppercase translate-x-1 text-[#9E6F3D] tracking-[0.32em] font-bold  whitespace-nowrap
+              sm:text-xs sm:tracking-[0.35em] sm:translate-x-1   
+              md:text-xs md:tracking-[0.32em] md:translate-x-2    
+              lg:text-base lg:tracking-[0.45em] lg:translate-x-2
+              xl:text-base xl:tracking-[0.65em] xl:translate-x-2
+              2xl:text-base 2xl:tracking-[0.95em] 2xl:translate-x-3
+              3xl:text-base 3xl:tracking-[0.105em] 3xl:translate-x-3   
+            "
+          >
+            two hearts become one 
+          </p>
+          <p
+            className="w-full text-center text-[9px] uppercase translate-x-1 text-[#9E6F3D] tracking-[0.32em] font-bold  whitespace-nowrap
+              sm:text-xs sm:tracking-[0.35em] sm:translate-x-1   
+              md:text-xs md:tracking-[0.32em] md:translate-x-2    
+              lg:text-base lg:tracking-[0.45em] lg:translate-x-2
+              xl:text-base xl:tracking-[0.65em] xl:translate-x-2
+              2xl:text-base 2xl:tracking-[0.95em] 2xl:translate-x-3
+              3xl:text-base 3xl:tracking-[0.105em] 3xl:translate-x-3   
+            "
+          >
+            eternal story.
+          </p>
         </motion.div>
       </div>
 
