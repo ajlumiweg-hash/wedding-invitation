@@ -38,6 +38,7 @@ export default function Page1() {
             بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
           </p>
         </motion.div>
+
       </div>
 
       {/* Welcome Content */}
@@ -84,6 +85,40 @@ export default function Page1() {
           >
             To Our Wedding Reception
           </p>
+
+          {/* Decorative Divider */}
+          <motion.div
+            className="mt-3 flex items-center justify-center gap-2"
+            initial="hidden" animate="visible"            
+            variants={{hidden: {},visible: {transition: {staggerChildren: 0.25,},},}}    
+          >
+            {/* Left Line */}
+            <motion.span
+              className="h-px w-25 bg-[#9E6F3D] origin-left
+                sm:w-20 md:w-24 lg:w-45 xl:w-50 2xl:w-56  3xl:w-68 
+              "
+              variants={{hidden: { scaleX: 0, opacity: 0 },visible: {scaleX: 1, opacity: 1,transition: {duration: 0.8, ease: [0.22, 1, 0.36, 1],},},}} 
+            />
+
+            {/* Heart */}
+            <motion.span
+              className="text-sm text-[#9E6F3D] sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl" 
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{opacity: 1, scale: [1, 1.18, 1, 1.12, 1],}}       
+              transition={{opacity: {duration: 0.4, }, scale: {delay: 0.4, duration: 1.2, ease: "easeInOut", repeat: Infinity, repeatDelay: 2,},}} 
+            >
+              ♥
+            </motion.span>
+
+            {/* Right Line */}
+            <motion.span
+              className="h-px w-25 bg-[#9E6F3D] origin-left
+                sm:w-20 md:w-24 lg:w-45 xl:w-50 2xl:w-56 3xl:w-68 
+              "
+              variants={{hidden: { scaleX: 0, opacity: 0 },visible: {scaleX: 1,opacity: 1,transition: {duration: 0.8, ease: [0.22, 1, 0.36, 1],},},}}                                        
+            />
+          </motion.div>
+
         </motion.div>
       </div>
 
