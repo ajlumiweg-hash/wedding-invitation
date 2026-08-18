@@ -1,8 +1,10 @@
 @import "tailwindcss";
+
 html,
 body,
 #root {
   margin: 0;
+  width: 100%;
   min-height: 100%;
   background: #040B1D;
 }
@@ -10,4 +12,8 @@ body,
 html,
 body {
   overscroll-behavior: none;
+}
+
+body {
+  overflow-x: hidden;
 }

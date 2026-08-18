@@ -244,11 +244,18 @@ export default function Page3() {
             Scratch &amp; Reveal
           </h2>
 
-          <div className="mt-1 flex items-center justify-center gap-2 text-[#B8894F]">
-            <span className="h-px w-10 bg-[#B8894F]/60" />
-            <span className="text-xs">♡</span>
-            <span className="h-px w-10 bg-[#B8894F]/60" />
-          </div>
+        {/* Decorative Line */}
+        <motion.div
+          variants={{
+            hidden: { width: 0, opacity: 0 },
+            show: {
+              width: 75,
+              opacity: 1,
+              transition: { duration: 0.9, ease: "easeOut" },
+            },
+          }}
+          className="mb-6 h-px bg-gradient-to-r from-transparent via-[#946F45] to-transparent"
+        />
         </motion.div>
 
         {/* HEART */}
@@ -293,9 +300,18 @@ export default function Page3() {
             transition={{ delay: 0.6 }}
             className="-mt-3 text-center sm:-mt-5"
           >
-            <div className="mb-1 text-[11px] text-[#B8894F]">
-              ✦
-            </div>
+        {/* Decorative Line */}
+        <motion.div
+          variants={{
+            hidden: { width: 0, opacity: 0 },
+            show: {
+              width: 75,
+              opacity: 1,
+              transition: { duration: 0.9, ease: "easeOut" },
+            },
+          }}
+          className="mb-6 h-px bg-gradient-to-r from-transparent via-[#946F45] to-transparent"
+        />
 
             <p className="font-['Cinzel'] text-[10px] text-[#D6A85F] sm:text-[11px]">
               Scratch the heart

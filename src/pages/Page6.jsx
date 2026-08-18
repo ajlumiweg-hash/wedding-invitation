@@ -67,6 +67,7 @@ export default function Page6() {
         variants={container}
         initial="hidden"
         animate="show"
+        viewport={{ once: true, amount: 0.35 }}
         className="mx-auto flex w-full max-w-[430px] flex-col items-center justify-center"
       >
         {/* Heart Glow */}
@@ -77,15 +78,17 @@ export default function Page6() {
             duration: 1.2,
             ease: [0.22, 1, 0.36, 1],
           }}
-          className="relative flex h-[270px] w-[300px] items-center justify-center sm:h-[305px] sm:w-[340px] md:h-[320px] md:w-[355px]"
+          className="relative flex h-[310px] w-[340px] items-center justify-center sm:h-[345px] sm:w-[380px] md:h-[365px] md:w-[400px]"
         >
           {/* Soft Gold Heart Glow */}
           <motion.div
             className="absolute inset-[12%] rounded-full bg-[#D6A85F]/10 blur-3xl"
-            animate={{
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{
               opacity: [0.25, 0.5, 0.25],
               scale: [0.95, 1.05, 0.95],
             }}
+            viewport={{ once: true }}
             transition={{
               duration: 3.5,
               repeat: Infinity,
@@ -109,10 +112,11 @@ export default function Page6() {
                 pathLength: 0,
                 opacity: 0,
               }}
-              animate={{
+              whileInView={{
                 pathLength: 1,
                 opacity: 0.9,
               }}
+              viewport={{ once: true }}
               transition={{
                 pathLength: {
                   duration: 2,
@@ -133,7 +137,8 @@ export default function Page6() {
               strokeLinejoin="round"
               strokeDasharray="3 7"
               initial={{ opacity: 0 }}
-              animate={{ opacity: 0.55 }}
+              whileInView={{ opacity: 0.55 }}
+              viewport={{ once: true }}
               transition={{
                 delay: 1.2,
                 duration: 1,
@@ -229,30 +234,6 @@ export default function Page6() {
           <p>celebrating with you.</p>
         </motion.div>
 
-        {/* Final Ornament */}
-        <motion.div
-          variants={fadeUp}
-          className="mt-5 flex items-center gap-3"
-        >
-          <span className="h-px w-7 bg-[#6F5034]" />
-
-          <motion.span
-            className="text-[10px] text-[#D6A85F]"
-            animate={{
-              opacity: [0.45, 1, 0.45],
-              scale: [1, 1.15, 1],
-            }}
-            transition={{
-              duration: 2.6,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          >
-            ✦
-          </motion.span>
-
-          <span className="h-px w-7 bg-[#6F5034]" />
-        </motion.div>
       </motion.div>
     </section>
   );

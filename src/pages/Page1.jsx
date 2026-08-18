@@ -29,7 +29,7 @@ export default function Page1() {
         {/* Bismillah */}
         <motion.p
           variants={fadeUp}
-          className="mb-5 font-serif text-[17px] tracking-wide text-[#946F45] sm:text-lg"
+          className="mb-2 font-serif text-[17px] font-medium tracking-wide text-[#B88A4A] sm:text-lg"
         >
           بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
         </motion.p>
@@ -44,13 +44,13 @@ export default function Page1() {
               transition: { duration: 0.9, ease: "easeOut" },
             },
           }}
-          className="mb-6 h-px bg-gradient-to-r from-transparent via-[#946F45] to-transparent"
+          className="mb-6 h-px bg-gradient-to-r from-transparent bg-[#B88A4A] to-transparent"
         />
 
         {/* Welcome */}
         <motion.h1
           variants={fadeUp}
-          className="font-['Great_Vibes'] text-[58px] leading-none text-[#946F45] sm:text-[68px]"
+          className="font-['Great_Vibes'] text-[58px] font-normal leading-none text-[#B88A4A] drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)] sm:text-[68px]"
         >
           Welcome
         </motion.h1>
@@ -58,28 +58,23 @@ export default function Page1() {
         {/* Subtitle */}
         <motion.p
           variants={fadeUp}
-          className="mt-5 text-[9px] font-medium tracking-[0.28em] text-[#6F5034] sm:text-[10px]"
+          className="mt-5 text-[9px] font-medium tracking-[0.28em] text-[#B88A4A] sm:text-[10px]"
         >
           TO OUR WEDDING RECEPTION
         </motion.p>
 
         {/* Divider */}
         <motion.div
-          variants={{
-            hidden: { scaleX: 0, opacity: 0 },
-            show: {
-              scaleX: 1,
-              opacity: 1,
-              transition: { duration: 0.8, ease: "easeOut" },
-            },
-          }}
-          className="mt-7 h-px w-20 bg-gradient-to-r from-transparent via-[#B8894F] to-transparent"
+          initial={{ scaleX: 0, opacity: 0 }}
+          animate={{ scaleX: 1, opacity: 1 }}
+          transition={{ duration: 0.9, delay: 0.8, ease: "easeOut" }}
+          className="mt-5 h-px w-[75px] origin-center bg-gradient-to-r from-transparent via-[#B88A4A] to-transparent"
         />
 
         {/* Blessing */}
         <motion.div
           variants={fadeUp}
-          className="mt-7 max-w-[270px] text-[11px] leading-[1.9] text-[#946F45] sm:text-xs"
+          className="mt-7 max-w-[270px] text-[11px] font-normal leading-[1.9] text-[#B88A4A] sm:text-xs"
         >
           <p>With Allah's blessings</p>
           <p>and endless grace,</p>
@@ -87,23 +82,37 @@ export default function Page1() {
           <p>eternal story.</p>
         </motion.div>
 
-        {/* Bottom Ornament — idle pulse keeps it alive after entrance */}
+        {/* Bottom Ornament */}
         <motion.div
           variants={{
             hidden: { opacity: 0, scale: 0.7 },
-            show: { opacity: 1, scale: 1, transition: { duration: 0.8, ease: "easeOut" } },
+            show: {
+              opacity: 1,
+              scale: 1,
+              transition: { duration: 0.8, ease: "easeOut" },
+            },
           }}
-          className="mt-8 flex items-center gap-3 text-[#B8894F]"
+          className="mt-8 flex items-center gap-3"
         >
-          <span className="h-px w-8 bg-[#6F5034]" />
+          <span className="h-px w-8 bg-[#B88A4A]" />
+
           <motion.span
-            className="text-[10px] text-[#D6A85F]"
-            animate={{ opacity: [0.5, 1, 0.5], scale: [1, 1.15, 1] }}
-            transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut", delay: 2.4 }}
+            className="text-[10px] font-medium bg-[#B88A4A]"
+            animate={{
+              opacity: [0.5, 1, 0.5],
+              scale: [1, 1.15, 1],
+            }}
+            transition={{
+              duration: 2.6,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2.4,
+            }}
           >
             ✦
           </motion.span>
-          <span className="h-px w-8 bg-[#6F5034]" />
+
+          <span className="h-px w-8 bg-[#B88A4A]" />
         </motion.div>
 
       </motion.div>
