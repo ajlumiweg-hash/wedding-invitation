@@ -9,15 +9,18 @@ import Page6 from "./pages/Page6";
 
 export default function App() {
   return (
-    <main className="relative min-h-screen overflow-hidden">
+    <>
       <Background />
       <FloatingCard />
-      <Page1 />
-      <Page2 />
-      <Page3 />
-      <Page4 />
-      <Page5 />
-      <Page6 />
-    </main>
+
+      <main className="relative z-10 min-h-screen w-full overflow-hidden">
+        <Page1 />
+        <Page2 />
+        <Page3 />
+        <Page4 />
+        <Page5 />
+        <Page6 />
+      </main>
+    </>
   );
 }

@@ -1,11 +1,10 @@
 import { motion } from "framer-motion";
 import mosque from "../assets/mosque.png";
 
-// Two star layers: tiny ambient dust + a handful of "hero" stars that read clearly
 const dustStars = Array.from({ length: 55 }, (_, i) => ({
   id: `dust-${i}`,
   left: `${Math.random() * 100}%`,
-  top: `${Math.random() * 65}%`, // keep clear of the mosque silhouette
+  top: `${Math.random() * 65}%`,
   size: Math.random() * 1.4 + 0.6,
   delay: Math.random() * 5,
   duration: 3 + Math.random() * 4,
@@ -22,22 +21,17 @@ const heroStars = Array.from({ length: 8 }, (_, i) => ({
 
 export default function Background() {
   return (
-    <div className="fixed inset-0 z-0 h-[100dvh] w-full overflow-hidden bg-[#040B1D] pointer-events-none">
-
-      {/* Deep Navy Base */}
+    <div className="pointer-events-none fixed left-0 top-0 z-0 h-[100dvh] w-screen overflow-hidden bg-[#040B1D]">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(111,80,52,0.10),transparent_50%),linear-gradient(180deg,#040B1D_0%,#040B1D_60%,#030817_100%)]" />
 
-      {/* Slow-drifting nebula glow for atmosphere */}
       <motion.div
-        className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(148,111,69,0.10),transparent_45%)]"
-        animate={{
-          opacity: [0.5, 1, 0.5],
-          scale: [1, 1.08, 1],
-        }}
+        className="absolute inset-0"
+        animate={{ opacity: [0.5, 1, 0.5], scale: [1, 1.08, 1] }}
         transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
-      />
+      >
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(148,111,69,0.10),transparent_45%)]" />
+      </motion.div>
 
-      {/* Ambient star dust */}
       <div className="absolute inset-0">
         {dustStars.map((star) => (
           <motion.span
@@ -61,7 +55,6 @@ export default function Background() {
         ))}
       </div>
 
-      {/* Hero stars — brighter, with a soft pulse + subtle scale for depth */}
       <div className="absolute inset-0">
         {heroStars.map((star) => (
           <motion.span
@@ -88,7 +81,6 @@ export default function Background() {
         ))}
       </div>
 
-      {/* Moon */}
       <motion.div
         className="absolute right-5 top-8 h-8 w-8 rounded-full bg-[#B8894F]"
         animate={{ y: [-2, 3, -2] }}
@@ -101,8 +93,8 @@ export default function Background() {
         <div className="absolute -right-2 -top-1 h-7 w-7 rounded-full bg-[#040B1D]" />
       </motion.div>
 
-      {/* Distant Mosque, with a faint golden rim-light behind it */}
       <div className="absolute bottom-0 left-1/2 h-40 w-[70%] -translate-x-1/2 bg-[radial-gradient(ellipse_at_center_bottom,rgba(214,168,95,0.08),transparent_70%)]" />
+
       <motion.img
         src={mosque}
         alt=""
@@ -111,14 +103,17 @@ export default function Background() {
         animate={{ opacity: 0.8, y: [0, -2, 0] }}
         transition={{
           opacity: { duration: 1.6, ease: "easeOut" },
-          y: { duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1.6 },
+          y: {
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1.6,
+          },
         }}
       />
 
-      {/* Bottom Dark Fade */}
       <div className="absolute inset-x-0 bottom-0 h-[30%] bg-gradient-to-t from-[#040B1D] via-[#040B1D]/70 to-transparent" />
 
-      {/* Soft Vignette */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_45%,rgba(4,11,29,0.55)_100%)]" />
     </div>
   );
