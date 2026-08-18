@@ -22,7 +22,7 @@ const heroStars = Array.from({ length: 8 }, (_, i) => ({
 
 export default function Background() {
   return (
-    <div className="fixed inset-0 z-0 overflow-hidden bg-[#040B1D] pointer-events-none">
+    <div className="fixed inset-0 z-0 h-[100dvh] w-full overflow-hidden bg-[#040B1D] pointer-events-none">
 
       {/* Deep Navy Base */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(111,80,52,0.10),transparent_50%),linear-gradient(180deg,#040B1D_0%,#040B1D_60%,#030817_100%)]" />
