@@ -21,7 +21,7 @@ const heroStars = Array.from({ length: 8 }, (_, i) => ({
 
 export default function Background() {
   return (
-    <div className="pointer-events-none fixed left-0 top-0 z-0 h-[100dvh] w-screen overflow-hidden bg-[#040B1D]">
+    <div className="pointer-events-none fixed inset-0 z-0 h-screen w-screen overflow-hidden bg-[#040B1D]">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(111,80,52,0.10),transparent_50%),linear-gradient(180deg,#040B1D_0%,#040B1D_60%,#030817_100%)]" />
 
       <motion.div
