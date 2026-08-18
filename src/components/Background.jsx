@@ -1,184 +1,125 @@
-import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import mosque from "../assets/mosque.png";
 
-import FloatingCard from "./FloatingCard";
-import Stars from "./Stars";
+// Two star layers: tiny ambient dust + a handful of "hero" stars that read clearly
+const dustStars = Array.from({ length: 55 }, (_, i) => ({
+  id: `dust-${i}`,
+  left: `${Math.random() * 100}%`,
+  top: `${Math.random() * 65}%`, // keep clear of the mosque silhouette
+  size: Math.random() * 1.4 + 0.6,
+  delay: Math.random() * 5,
+  duration: 3 + Math.random() * 4,
+}));
 
-import Page1 from "../sections/Page1";
-import Page2 from "../sections/Page2";
-import Page3 from "../sections/Page3";
-import Page4 from "../sections/Page4";
-import Page5 from "../sections/Page5";
-import Page6 from "../sections/Page6";
+const heroStars = Array.from({ length: 8 }, (_, i) => ({
+  id: `hero-${i}`,
+  left: `${8 + Math.random() * 84}%`,
+  top: `${5 + Math.random() * 45}%`,
+  size: Math.random() * 1.5 + 2.5,
+  delay: Math.random() * 4,
+  duration: 4 + Math.random() * 3,
+}));
 
-/* ==========================================================================
-   Constants
-=========================================================================== */
-
-const pages = [Page1, Page2, Page3, Page4, Page5, Page6];
-
-/* ==========================================================================
-   Page Animation
-=========================================================================== */
-
-const pageAnimation = {
-  initial: {
-    opacity: 0,
-    y: 40,
-    scale: 0.99,
-  },
-
-  animate: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-  },
-
-  transition: {
-    duration: 0.5,
-    ease: [0.22, 1, 0.36, 1],
-  },
-};
-
-/* ==========================================================================
-   Background Component
-=========================================================================== */
-
-function Background() {
-  const [scrollY, setScrollY] = useState(0);
-
-  const scrollRef = useRef(null);
-
-  /* ==========================================================================
-     Background Parallax
-  =========================================================================== */
-
-  useEffect(() => {
-    const scrollContainer = scrollRef.current;
-
-    if (!scrollContainer) return;
-
-    const handleScroll = () => {
-      requestAnimationFrame(() => {
-        setScrollY(scrollContainer.scrollTop);
-      });
-    };
-
-    scrollContainer.addEventListener("scroll", handleScroll, {
-      passive: true,
-    });
-
-    return () => {
-      scrollContainer.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
+export default function Background() {
   return (
-    <div className="relative h-[100dvh] w-full overflow-hidden">
-      {/* =====================================================================
-          Fixed Background
-      ====================================================================== */}
+    <div className="fixed inset-0 z-0 overflow-hidden bg-[#040B1D] pointer-events-none">
 
-      <div className="fixed inset-0 z-0 overflow-hidden">
-        {/* Night Sky */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: `
-              radial-gradient(
-                ellipse at top,
-                rgba(22,48,95,.18) 0%,
-                transparent 45%
-              ),
-              radial-gradient(
-                ellipse at bottom,
-                rgba(12,26,55,.22) 0%,
-                transparent 60%
-              ),
-              linear-gradient(
-                180deg,
-                #08122D 0%,
-                #060F26 30%,
-                #030918 70%,
-                #01040D 100%
-              )
-            `,
-          }}
-        />
+      {/* Deep Navy Base */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(111,80,52,0.10),transparent_50%),linear-gradient(180deg,#040B1D_0%,#040B1D_60%,#030817_100%)]" />
 
-        {/* Stars */}
-        <div
-          className="absolute inset-0"
-          style={{
-            transform: `translateY(${scrollY * 0.02}px)`,
-          }}
-        >
-          <Stars />
-        </div>
+      {/* Slow-drifting nebula glow for atmosphere */}
+      <motion.div
+        className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(148,111,69,0.10),transparent_45%)]"
+        animate={{
+          opacity: [0.5, 1, 0.5],
+          scale: [1, 1.08, 1],
+        }}
+        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+      />
 
-        {/* Soft Edge */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(circle at center, transparent 45%, rgba(0,0,0,.30) 100%)",
-          }}
-        />
+      {/* Ambient star dust */}
+      <div className="absolute inset-0">
+        {dustStars.map((star) => (
+          <motion.span
+            key={star.id}
+            className="absolute rounded-full bg-[#D6A85F]"
+            style={{
+              left: star.left,
+              top: star.top,
+              width: star.size,
+              height: star.size,
+              boxShadow: `0 0 ${star.size * 3}px #F0C878`,
+            }}
+            animate={{ opacity: [0.1, 0.7, 0.1] }}
+            transition={{
+              duration: star.duration,
+              delay: star.delay,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
       </div>
 
-      {/* =====================================================================
-          Native Scroll + Snap Container
-      ====================================================================== */}
-
-      <main
-        ref={scrollRef}
-        className="
-          relative z-10
-          h-[100dvh]
-          w-full
-          overflow-y-auto
-          overflow-x-hidden
-          snap-y snap-mandatory
-          scroll-smooth
-          overscroll-y-contain
-        "
-      >
-        {pages.map((Page, index) => (
-          <section
-            key={index}
-            className="
-              relative
-              h-[100dvh]
-              min-h-[100dvh]
-              w-full
-              shrink-0
-              snap-start snap-always
-              overflow-hidden
-            "
-          >
-            <motion.div
-              initial={pageAnimation.initial}
-              whileInView={pageAnimation.animate}
-              viewport={{
-                once: true,
-                amount: 0.6,
-              }}
-              transition={pageAnimation.transition}
-              className="h-full w-full"
-            >
-              <Page />
-            </motion.div>
-          </section>
+      {/* Hero stars — brighter, with a soft pulse + subtle scale for depth */}
+      <div className="absolute inset-0">
+        {heroStars.map((star) => (
+          <motion.span
+            key={star.id}
+            className="absolute rounded-full bg-[#F0C878]"
+            style={{
+              left: star.left,
+              top: star.top,
+              width: star.size,
+              height: star.size,
+              boxShadow: `0 0 ${star.size * 5}px #F0C878`,
+            }}
+            animate={{
+              opacity: [0.25, 1, 0.25],
+              scale: [0.8, 1.4, 0.8],
+            }}
+            transition={{
+              duration: star.duration,
+              delay: star.delay,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
         ))}
-      </main>
+      </div>
 
-      {/* =====================================================================
-          Floating Card
-      ====================================================================== */}
+      {/* Moon */}
+      <motion.div
+        className="absolute right-5 top-8 h-8 w-8 rounded-full bg-[#B8894F]"
+        animate={{ y: [-2, 3, -2] }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      >
+        <div className="absolute -right-2 -top-1 h-7 w-7 rounded-full bg-[#040B1D]" />
+      </motion.div>
 
-      <FloatingCard />
+      {/* Distant Mosque, with a faint golden rim-light behind it */}
+      <div className="absolute bottom-0 left-1/2 h-40 w-[70%] -translate-x-1/2 bg-[radial-gradient(ellipse_at_center_bottom,rgba(214,168,95,0.08),transparent_70%)]" />
+      <motion.img
+        src={mosque}
+        alt=""
+        className="absolute bottom-[4%] left-1/2 w-[58%] max-w-[240px] -translate-x-1/2 opacity-80 sm:w-[48%] sm:max-w-[270px] md:w-[40%] md:max-w-[300px]"
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 0.8, y: [0, -2, 0] }}
+        transition={{
+          opacity: { duration: 1.6, ease: "easeOut" },
+          y: { duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1.6 },
+        }}
+      />
+
+      {/* Bottom Dark Fade */}
+      <div className="absolute inset-x-0 bottom-0 h-[30%] bg-gradient-to-t from-[#040B1D] via-[#040B1D]/70 to-transparent" />
+
+      {/* Soft Vignette */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_45%,rgba(4,11,29,0.55)_100%)]" />
     </div>
   );
 }
-
-export default Background;
