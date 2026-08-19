@@ -18,7 +18,7 @@ const fadeUp = {
 
 export default function Page1() {
   return (
-    <section className="relative z-10 flex min-h-screen w-full items-center justify-center overflow-hidden px-5 py-10 text-center">
+    <section className="relative z-10 flex min-h-[100svh] w-full items-center justify-center overflow-hidden px-5 py-10 text-center">
       <motion.div
         variants={container}
         initial="hidden"

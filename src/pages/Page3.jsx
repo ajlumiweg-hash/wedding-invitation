@@ -231,7 +231,7 @@ export default function Page3() {
   ];
 
   return (
-    <section className="relative z-10 flex min-h-screen w-full items-center justify-center px-4 py-8 sm:px-6">
+    <section className="relative z-10 flex min-h-[100svh] w-full items-center justify-center overflow-hidden px-5 py-10 text-center">
       <div className="flex w-full max-w-[520px] flex-col items-center">
 
         {/* TITLE */}

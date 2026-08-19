@@ -22,7 +22,7 @@ const heroStars = Array.from({ length: 8 }, (_, i) => ({
 
 export default function Background() {
   const background = (
-    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-[#030817]">
+    <div className="pointer-events-none fixed top-0 left-0 right-0 h-[100svh] z-0 overflow-hidden bg-[#030817]">
 
       {/* =========================
           PURE DEEP NAVY BASE

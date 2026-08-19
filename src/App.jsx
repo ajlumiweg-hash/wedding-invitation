@@ -1,5 +1,5 @@
 import Background from "./components/Background";
-
+import FloatingCard from "./components/FloatingCard";
 import Page1 from "./pages/Page1";
 import Page2 from "./pages/Page2";
 import Page3 from "./pages/Page3";
@@ -11,7 +11,7 @@ export default function App() {
   return (
     <>
       <Background />
-      
+      <FloatingCard />
 
       <main className="relative z-10 w-full">
         <section className="min-h-[100svh] snap-start" style={{ scrollSnapAlign: "start" }}>

@@ -62,7 +62,7 @@ function GoldDivider() {
 
 export default function Page6() {
   return (
-    <section className="relative z-10 flex min-h-[100dvh] w-full items-center justify-center overflow-hidden px-5 py-8 text-center sm:px-6">
+    <section className="relative z-10 flex min-h-[100svh] w-full items-center justify-center overflow-hidden px-5 py-10 text-center">
       <motion.div
         variants={container}
         initial="hidden"
