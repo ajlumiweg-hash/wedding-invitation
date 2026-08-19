@@ -13,7 +13,7 @@ export default function App() {
       <Background />
       <FloatingCard />
 
-      <main className="relative z-10 min-h-screen w-full overflow-x-hidden">
+      <main className="relative z-10 min-h-screen w-full overflow-hidden overflow-x-hidden">
         <Page1 />
         <Page2 />
         <Page3 />
