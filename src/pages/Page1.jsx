@@ -34,17 +34,12 @@ export default function Page1() {
           بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
         </motion.p>
 
-        {/* Decorative Line */}
+        {/* Divider */}
         <motion.div
-          variants={{
-            hidden: { width: 0, opacity: 0 },
-            show: {
-              width: 75,
-              opacity: 1,
-              transition: { duration: 0.9, ease: "easeOut" },
-            },
-          }}
-          className="mb-6 h-px bg-gradient-to-r from-transparent bg-[#B88A4A] to-transparent"
+          initial={{ scaleX: 0, opacity: 0 }}
+          animate={{ scaleX: 1, opacity: 1 }}
+          transition={{ duration: 0.9, delay: 0.8, ease: "easeOut" }}
+          className=" mb-4 h-px w-[75px] origin-center bg-gradient-to-r from-transparent via-[#B88A4A] to-transparent"
         />
 
         {/* Welcome */}
@@ -97,7 +92,7 @@ export default function Page1() {
           <span className="h-px w-8 bg-[#B88A4A]" />
 
           <motion.span
-            className="text-[10px] font-medium bg-[#B88A4A]"
+            className="text-[10px] font-medium text-[#B88A4A]"
             animate={{
               opacity: [0.5, 1, 0.5],
               scale: [1, 1.15, 1],
@@ -109,7 +104,7 @@ export default function Page1() {
               delay: 2.4,
             }}
           >
-            ✦
+            ♡
           </motion.span>
 
           <span className="h-px w-8 bg-[#B88A4A]" />

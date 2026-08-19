@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const TARGET_DATE = new Date("2026-12-06T11:00:00+05:30");
 
@@ -7,6 +7,8 @@ export default function Page3() {
   const canvasRef = useRef(null);
   const boxRef = useRef(null);
   const [revealed, setRevealed] = useState(false);
+  const [showRevealPopup, setShowRevealPopup] = useState(false);
+
   const [time, setTime] = useState({
     days: 0,
     hours: 0,
@@ -38,6 +40,17 @@ export default function Page3() {
     const timer = setInterval(update, 1000);
     return () => clearInterval(timer);
   }, [revealed]);
+
+  /* LOVE REVEAL POPUP */
+  useEffect(() => {
+    if (!showRevealPopup) return;
+
+    const timer = setTimeout(() => {
+      setShowRevealPopup(false);
+    }, 2500);
+
+    return () => clearTimeout(timer);
+  }, [showRevealPopup]);
 
   /* SCRATCH */
   useEffect(() => {
@@ -77,6 +90,7 @@ export default function Page3() {
         x + 45 * scale,
         y + 155 * scale
       );
+
       heart.bezierCurveTo(
         x + 45 * scale,
         y + 75 * scale,
@@ -85,6 +99,7 @@ export default function Page3() {
         x + 180 * scale,
         y + 45 * scale
       );
+
       heart.bezierCurveTo(
         x + 220 * scale,
         y + 50 * scale,
@@ -93,6 +108,7 @@ export default function Page3() {
         x + 256 * scale,
         y + 105 * scale
       );
+
       heart.bezierCurveTo(
         x + 267 * scale,
         y + 75 * scale,
@@ -101,6 +117,7 @@ export default function Page3() {
         x + 332 * scale,
         y + 45 * scale
       );
+
       heart.bezierCurveTo(
         x + 397 * scale,
         y + 35 * scale,
@@ -109,6 +126,7 @@ export default function Page3() {
         x + 467 * scale,
         y + 155 * scale
       );
+
       heart.bezierCurveTo(
         x + 467 * scale,
         y + 270 * scale,
@@ -139,14 +157,17 @@ export default function Page3() {
         ctx.beginPath();
         ctx.strokeStyle = "rgba(230,190,110,0.22)";
         ctx.lineWidth = 1;
+
         ctx.moveTo(
           x + Math.random() * size,
           y + Math.random() * size
         );
+
         ctx.lineTo(
           x + Math.random() * size,
           y + Math.random() * size
         );
+
         ctx.stroke();
       }
 
@@ -162,6 +183,7 @@ export default function Page3() {
 
     const point = (e) => {
       const rect = canvas.getBoundingClientRect();
+
       return {
         x: (e.touches?.[0]?.clientX ?? e.clientX) - rect.left,
         y: (e.touches?.[0]?.clientY ?? e.clientY) - rect.top,
@@ -177,7 +199,9 @@ export default function Page3() {
 
       ctx.save();
       ctx.globalCompositeOperation = "destination-out";
+
       ctx.beginPath();
+
       ctx.arc(
         x,
         y,
@@ -185,12 +209,16 @@ export default function Page3() {
         0,
         Math.PI * 2
       );
+
       ctx.fill();
       ctx.restore();
 
       scratches++;
 
-      if (scratches > 70) setRevealed(true);
+      if (scratches > 70) {
+        setRevealed(true);
+        setShowRevealPopup(true);
+      }
     };
 
     const start = (e) => {
@@ -208,8 +236,15 @@ export default function Page3() {
     canvas.addEventListener("mousedown", start);
     canvas.addEventListener("mousemove", scratch);
     window.addEventListener("mouseup", stop);
-    canvas.addEventListener("touchstart", start, { passive: false });
-    canvas.addEventListener("touchmove", scratch, { passive: false });
+
+    canvas.addEventListener("touchstart", start, {
+      passive: false,
+    });
+
+    canvas.addEventListener("touchmove", scratch, {
+      passive: false,
+    });
+
     window.addEventListener("touchend", stop);
 
     return () => {
@@ -232,6 +267,7 @@ export default function Page3() {
 
   return (
     <section className="relative z-10 flex min-h-[100svh] w-full items-center justify-center overflow-hidden px-5 py-10 text-center">
+
       <div className="flex w-full max-w-[520px] flex-col items-center">
 
         {/* TITLE */}
@@ -244,18 +280,21 @@ export default function Page3() {
             Scratch &amp; Reveal
           </h2>
 
-        {/* Decorative Line */}
-        <motion.div
-          variants={{
-            hidden: { width: 0, opacity: 0 },
-            show: {
-              width: 75,
-              opacity: 1,
-              transition: { duration: 0.9, ease: "easeOut" },
-            },
-          }}
-          className="mb-6 h-px bg-gradient-to-r from-transparent via-[#946F45] to-transparent"
-        />
+          {/* Decorative Line */}
+          <motion.div
+            variants={{
+              hidden: { width: 0, opacity: 0 },
+              show: {
+                width: 75,
+                opacity: 1,
+                transition: {
+                  duration: 0.9,
+                  ease: "easeOut",
+                },
+              },
+            }}
+            className="mb-6 h-px bg-gradient-to-r from-transparent via-[#946F45] to-transparent"
+          />
         </motion.div>
 
         {/* HEART */}
@@ -264,11 +303,13 @@ export default function Page3() {
           initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
-          className="relative mx-auto mt-2 aspect-square w-[90vw] max-w-[420px] translate-x-2 md:translate-x-3"
+          className="relative mx-auto mt-3 aspect-square w-[90vw] max-w-[420px] translate-x-1 md:translate-x-0"
         >
+
           {/* DATE */}
           <div className="absolute inset-0 z-[1] flex items-center justify-center">
-            <div className="-translate-y-1 text-center">
+            <div className="-translate-y-13 text-center">
+
               <div className="font-['Cinzel'] text-[34px] leading-none text-[#E4C28A] drop-shadow-[0_0_8px_rgba(228,194,138,.5)] sm:text-[42px]">
                 06
               </div>
@@ -280,6 +321,7 @@ export default function Page3() {
               <div className="font-['Cinzel'] text-[12px] tracking-[.08em] text-[#D6A85F] sm:text-[15px]">
                 2026
               </div>
+
             </div>
           </div>
 
@@ -300,18 +342,22 @@ export default function Page3() {
             transition={{ delay: 0.6 }}
             className="-mt-3 text-center sm:-mt-5"
           >
-        {/* Decorative Line */}
-        <motion.div
-          variants={{
-            hidden: { width: 0, opacity: 0 },
-            show: {
-              width: 75,
-              opacity: 1,
-              transition: { duration: 0.9, ease: "easeOut" },
-            },
-          }}
-          className="mb-6 h-px bg-gradient-to-r from-transparent via-[#946F45] to-transparent"
-        />
+
+            {/* Decorative Line */}
+            <motion.div
+              variants={{
+                hidden: { width: 0, opacity: 0 },
+                show: {
+                  width: 75,
+                  opacity: 1,
+                  transition: {
+                    duration: 0.9,
+                    ease: "easeOut",
+                  },
+                },
+              }}
+              className="mb-6 h-px bg-gradient-to-r from-transparent via-[#946F45] to-transparent"
+            />
 
             <p className="font-['Cinzel'] text-[10px] text-[#D6A85F] sm:text-[11px]">
               Scratch the heart
@@ -320,41 +366,145 @@ export default function Page3() {
             <p className="font-['Cinzel'] text-[8px] tracking-wide text-[#A97B42] sm:text-[9px]">
               to reveal our date
             </p>
+
           </motion.div>
         )}
 
-        {/* COUNTDOWN — only appears (and only starts ticking) after reveal */}
+        {/* COUNTDOWN */}
         {revealed && (
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="mt-6 w-full max-w-[430px] sm:mt-8"
+            transition={{
+              delay: 0.2,
+              duration: 0.7,
+            }}
+            className="w-full max-w-[440px] -mt-30 sm:-mt-1"
           >
-            <p className="mb-2 text-center font-['Cinzel'] text-[9px] text-[#B8894F] sm:text-[10px]">
-              Countdown to Our Reception
+
+            <p className="mb-4 text-center font-['Cinzel'] text-[9px] tracking-[.25em] text-[#B8894F] sm:text-[10px]">
+              COUNTDOWN TO OUR RECEPTION
             </p>
 
-            <div className="grid grid-cols-4 gap-1.5 sm:gap-2">
-              {countdown.map(([value, label]) => (
+            <div className="flex w-full items-center justify-center">
+
+              {countdown.map(([value, label], index) => (
                 <div
                   key={label}
-                  className="rounded border border-[#8B642F]/60 bg-[#071124]/70 px-1 py-2 text-center sm:py-2.5"
+                  className="relative flex flex-1 flex-col items-center justify-center"
                 >
-                  <div className="font-['Cinzel'] text-[17px] leading-none text-[#D6A85F] sm:text-[21px]">
-                    {String(value).padStart(2, "0")}
-                  </div>
 
-                  <div className="mt-1 text-[5px] tracking-wider text-[#A97B42] sm:text-[6px]">
+                  {/* NUMBER */}
+                  <motion.div
+                    key={value}
+                    initial={{
+                      opacity: 0,
+                      y: 6,
+                      scale: 0.92,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      y: 0,
+                      scale: 1,
+                    }}
+                    transition={{
+                      duration: 0.35,
+                      ease: "easeOut",
+                    }}
+                    className="font-['Bodoni_Moda'] text-[34px] font-medium leading-none tracking-[-.04em] text-[#D6A85F] drop-shadow-[0_0_12px_rgba(214,168,95,.28)] sm:text-[43px]"
+                  >
+                    {String(value).padStart(2, "0")}
+                  </motion.div>
+
+                  {/* LABEL */}
+                  <div className="mt-2 font-['Cinzel'] text-[6px] tracking-[.25em] text-[#A97B42] sm:text-[7px]">
                     {label}
                   </div>
+
+                  {/* SEPARATOR */}
+                  {index < countdown.length - 1 && (
+                    <span className="absolute right-0 top-[14px] font-['Bodoni_Moda'] text-[20px] text-[#946F45]/70 sm:top-[18px] sm:text-[25px]">
+                      :
+                    </span>
+                  )}
+
                 </div>
               ))}
+
             </div>
+
           </motion.div>
         )}
 
       </div>
+
+      {/* ❤️ LOVE REVEAL POPUP */}
+      <AnimatePresence>
+        {showRevealPopup && (
+          <motion.div
+            className="pointer-events-none fixed inset-0 z-[100] flex items-center justify-center px-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35 }}
+          >
+            <motion.div
+              initial={{
+                opacity: 0,
+                scale: 0.72,
+                y: 18,
+              }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+                y: 0,
+              }}
+              exit={{
+                opacity: 0,
+                scale: 1.08,
+                y: -10,
+              }}
+              transition={{
+                type: "spring",
+                stiffness: 180,
+                damping: 16,
+              }}
+              className="flex flex-col items-center justify-center text-center"
+            >
+
+
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: 0.25,
+                  duration: 0.5,
+                }}
+                className="mt-2 font-['Cinzel'] text-[9px] tracking-[.35em] text-[#D6A85F] sm:text-[11px]"
+              >
+                REVEALED
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, scale: 0.6 }}
+                animate={{
+                  opacity: 1,
+                  scale: [0.8, 1.18, 1],
+                }}
+                transition={{
+                  delay: 0.4,
+                  duration: 0.55,
+                }}
+                className="mt-3 text-[22px] drop-shadow-[0_0_12px_rgba(214,168,95,.5)]"
+              >
+                ♥
+              </motion.div>
+
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
     </section>
   );
 }

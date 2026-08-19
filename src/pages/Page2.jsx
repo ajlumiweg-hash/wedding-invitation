@@ -43,7 +43,7 @@ function AnimatedDivider() {
           delay: 2.4, 
         }} 
       > 
-        ✦ 
+        ♡ 
       </motion.span> 
  
       <span className="h-px w-8 bg-[#6F5034] sm:w-10" /> 
