@@ -13,14 +13,26 @@ export default function App() {
       <Background />
       <FloatingCard />
 
-
-        <Page1 />
-        <Page2 />
-        <Page3 />
-        <Page4 />
-        <Page5 />
-        <Page6 />
-      
+      <main className="relative z-10 w-full">
+        <section className="min-h-screen snap-start" style={{ scrollSnapAlign: "start" }}>
+          <Page1 />
+        </section>
+        <section className="min-h-screen snap-start" style={{ scrollSnapAlign: "start" }}>
+          <Page2 />
+        </section>
+        <section className="min-h-screen snap-start" style={{ scrollSnapAlign: "start" }}>
+          <Page3 />
+        </section>
+        <section className="min-h-screen snap-start" style={{ scrollSnapAlign: "start" }}>
+          <Page4 />
+        </section>
+        <section className="min-h-screen snap-start" style={{ scrollSnapAlign: "start" }}>
+          <Page5 />
+        </section>
+        <section className="min-h-screen snap-start" style={{ scrollSnapAlign: "start" }}>
+          <Page6 />
+        </section>
+      </main>
     </>
   );
 }
