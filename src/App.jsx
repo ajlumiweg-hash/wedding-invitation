@@ -14,22 +14,22 @@ export default function App() {
       <FloatingCard />
 
       <main className="relative z-10 w-full">
-        <section className="min-h-screen snap-start" style={{ scrollSnapAlign: "start" }}>
+        <section className="min-h-[100svh] snap-start" style={{ scrollSnapAlign: "start" }}>
           <Page1 />
         </section>
-        <section className="min-h-screen snap-start" style={{ scrollSnapAlign: "start" }}>
+        <section className="min-h-[100svh] snap-start" style={{ scrollSnapAlign: "start" }}>
           <Page2 />
         </section>
-        <section className="min-h-screen snap-start" style={{ scrollSnapAlign: "start" }}>
+        <section className="min-h-[100svh] snap-start" style={{ scrollSnapAlign: "start" }}>
           <Page3 />
         </section>
-        <section className="min-h-screen snap-start" style={{ scrollSnapAlign: "start" }}>
+        <section className="min-h-[100svh] snap-start" style={{ scrollSnapAlign: "start" }}>
           <Page4 />
         </section>
-        <section className="min-h-screen snap-start" style={{ scrollSnapAlign: "start" }}>
+        <section className="min-h-[100svh] snap-start" style={{ scrollSnapAlign: "start" }}>
           <Page5 />
         </section>
-        <section className="min-h-screen snap-start" style={{ scrollSnapAlign: "start" }}>
+        <section className="min-h-[100svh] snap-start" style={{ scrollSnapAlign: "start" }}>
           <Page6 />
         </section>
       </main>
