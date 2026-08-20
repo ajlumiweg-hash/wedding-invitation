@@ -67,7 +67,7 @@ export default function Page4() {
     "https://www.google.com/maps/dir//Ayisha+Convention+Centre,+Mevaram+road,+near+Akmhss,+P+O,+Mylapure,+Umayanalloor,+Thazhuthala,+Kerala+691020/@8.8932352,76.67712,13z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3b05e39b74aca57d:0x16be143d221421d4!2m2!1d76.6476053!2d8.8741751?entry=ttu&g_ep=EgoyMDI2MDgxMi4wIKXMDSoASAFQAw%3D%3D";
 
   return (
-    <section className="relative z-10 flex min-h-[100svh] w-full items-center justify-center overflow-hidden px-5 py-10 text-center">
+    <section className="relative z-10 flex min-h-[100svh] w-full items-center justify-center overflow-hidden px-5 py-6 text-center">
       <motion.div
         variants={container}
         initial="hidden"
