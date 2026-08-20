@@ -16,14 +16,35 @@ const TRANSITION_S = 0.7;
 
 export default function App() {
   const [index, setIndex] = useState(0);
+  const [showScrollArrow, setShowScrollArrow] = useState(false);
   const indexRef = useRef(0);
   const animatingRef = useRef(false);
   const touchStartY = useRef(null);
   const wheelAccum = useRef(0);
   const wheelResetTimer = useRef(null);
+  const scrollArrowTimer = useRef(null);
 
   useEffect(() => {
     indexRef.current = index;
+  }, [index]);
+
+  /* =========================
+     PAGE 1–5 SCROLL ARROW
+  ========================= */
+
+  useEffect(() => {
+    clearTimeout(scrollArrowTimer.current);
+    setShowScrollArrow(false);
+
+    if (index < 5) {
+      scrollArrowTimer.current = window.setTimeout(() => {
+        setShowScrollArrow(true);
+      }, 3000);
+    }
+
+    return () => {
+      clearTimeout(scrollArrowTimer.current);
+    };
   }, [index]);
 
   const goTo = useCallback((next) => {
@@ -39,6 +60,8 @@ export default function App() {
 
   useEffect(() => {
     const onWheel = (e) => {
+      setShowScrollArrow(false);
+
       if (animatingRef.current) return;
       wheelAccum.current += e.deltaY;
       clearTimeout(wheelResetTimer.current);
@@ -97,6 +120,61 @@ export default function App() {
           ))}
         </motion.div>
       </div>
+
+      {/* PAGE 1–5 SCROLL ARROW */}
+      {showScrollArrow && index < 5 && (
+        <motion.div
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: [0, 6, 0] }}
+          exit={{ opacity: 0 }}
+          transition={{
+            opacity: { duration: 0.4 },
+            y: {
+              duration: 1.3,
+              repeat: Infinity,
+              ease: "easeInOut",
+            },
+          }}
+          className="
+            fixed
+            bottom-8
+            left-1/2
+            z-[9998]
+            -translate-x-1/2
+            pointer-events-none
+            flex
+            flex-col
+            items-center
+            justify-center
+            sm:bottom-10
+          "
+        >
+          <span
+            className="
+              text-[6px]
+              uppercase
+              tracking-[0.3em]
+              text-[#E4C28A]
+              opacity-80
+              sm:text-xs
+            "
+          >
+            Scroll
+          </span>
+
+          <span
+            className="
+              mt-1
+              text-sm
+              leading-none
+              text-[#E4C28A]
+              sm:text-3xl
+            "
+          >
+            ↓
+          </span>
+        </motion.div>
+      )}
     </>
   );
 }
