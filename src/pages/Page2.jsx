@@ -100,7 +100,7 @@ export default function Page2() {
           variants={fadeUp} 
           className="mt-5 flex flex-col items-center sm:mt-4" 
         > 
-          <p className="text-[9px] font-medium tracking-[0.28em] text-[#6F5034] sm:text-[10px] md:text-[11px]"> 
+          <p className="text-[9px] font-medium tracking-[0.28em] text-[#946F45] sm:text-[10px] md:text-[11px]"> 
             WITH 
           </p> 
         </motion.div> 

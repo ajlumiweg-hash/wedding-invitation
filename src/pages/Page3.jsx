@@ -276,7 +276,7 @@ export default function Page3() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center"
         >
-          <h2 className="font-['Great_Vibes'] text-[32px] text-[#D6A85F] sm:text-[42px]">
+          <h2 className="font-['Great_Vibes'] text-[32px] text-[#946F45] sm:text-[42px]">
             Scratch &amp; Reveal
           </h2>
 
@@ -303,22 +303,22 @@ export default function Page3() {
           initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
-          className="relative mx-auto mt-3 aspect-square w-[90vw] max-w-[420px] translate-x-1 md:translate-x-0"
+          className="relative mx-auto -mt-3 aspect-square w-[90vw] max-w-[420px] translate-x-1 md:translate-x-0"
         >
 
           {/* DATE */}
           <div className="absolute inset-0 z-[1] flex items-center justify-center">
             <div className="-translate-y-13 text-center">
 
-              <div className="font-['Cinzel'] text-[34px] leading-none text-[#E4C28A] drop-shadow-[0_0_8px_rgba(228,194,138,.5)] sm:text-[42px]">
+              <div className="font-['Cormorant_Garamond'] font-bold text-[52px] leading-none text-[#946F45] drop-shadow-[0_0_8px_rgba(228,194,138,.5)] sm:text-[42px]">
                 06
               </div>
 
-              <div className="mt-1 font-['Cinzel'] text-[12px] tracking-[.12em] text-[#D6A85F] sm:text-[15px]">
+              <div className="mt-1 font-['Cormorant_Garamond'] font-bold text-[22px] tracking-[.12em] text-[#946F45] sm:text-[15px]">
                 December
               </div>
 
-              <div className="font-['Cinzel'] text-[12px] tracking-[.08em] text-[#D6A85F] sm:text-[15px]">
+              <div className="font-['Cormorant_Garamond'] font-bold text-[32px] tracking-[.08em] text-[#946F45] sm:text-[15px]">
                 2026
               </div>
 
@@ -329,7 +329,7 @@ export default function Page3() {
           {!revealed && (
             <canvas
               ref={canvasRef}
-              className="absolute inset-0 z-[2] h-full w-full touch-none"
+              className="absolute inset-0 z-[2] h-full w-full -translate-y-[10px]  touch-none"
             />
           )}
         </motion.div>
@@ -359,82 +359,115 @@ export default function Page3() {
               className="mb-6 h-px bg-gradient-to-r from-transparent via-[#946F45] to-transparent"
             />
 
-            <p className="font-['Cinzel'] text-[10px] text-[#D6A85F] sm:text-[11px]">
+            <p className="font-['Cinzel'] text-[10px] text-[#946F45] sm:text-[11px]">
               Scratch the heart
             </p>
 
-            <p className="font-['Cinzel'] text-[8px] tracking-wide text-[#A97B42] sm:text-[9px]">
+            <p className="font-['Cinzel'] text-[8px] tracking-wide text-[#946F45] sm:text-[9px]">
               to reveal our date
             </p>
 
           </motion.div>
         )}
 
-        {/* COUNTDOWN */}
-        {revealed && (
+{/* COUNTDOWN */}
+{revealed && (
+  <motion.div
+    initial={{ opacity: 0, y: 15 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{
+      delay: 0.2,
+      duration: 0.7,
+    }}
+    className="w-full max-w-[440px] -mt-20 sm:-mt-1"
+  >
+
+    {/* HEADING */}
+    <p className="mb-5 text-center font-['Montserrat'] text-[8px] font-medium uppercase tracking-[.38em] text-[#946F45] sm:text-[9px]">
+      COUNTDOWN TO OUR WEDDING
+    </p>
+
+    <div className="flex w-full items-center justify-center">
+
+      {countdown.map(([value, label], index) => (
+        <div
+          key={label}
+          className="relative flex flex-1 flex-col items-center justify-center"
+        >
+
+          {/* NUMBER */}
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: 0.2,
-              duration: 0.7,
+            key={value}
+            initial={{
+              opacity: 0,
+              y: 6,
+              scale: 0.94,
             }}
-            className="w-full max-w-[440px] -mt-30 sm:-mt-1"
+            animate={{
+              opacity: 1,
+              y: 0,
+              scale: 1,
+            }}
+            transition={{
+              duration: 0.35,
+              ease: "easeOut",
+            }}
+            className="
+              font-['Cormorant_Garamond']
+              text-[38px]
+              font-normal
+              leading-none
+              tracking-[-.045em]
+              text-[#C99A55]
+              drop-shadow-[0_2px_10px_rgba(201,154,85,.20)]
+              sm:text-[47px]
+            "
           >
-
-            <p className="mb-4 text-center font-['Cinzel'] text-[9px] tracking-[.25em] text-[#B8894F] sm:text-[10px]">
-              COUNTDOWN TO OUR RECEPTION
-            </p>
-
-            <div className="flex w-full items-center justify-center">
-
-              {countdown.map(([value, label], index) => (
-                <div
-                  key={label}
-                  className="relative flex flex-1 flex-col items-center justify-center"
-                >
-
-                  {/* NUMBER */}
-                  <motion.div
-                    key={value}
-                    initial={{
-                      opacity: 0,
-                      y: 6,
-                      scale: 0.92,
-                    }}
-                    animate={{
-                      opacity: 1,
-                      y: 0,
-                      scale: 1,
-                    }}
-                    transition={{
-                      duration: 0.35,
-                      ease: "easeOut",
-                    }}
-                    className="font-['Bodoni_Moda'] text-[34px] font-medium leading-none tracking-[-.04em] text-[#D6A85F] drop-shadow-[0_0_12px_rgba(214,168,95,.28)] sm:text-[43px]"
-                  >
-                    {String(value).padStart(2, "0")}
-                  </motion.div>
-
-                  {/* LABEL */}
-                  <div className="mt-2 font-['Cinzel'] text-[6px] tracking-[.25em] text-[#A97B42] sm:text-[7px]">
-                    {label}
-                  </div>
-
-                  {/* SEPARATOR */}
-                  {index < countdown.length - 1 && (
-                    <span className="absolute right-0 top-[14px] font-['Bodoni_Moda'] text-[20px] text-[#946F45]/70 sm:top-[18px] sm:text-[25px]">
-                      :
-                    </span>
-                  )}
-
-                </div>
-              ))}
-
-            </div>
-
+            {String(value).padStart(2, "0")}
           </motion.div>
-        )}
+
+          {/* LABEL */}
+          <div
+            className="
+              mt-2
+              font-['Montserrat']
+              text-[6px]
+              font-medium
+              uppercase
+              tracking-[.32em]
+              text-[#A97B42]
+              sm:text-[7px]
+            "
+          >
+            {label}
+          </div>
+
+          {/* SEPARATOR */}
+          {index < countdown.length - 1 && (
+            <span
+              className="
+                absolute
+                right-0
+                top-[13px]
+                font-['Playfair_Display']
+                text-[18px]
+                font-light
+                text-[#946F45]/45
+                sm:top-[17px]
+                sm:text-[23px]
+              "
+            >
+              :
+            </span>
+          )}
+
+        </div>
+      ))}
+
+    </div>
+
+  </motion.div>
+)}
 
       </div>
 
@@ -480,7 +513,7 @@ export default function Page3() {
                   delay: 0.25,
                   duration: 0.5,
                 }}
-                className="mt-2 font-['Cinzel'] text-[9px] tracking-[.35em] text-[#D6A85F] sm:text-[11px]"
+                className="mt-2 font-['Cinzel'] text-[9px] tracking-[.35em] text-[#946F45] sm:text-[11px]"
               >
                 REVEALED
               </motion.div>
