@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import OpeningScreen from "./components/OpeningScreen";
+import backgroundMusic from "./assets/backgroundmusic.m4a";
 import Background from "./components/Background";
 import FloatingCard from "./components/FloatingCard";
 import Page1 from "./pages/Page1";
@@ -15,6 +17,8 @@ const PER_PAGE = 100 / TOTAL;
 const TRANSITION_S = 0.7;
 
 export default function App() {
+  const [opening, setOpening] = useState(true);
+  const backgroundMusicRef = useRef(null);
   const [index, setIndex] = useState(0);
   const [showScrollArrow, setShowScrollArrow] = useState(false);
   const indexRef = useRef(0);
@@ -56,6 +60,22 @@ export default function App() {
     window.setTimeout(() => {
       animatingRef.current = false;
     }, TRANSITION_S * 1000);
+  }, []);
+
+  /* =========================
+     BACKGROUND MUSIC
+  ========================= */
+
+  const handleOpeningComplete = useCallback(() => {
+    setOpening(false);
+
+    const audio = backgroundMusicRef.current;
+
+    if (audio) {
+      audio.currentTime = 0;
+      audio.volume = 0.45;
+      audio.play().catch(() => {});
+    }
   }, []);
 
   useEffect(() => {
@@ -104,17 +124,36 @@ export default function App() {
 
   return (
     <>
+      {/* BACKGROUND MUSIC */}
+
+      <audio
+        ref={backgroundMusicRef}
+        src={backgroundMusic}
+        loop
+        preload="auto"
+      />
+
       <Background />
       <FloatingCard />
+
+      {opening && (
+        <OpeningScreen onComplete={handleOpeningComplete} />
+      )}
 
       <div className="fixed inset-0 z-10 h-[100svh] w-full overflow-hidden">
         <motion.div
           className="w-full"
           animate={{ y: `${-(index * PER_PAGE)}%` }}
-          transition={{ duration: TRANSITION_S, ease: [0.22, 1, 0.36, 1] }}
+          transition={{
+            duration: TRANSITION_S,
+            ease: [0.22, 1, 0.36, 1],
+          }}
         >
           {PAGES.map((PageComponent, i) => (
-            <section key={i} className="h-[100svh] w-full overflow-y-auto">
+            <section
+              key={i}
+              className="h-[100svh] w-full overflow-y-auto"
+            >
               <PageComponent />
             </section>
           ))}
@@ -122,6 +161,7 @@ export default function App() {
       </div>
 
       {/* PAGE 1–5 SCROLL ARROW */}
+
       {showScrollArrow && index < 5 && (
         <motion.div
           initial={{ opacity: 0, y: -8 }}
