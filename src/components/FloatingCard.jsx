@@ -6,12 +6,22 @@ import giftUnsealed from "../assets/gift_unsealed.png";
 
 function FloatingCard() {
   const [open, setOpen] = useState(false);
+  const [showArrow, setShowArrow] = useState(false);
   const [openedOnce, setOpenedOnce] = useState(false);
 
   const closePopup = () => {
     setOpen(false);
-    setOpenedOnce(true);
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!openedOnce) {
+        setShowArrow(true);
+      }
+    }, 25000);
+
+    return () => clearTimeout(timer);
+  }, [openedOnce]);
 
   useEffect(() => {
     const handleKeyDown = ({ key }) => {
@@ -24,6 +34,12 @@ function FloatingCard() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
+  const handleOpen = () => {
+    setOpen(true);
+    setOpenedOnce(true);
+    setShowArrow(false);
+  };
+
   return (
     <>
       {/* GIFT BOX */}
@@ -31,50 +47,34 @@ function FloatingCard() {
         {!open && (
           <motion.div
             initial={{ opacity: 0, scale: 0.85, y: 20 }}
-            animate={
-              openedOnce
-                ? {
-                    opacity: 1,
-                    scale: 1,
-                    y: 0,
-                    rotate: 0,
-                  }
-                : {
-                    opacity: 1,
-                    scale: 1,
-                    y: [0, 0, -2, 2, -2, 2, 0],
-                    rotate: [0, 0, -1.5, 1.5, -1.5, 1.5, 0],
-                  }
-            }
+            animate={{
+              opacity: 1,
+              scale: 1,
+              y: [0, 0, -2, 2, -2, 2, 0],
+              rotate: [0, 0, -1.5, 1.5, -1.5, 1.5, 0],
+            }}
             exit={{
               opacity: 0,
               scale: 0.8,
               y: 20,
             }}
-            transition={
-              openedOnce
-                ? {
-                    opacity: { duration: 0.4 },
-                    scale: { duration: 0.4 },
-                  }
-                : {
-                    opacity: { duration: 0.4 },
-                    scale: { duration: 0.4 },
-                    y: {
-                      duration: 0.5,
-                      repeat: Infinity,
-                      repeatDelay: 3.5,
-                      ease: "easeInOut",
-                    },
-                    rotate: {
-                      duration: 0.5,
-                      repeat: Infinity,
-                      repeatDelay: 3.5,
-                      ease: "easeInOut",
-                    },
-                  }
-            }
-            onClick={() => setOpen(true)}
+            transition={{
+              opacity: { duration: 0.4 },
+              scale: { duration: 0.4 },
+              y: {
+                duration: 0.5,
+                repeat: Infinity,
+                repeatDelay: 3.5,
+                ease: "easeInOut",
+              },
+              rotate: {
+                duration: 0.5,
+                repeat: Infinity,
+                repeatDelay: 3.5,
+                ease: "easeInOut",
+              },
+            }}
+            onClick={handleOpen}
             whileHover={{
               scale: 1.04,
               y: -4,
@@ -92,8 +92,54 @@ function FloatingCard() {
               md:h-[82px] md:w-[82px]
             "
           >
+            {/* ARROW — appears after 10 seconds */}
+            <AnimatePresence>
+              {showArrow && !openedOnce && (
+                <motion.div
+                  initial={{
+                    opacity: 0,
+                    y: -8,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: [0, 5, 0],
+                  }}
+                  exit={{
+                    opacity: 0,
+                    y: -5,
+                  }}
+                  transition={{
+                    opacity: {
+                      duration: 0.4,
+                    },
+                    y: {
+                      duration: 1,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    },
+                  }}
+                  className="
+                    pointer-events-none
+                    absolute
+                    -top-2
+                    left-1/2
+                    z-20
+                    -translate-x-1/2
+                    text-[15px]
+                    leading-none
+                    text-[#ae8960]
+                    drop-shadow-[0_0_8px_rgba(196,154,91,.45)]
+                    sm:-top-9
+                    sm:text-[24px]
+                  "
+                >
+                  ↓
+                </motion.div>
+              )}
+            </AnimatePresence>
+
             <img
-              src={openedOnce ? giftUnsealed : giftSealed}
+              src={giftSealed}
               alt=""
               draggable={false}
               className="h-full w-full object-contain select-none"
@@ -119,6 +165,44 @@ function FloatingCard() {
               sm:px-6 sm:py-10
             "
           >
+            {/* UNSEALED GIFT */}
+            <motion.img
+              src={giftUnsealed}
+              alt=""
+              draggable={false}
+              initial={{
+                opacity: 0,
+                scale: 0.85,
+              }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+              }}
+              transition={{
+                duration: 0.25,
+                ease: "easeOut",
+              }}
+              className="
+                pointer-events-none
+                absolute
+                bottom-4
+                right-4
+                z-10
+                h-[66px]
+                w-[66px]
+                object-contain
+                select-none
+                sm:bottom-6
+                sm:right-6
+                sm:h-[74px]
+                sm:w-[74px]
+                md:bottom-7
+                md:right-7
+                md:h-[82px]
+                md:w-[82px]
+              "
+            />
+
             {/* CARD */}
             <motion.div
               layoutId="invitation-card"

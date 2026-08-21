@@ -343,29 +343,7 @@ export default function Page3() {
             className="-mt-3 text-center sm:-mt-5"
           >
 
-            {/* Decorative Line */}
-            <motion.div
-              variants={{
-                hidden: { width: 0, opacity: 0 },
-                show: {
-                  width: 75,
-                  opacity: 1,
-                  transition: {
-                    duration: 0.9,
-                    ease: "easeOut",
-                  },
-                },
-              }}
-              className="mb-6 h-px bg-gradient-to-r from-transparent via-[#946F45] to-transparent"
-            />
 
-            <p className="font-['Cinzel'] text-[10px] text-[#946F45] sm:text-[11px]">
-              Scratch the heart
-            </p>
-
-            <p className="font-['Cinzel'] text-[8px] tracking-wide text-[#946F45] sm:text-[9px]">
-              to reveal our date
-            </p>
 
           </motion.div>
         )}
@@ -502,36 +480,8 @@ export default function Page3() {
                 stiffness: 180,
                 damping: 16,
               }}
-              className="flex flex-col items-center justify-center text-center"
+              className="relative left-[-0.5px] flex w-full flex-col items-center justify-center text-center"
             >
-
-
-              <motion.div
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  delay: 0.25,
-                  duration: 0.5,
-                }}
-                className="mt-2 font-['Cinzel'] text-[9px] tracking-[.35em] text-[#946F45] sm:text-[11px]"
-              >
-                REVEALED
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, scale: 0.6 }}
-                animate={{
-                  opacity: 1,
-                  scale: [0.8, 1.18, 1],
-                }}
-                transition={{
-                  delay: 0.4,
-                  duration: 0.55,
-                }}
-                className="mt-3 text-[22px] drop-shadow-[0_0_12px_rgba(214,168,95,.5)]"
-              >
-                ♥
-              </motion.div>
 
             </motion.div>
           </motion.div>
