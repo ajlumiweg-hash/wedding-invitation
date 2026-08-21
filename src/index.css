@@ -10,6 +10,8 @@ body,
   height: 100%;
   background: #030817;
   overflow: hidden;
+  touch-action: pan-y;
+  -webkit-text-size-adjust: 100%;
 }
 
 html,
