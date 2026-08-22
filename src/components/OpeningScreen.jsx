@@ -1,991 +1,456 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import hand from "../assets/hand.png";
 import lockerSound from "../assets/locker.m4a";
+
+
 /* =========================================================
-   BACKGROUND STAR FIELD
+   PREMIUM MIDNIGHT NAVY + CHAMPAGNE GOLD
 ========================================================= */
 
-const stars = Array.from({ length: 42 }, (_, i) => ({
+const dust = Array.from({ length: 26 }, (_, i) => ({
   id: i,
   x: `${Math.random() * 100}%`,
-  y: `${Math.random() * 78}%`,
-  size: Math.random() * 1.5 + 0.6,
-  delay: Math.random() * 4,
-  duration: 3 + Math.random() * 4,
+  y: `${Math.random() * 100}%`,
+  size: Math.random() * 1.4 + 0.5,
+  delay: Math.random() * 6,
+  duration: 5 + Math.random() * 5,
 }));
 
-/* =========================================================
-   OPENING SCREEN
-========================================================= */
+const rimTicks = Array.from({ length: 48 }, (_, i) => i);
+
+function makeShards(count) {
+  return Array.from({ length: count }, (_, i) => {
+    const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.5;
+    const distance = 90 + Math.random() * 260;
+    return {
+      id: i,
+      x: Math.cos(angle) * distance,
+      y: Math.sin(angle) * distance,
+      rot: (Math.random() > 0.5 ? 1 : -1) * (90 + Math.random() * 340),
+      size: 5 + Math.random() * 13,
+      delay: Math.random() * 0.22,
+      duration: 0.8 + Math.random() * 0.6,
+      warm: Math.random() > 0.4,
+    };
+  });
+}
+
+function makePetals(count) {
+  return Array.from({ length: count }, (_, i) => {
+    const angle = Math.random() * Math.PI * 2;
+    const distance = 70 + Math.random() * 220;
+    return {
+      id: i,
+      x: Math.cos(angle) * distance,
+      y: Math.sin(angle) * distance * 0.6 + 40,
+      rot: Math.random() * 360,
+      delay: 0.05 + Math.random() * 0.5,
+      duration: 1.1 + Math.random() * 0.7,
+      w: 6 + Math.random() * 5,
+      h: 9 + Math.random() * 8,
+    };
+  });
+}
 
 export default function OpeningScreen({ onComplete }) {
   const [step, setStep] = useState(1);
-  const [rotation, setRotation] = useState(-180);
-  const [rotateCount, setRotateCount] = useState(0);
-  const [unlocking, setUnlocking] = useState(false);
+  const [pressed, setPressed] = useState(false);
 
-  /* =========================================================
-     STEP 2 → CRACK
-  ========================================================= */
+  const shards = useMemo(() => makeShards(34), []);
+  const petals = useMemo(() => makePetals(16), []);
 
   useEffect(() => {
     if (step !== 2) return;
-
-    const timer = setTimeout(() => {
-      setStep(3);
-    }, 260);
-
-    return () => clearTimeout(timer);
+    const t = setTimeout(() => setStep(3), 620);
+    return () => clearTimeout(t);
   }, [step]);
-
-  /* =========================================================
-     STEP 3 → WEBSITE
-  ========================================================= */
 
   useEffect(() => {
     if (step !== 3) return;
-
-    const timer = setTimeout(() => {
-      onComplete();
-    }, 760);
-
-    return () => clearTimeout(timer);
+    const t = setTimeout(() => onComplete(), 950);
+    return () => clearTimeout(t);
   }, [step, onComplete]);
 
-  /* =========================================================
-     3 TAP ROTATION
-  ========================================================= */
-
-const rotateLock = () => {
-  if (step !== 1 || unlocking) return;
-
-  const nextCount = rotateCount + 1;
-
-  // Play lock sound on every tap
-  const audio = new Audio(lockerSound);
-  audio.currentTime = 1;
-  audio.play().catch(() => {});
-
-  setUnlocking(true);
-  setRotateCount(nextCount);
-
-  setRotation(-180 + nextCount * 60);
-
-  setTimeout(() => {
-    setUnlocking(false);
-
-    if (nextCount === 3) {
+  const breakSeal = () => {
+    if (step !== 1 || pressed) return;
+    const audio = new Audio(lockerSound);
+    audio.currentTime = 1;
+    audio.play().catch(() => {});
+    setPressed(true);
+    setTimeout(() => {
+      setPressed(false);
       setStep(2);
-    }
-  }, 620);
-};
+    }, 260);
+  };
 
   return (
     <motion.div
-      className="
-        fixed
-        inset-0
-        z-[10000]
-        flex
-        h-[100svh]
-        w-full
-        items-center
-        justify-center
-        overflow-hidden
-        bg-[#030817]
-      "
+      className="fixed inset-0 z-[10000] flex h-[100svh] w-full items-center justify-center overflow-hidden bg-[#020611]"
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.4 }}
+      style={{ perspective: "1400px" }}
     >
-
-      {/* =====================================================
-          BACKGROUND
-      ===================================================== */}
-
+      {/* BACKGROUND */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-
-        {/* PURE DEEP NAVY BASE */}
-
-        <div className="absolute inset-0 bg-[#030817]" />
-
-        {/* NAVY DEPTH */}
-
-        <div
-          className="
-            absolute
-            inset-0
-            bg-[radial-gradient(circle_at_50%_25%,rgba(20,31,60,0.28),transparent_48%),linear-gradient(180deg,#030817_0%,#040B1D_55%,#020612_100%)]
-          "
-        />
-
-        {/* =================================================
-            SOFT ATMOSPHERE
-        ================================================= */}
-
+        <div className="absolute inset-0 bg-[linear-gradient(170deg,#020611_0%,#061126_42%,#081832_58%,#01040C_100%)]" />
         <motion.div
-          className="absolute inset-0"
-          animate={{
-            opacity: [0.32, 0.5, 0.32],
-            scale: [1, 1.025, 1],
-          }}
-          transition={{
-            duration: 18,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        >
-          <div
-            className="
-              absolute
-              inset-0
-              bg-[radial-gradient(circle_at_30%_18%,rgba(85,67,42,0.07),transparent_42%)]
-            "
-          />
-        </motion.div>
-
-        {/* =================================================
-            STARS
-        ================================================= */}
-
-        <div className="absolute inset-0">
-
-          {stars.map((star) => (
-            <motion.span
-              key={star.id}
-              className="
-                absolute
-                rounded-full
-                bg-[#A47A47]
-              "
-              style={{
-                left: star.x,
-                top: star.y,
-                width: `${star.size}px`,
-                height: `${star.size}px`,
-                boxShadow: `0 0 ${
-                  star.size * 3
-                }px rgba(164,122,71,0.65)`,
-              }}
-              animate={{
-                opacity: [0.12, 0.7, 0.12],
-                scale: [0.8, 1.25, 0.8],
-              }}
-              transition={{
-                duration: star.duration,
-                delay: star.delay,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-          ))}
-
-        </div>
-
-        {/* =================================================
-            SPECIAL STAR SPARKLES
-        ================================================= */}
-
-        {[0, 1, 2, 3, 4].map((_, i) => (
-          <motion.div
-            key={`spark-${i}`}
-            className="absolute"
+          className="absolute left-1/2 top-1/2 h-[560px] w-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#173967]/[0.10] blur-[145px]"
+          animate={{ opacity: [0.35, 0.65, 0.35], scale: [1, 1.06, 1] }}
+          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute left-1/2 top-1/2 h-[360px] w-[360px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#C6A866]/[0.035] blur-[120px]"
+          animate={{ opacity: [0.35, 0.7, 0.35], scale: [1, 1.08, 1] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        />
+        {dust.map((d) => (
+          <motion.span
+            key={d.id}
+            className="absolute rounded-full bg-[#C6A866]"
             style={{
-              left: `${12 + i * 19}%`,
-              top: `${12 + (i % 3) * 17}%`,
+              left: d.x,
+              top: d.y,
+              width: `${d.size}px`,
+              height: `${d.size}px`,
+              boxShadow: `0 0 ${d.size * 3}px rgba(198,168,102,0.38)`,
             }}
-            animate={{
-              opacity: [0.15, 0.8, 0.15],
-              scale: [0.7, 1.15, 0.7],
-              rotate: [0, 45, 0],
-            }}
-            transition={{
-              duration: 4 + i * 0.5,
-              delay: i * 0.7,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          >
-            <span
-              className="
-                block
-                h-[5px]
-                w-[5px]
-                rotate-45
-                border
-                border-[#A47A47]/70
-              "
-            />
-          </motion.div>
+            animate={{ opacity: [0.04, 0.32, 0.04], scale: [0.8, 1.2, 0.8] }}
+            transition={{ duration: d.duration, delay: d.delay, repeat: Infinity, ease: "easeInOut" }}
+          />
         ))}
-
-        {/* =================================================
-            CENTER ATMOSPHERIC GOLD
-        ================================================= */}
-
-        <motion.div
-          animate={{
-            opacity:
-              step >= 2
-                ? [0.08, 0.22, 0.08]
-                : [0.035, 0.075, 0.035],
-
-            scale:
-              step >= 2
-                ? [1, 1.14, 1]
-                : 1,
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="
-            absolute
-            left-1/2
-            top-1/2
-            h-[390px]
-            w-[390px]
-            -translate-x-1/2
-            -translate-y-1/2
-            rounded-full
-            bg-[#946F45]/[0.055]
-            blur-[105px]
-          "
-        />
-
-        {/* =================================================
-            BOTTOM DARK DEPTH
-        ================================================= */}
-
-        <div
-          className="
-            absolute
-            inset-x-0
-            bottom-0
-            h-[35%]
-            bg-gradient-to-t
-            from-[#020612]
-            via-[#030817]/75
-            to-transparent
-          "
-        />
-
-        {/* =================================================
-            DARK VIGNETTE
-        ================================================= */}
-
-        <div
-          className="
-            absolute
-            inset-0
-            bg-[radial-gradient(ellipse_at_center,transparent_36%,rgba(1,5,15,0.68)_100%)]
-          "
-        />
-
-        {/* =================================================
-            CINEMATIC DEPTH
-        ================================================= */}
-
-        <div
-          className="
-            absolute
-            inset-0
-            bg-[linear-gradient(180deg,rgba(1,5,15,0.16),transparent_35%,transparent_70%,rgba(1,5,15,0.22))]
-          "
-        />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(0,3,10,0.42)_62%,rgba(0,2,7,0.92)_100%)]" />
       </div>
 
+      {/* CARD FRAME */}
+      <div className="pointer-events-none absolute inset-[18px] sm:inset-[28px]">
+        {[
+          "left-0 top-0 border-l border-t rounded-tl-[3px]",
+          "right-0 top-0 border-r border-t rounded-tr-[3px]",
+          "left-0 bottom-0 border-l border-b rounded-bl-[3px]",
+          "right-0 bottom-0 border-r border-b rounded-br-[3px]",
+        ].map((cls, i) => (
+          <motion.div
+            key={i}
+            className={`absolute h-10 w-10 border-[#A88A52]/35 ${cls}`}
+            animate={{ opacity: step >= 3 ? 0 : [0.28, 0.52, 0.28] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          />
+        ))}
+      </div>
 
-      {/* =====================================================
-          MAIN CONTENT
-      ===================================================== */}
-
+      {/* MAIN COLUMN */}
       <div
-        className="
-          relative
-          z-10
-          flex
-          h-full
-          w-full
-          max-w-[420px]
-          flex-col
-          items-center
-          justify-center
-          px-6
-        "
+        className="relative z-10 flex h-full w-full max-w-[420px] flex-col items-center justify-center px-6"
+        style={{ transformStyle: "preserve-3d" }}
       >
-
-        {/* =================================================
-            TOP TITLE
-        ================================================= */}
-
         <AnimatePresence>
           {step < 3 && (
             <motion.div
-              initial={{
-                opacity: 0,
-                y: -12,
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
-              exit={{
-                opacity: 0,
-                y: -12,
-              }}
-              transition={{
-                duration: 0.7,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="
-                absolute
-                top-[10%]
-                flex
-                flex-col
-                items-center
-                text-center
-              "
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute top-[11%] flex flex-col items-center text-center"
             >
-              <p
-                className="
-                  font-['Cormorant_Garamond']
-                  text-[10px]
-                  font-medium
-                  uppercase
-                  tracking-[0.52em]
-                  text-[#A47A47]/75
-                  sm:text-[12px]
-                "
-              >
+              <p className="font-['Cinzel_Decorative'] text-[9px] font-medium uppercase tracking-[0.42em] text-[#D7BD84]/75 sm:text-[11px]">
                 The&nbsp;Beginning&nbsp;of&nbsp;Forever
               </p>
-
-              <div
-                className="
-                  mt-4
-                  flex
-                  items-center
-                  gap-2
-                "
-              >
-                <div
-                  className="
-                    h-px
-                    w-8
-                    bg-gradient-to-r
-                    from-transparent
-                    to-[#8A683F]/55
-                  "
-                />
-
-                <span
-                  className="
-                    h-[3px]
-                    w-[3px]
-                    rotate-45
-                    bg-[#A47A47]/60
-                  "
-                />
-
-                <div
-                  className="
-                    h-px
-                    w-8
-                    bg-gradient-to-l
-                    from-transparent
-                    to-[#8A683F]/55
-                  "
-                />
+              <div className="mt-4 flex items-center gap-3">
+                <div className="h-px w-9 bg-gradient-to-r from-transparent to-[#8E713D]/60" />
+                <svg width="12" height="12" viewBox="0 0 12 12" className="text-[#C6A866]/65">
+                  <path
+                    d="M6 0 C6 3.5 8.5 6 12 6 C8.5 6 6 8.5 6 12 C6 8.5 3.5 6 0 6 C3.5 6 6 3.5 6 0Z"
+                    fill="currentColor"
+                  />
+                </svg>
+                <div className="h-px w-9 bg-gradient-to-l from-transparent to-[#8E713D]/60" />
               </div>
             </motion.div>
           )}
         </AnimatePresence>
 
-
-        {/* =================================================
-            MEDALLION AREA
-        ================================================= */}
-
+        {/* 3D SEAL STAGE */}
         <div
-          className="
-            relative
-            flex
-            h-[272px]
-            w-[272px]
-            items-center
-            justify-center
-            sm:h-[344px]
-            sm:w-[344px]
-          "
+          className="relative flex h-[268px] w-[268px] items-center justify-center sm:h-[336px] sm:w-[336px]"
+          style={{ perspective: "1100px", transformStyle: "preserve-3d" }}
         >
-
-          {/* =================================================
-              SOFT GOLD AURA
-          ================================================= */}
+          <motion.div
+            className="absolute left-1/2 top-[58%] h-[205px] w-[205px] -translate-x-1/2 rounded-full bg-black/80 blur-[38px]"
+            animate={
+              step >= 3
+                ? { scale: [1, 1.15, 0.5], opacity: [0.65, 0.3, 0] }
+                : { scale: [1, 1.04, 1], opacity: [0.58, 0.72, 0.58] }
+            }
+            transition={{ duration: 4, repeat: step < 3 ? Infinity : 0, ease: "easeInOut" }}
+            style={{ transform: "translateZ(-90px)" }}
+          />
 
           <motion.div
+            className="absolute h-[250px] w-[250px] rounded-full bg-[#173B69]/[0.12] blur-[60px] sm:h-[318px] sm:w-[318px]"
             animate={{
-              opacity:
-                step >= 2
-                  ? [0.12, 0.3, 0.12]
-                  : 0.09,
-
-              scale:
-                step >= 2
-                  ? [1, 1.08, 1]
-                  : 1,
+              opacity: step >= 2 ? [0.18, 0.4, 0.18] : [0.07, 0.15, 0.07],
+              scale: step >= 2 ? [1, 1.1, 1] : [1, 1.03, 1],
             }}
-            transition={{
-              duration: 2.2,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="
-              absolute
-              h-[256px]
-              w-[256px]
-              rounded-full
-              bg-[#946F45]/[0.07]
-              blur-[58px]
-              sm:h-[326px]
-              sm:w-[326px]
-            "
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            style={{ transform: "translateZ(-40px)" }}
           />
 
-          {/* =================================================
-              HAIRLINE HALO
-          ================================================= */}
+          {step < 3 && (
+            <motion.svg
+              viewBox="0 0 300 300"
+              className="absolute h-[236px] w-[236px] sm:h-[300px] sm:w-[300px]"
+              animate={{ rotate: 360 }}
+              transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
+              style={{ transform: "translateZ(42px)", transformStyle: "preserve-3d" }}
+            >
+              {rimTicks.map((i) => {
+                const a = (Math.PI * 2 * i) / rimTicks.length;
+                const r1 = 144;
+                const r2 = i % 4 === 0 ? 132 : 138;
+                const x1 = 150 + Math.cos(a) * r1;
+                const y1 = 150 + Math.sin(a) * r1;
+                const x2 = 150 + Math.cos(a) * r2;
+                const y2 = 150 + Math.sin(a) * r2;
+                return (
+                  <line
+                    key={i}
+                    x1={x1}
+                    y1={y1}
+                    x2={x2}
+                    y2={y2}
+                    stroke="#C6A866"
+                    strokeOpacity={i % 4 === 0 ? 0.52 : 0.22}
+                    strokeWidth={i % 4 === 0 ? 1.3 : 0.7}
+                  />
+                );
+              })}
+            </motion.svg>
+          )}
 
-          <div
-            className="
-              absolute
-              h-[248px]
-              w-[248px]
-              rounded-full
-              border
-              border-[#8A683F]/20
-              sm:h-[316px]
-              sm:w-[316px]
-            "
-          />
-
-
-          {/* =================================================
-              SINGLE MEDALLION
-          ================================================= */}
-
-          <motion.div
+          <motion.button
+            type="button"
+            aria-label="Break the seal to enter"
+            onClick={breakSeal}
             animate={
               step >= 3
                 ? {
-                    scale: [1, 0.96, 0.78, 0.42, 0.12],
-                    opacity: [1, 1, 0.85, 0.4, 0],
-                    filter: [
-                      "blur(0px)",
-                      "blur(0px)",
-                      "blur(1px)",
-                      "blur(4px)",
-                      "blur(10px)",
-                    ],
+                    scale: [1, 1.05, 0.9, 0.3],
+                    opacity: [1, 1, 0.6, 0],
+                    rotateX: [0, 5, -8, 20],
+                    rotateY: [0, -6, 7, -15],
                   }
-                : {
-                    scale: 1,
-                    opacity: 1,
-                    filter: "blur(0px)",
-                  }
+                : pressed
+                ? { scale: 0.9, rotateX: 8, rotateY: -8 }
+                : step === 1
+                ? { scale: [1, 1.012, 1], rotateX: [2, -2, 2], rotateY: [-3, 3, -3] }
+                : { scale: 1.02, rotateX: 0, rotateY: 0 }
             }
             transition={
               step >= 3
-                ? {
-                    duration: 0.76,
-                    ease: [0.22, 1, 0.36, 1],
-                  }
-                : {
-                    duration: 0.35,
-                  }
+                ? { duration: 0.55, ease: [0.22, 1, 0.36, 1] }
+                : pressed
+                ? { duration: 0.18 }
+                : step === 1
+                ? { duration: 5.5, repeat: Infinity, ease: "easeInOut" }
+                : { duration: 0.3 }
             }
-            className="
-              absolute
-              z-20
-              h-[240px]
-              w-[240px]
-              rounded-full
-              sm:h-[312px]
-              sm:w-[312px]
-            "
+            className="absolute z-20 h-[214px] w-[214px] cursor-pointer rounded-full outline-none sm:h-[278px] sm:w-[278px]"
+            style={{ transformStyle: "preserve-3d", willChange: "transform, opacity" }}
           >
+            <div
+              className="absolute inset-0 rounded-full"
+              style={{
+                background:
+                  "radial-gradient(circle at 31% 22%, #21466F 0%, #17365D 18%, #0E2444 42%, #08162F 68%, #030A17 100%)",
+                boxShadow:
+                  "inset 0 3px 8px rgba(177,205,235,0.13), inset 0 -25px 38px rgba(0,0,0,0.82), 0 22px 45px rgba(0,0,0,0.82), 0 5px 0 #020711, 0 9px 0 #01040A, 0 0 24px rgba(20,55,96,0.18)",
+                transform: "translateZ(0px)",
+              }}
+            />
+            <div
+              className="absolute inset-[5px] rounded-full border border-[#E1C98F]/70"
+              style={{
+                boxShadow: "0 1px 0 rgba(255,238,192,0.45), inset 0 0 8px rgba(198,168,102,0.10)",
+                transform: "translateZ(8px)",
+              }}
+            />
+            <div
+              className="absolute inset-[8px] rounded-full border-[3px] border-[#6A512A]/60"
+              style={{ transform: "translateZ(3px)" }}
+            />
+            <div
+              className="absolute inset-[12px] rounded-full border border-[#C6A866]/60"
+              style={{
+                transform: "translateZ(11px)",
+                boxShadow: "0 0 7px rgba(198,168,102,0.12), inset 0 0 8px rgba(198,168,102,0.07)",
+              }}
+            />
+            <div
+              className="absolute inset-[18px] rounded-full"
+              style={{
+                background:
+                  "radial-gradient(circle at 38% 28%, #17375E 0%, #0E2443 38%, #07152C 72%, #030A17 100%)",
+                boxShadow: "inset 0 5px 12px rgba(106,143,185,0.10), inset 0 -18px 24px rgba(0,0,0,0.58)",
+                transform: "translateZ(14px)",
+              }}
+            />
+            <div
+              className="absolute inset-[23px] rounded-full border border-[#D6BA7B]/28"
+              style={{ transform: "translateZ(18px)" }}
+            />
+
+            <motion.div
+              className="pointer-events-none absolute left-[14%] top-[9%] h-[43%] w-[65%] rounded-full bg-[#A9C7E8]/[0.055] blur-[13px]"
+              animate={{ x: [-3, 8, -3], opacity: [0.35, 0.7, 0.35] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+              style={{ transform: "translateZ(21px) rotate(-18deg)" }}
+            />
+            <motion.div
+              className="pointer-events-none absolute left-[18%] top-[18%] h-[18%] w-[22%] rounded-full bg-[#F3DDA8]/[0.10] blur-[8px]"
+              animate={{ opacity: [0.25, 0.6, 0.25], scale: [0.9, 1.1, 0.9] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              style={{ transform: "translateZ(24px) rotate(-22deg)" }}
+            />
 
             {/* =================================================
-                OUTER MEDALLION
-            ================================================= */}
-
-            <div
-              className="
-                absolute
-                inset-0
-                rounded-full
-                border
-                border-[#A47A47]/70
-                bg-[#030817]
-                shadow-[inset_0_0_42px_rgba(0,0,0,.96),0_0_22px_rgba(148,111,69,.1),0_10px_40px_rgba(0,0,0,.55)]
-              "
-            />
-
-            {/* RING 2 */}
-
-            <div
-              className="
-                absolute
-                inset-[9px]
-                rounded-full
-                border
-                border-[#8A683F]/45
-              "
-            />
-
-            {/* RING 3 */}
-
-            <div
-              className="
-                absolute
-                inset-[18px]
-                rounded-full
-                border
-                border-[#8A683F]/24
-              "
-            />
-
-            {/* INNER RING */}
-
-            <div
-              className="
-                absolute
-                inset-[31px]
-                rounded-full
-                border
-                border-[#A47A47]/38
-              "
-            />
-
-            {/* DARK INNER SURFACE */}
-
-            <div
-              className="
-                absolute
-                inset-[36px]
-                rounded-full
-                bg-[#030817]
-                shadow-[inset_0_0_38px_rgba(0,0,0,.9)]
-              "
-            />
-
-            {/* FINE INNER RIM */}
-
-            <div
-              className="
-                absolute
-                inset-[36px]
-                rounded-full
-                border
-                border-[#C49A5B]/10
-              "
-            />
-
-
-            {/* =================================================
-                AJ
-            ================================================= */}
-
-            {step < 3 && (
+                FLAT LUXURY AJ 
+            ================================================== */}
+<motion.span
+  className="relative z-10 inline-block font-['Cormorant_Garamond'] text-[118px] font-medium leading-[0.72] tracking-[-0.06em] text-[#E7CF98] sm:text-[148px]"
+  animate={{ y: [0, -1, 0], scale: [1, 1.008, 1] }}
+  transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
+  style={{
+    fontStyle: "normal",
+    textShadow: "0 1px 0 rgba(255,244,211,0.65), 0 2px 5px rgba(0,0,0,0.5)",
+    transform: "translate(2%, -6%)",
+  }}
+>
+  AJ
+</motion.span>
+            {step === 1 && (
               <motion.div
-                animate={{
-                  rotate: rotation,
+                className="pointer-events-none absolute left-1/2 top-1/2 h-[60px] w-[60px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#E6D39E]/20"
+                animate={{ scale: [0.7, 1.7], opacity: [0.4, 0] }}
+                transition={{ duration: 1.7, repeat: Infinity, ease: "easeOut" }}
+                style={{ transform: "translate(-50%, -50%) translateZ(30px)" }}
+              />
+            )}
 
-                  scale:
-                    step === 2
-                      ? 1.04
-                      : 1,
-                }}
-                transition={{
-                  rotate: {
-                    duration: unlocking
-                      ? 0.62
-                      : 0.5,
-
-                    ease: [0.22, 1, 0.36, 1],
-                  },
-
-                  scale: {
-                    duration: 0.5,
-                  },
-                }}
-                className="
-                  absolute
-                  inset-0
-                  z-10
-                  flex
-                  items-center
-                  justify-center
-                "
+            {step >= 2 && (
+              <svg
+                viewBox="0 0 200 200"
+                className="pointer-events-none absolute inset-0 z-30"
+                style={{ transform: "translateZ(40px)" }}
               >
-                <span
-                  className="
-                    -mt-2
-                    font-['Great_Vibes']
-                    text-[86px]
-                    leading-none
-                    tracking-wide
-                    text-[#A47A47]
-                    drop-shadow-[0_2px_10px_rgba(0,0,0,.95)]
-                    sm:text-[114px]
-                  "
-                >
-                  AJ
-                </span>
-              </motion.div>
+                {[
+                  "M100 100 L88 26 L96 8",
+                  "M100 100 L150 40 L168 22",
+                  "M100 100 L172 108 L192 118",
+                  "M100 100 L146 168 L160 188",
+                  "M100 100 L58 172 L44 190",
+                  "M100 100 L26 96 L6 90",
+                  "M100 100 L44 44 L28 30",
+                ].map((d, i) => (
+                  <motion.path
+                    key={i}
+                    d={d}
+                    fill="none"
+                    stroke="#01050D"
+                    strokeWidth={i % 2 === 0 ? 1.6 : 1.1}
+                    strokeLinecap="round"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ pathLength: 1, opacity: 0.88 }}
+                    transition={{ duration: 0.32, delay: i * 0.02, ease: "easeOut" }}
+                  />
+                ))}
+              </svg>
             )}
-
-
-            {/* =================================================
-                VERTICAL CRACK
-            ================================================= */}
 
             {step >= 2 && (
               <motion.div
-                initial={{
-                  scaleY: 0,
-                  opacity: 0,
-                }}
-                animate={{
-                  scaleY: 1,
-                  opacity: [0, 1, 0.9],
-                }}
-                transition={{
-                  duration: 0.28,
-                  ease: "easeOut",
-                }}
-                className="
-                  absolute
-                  left-1/2
-                  top-[7%]
-                  z-50
-                  h-[86%]
-                  w-[1px]
-                  -translate-x-1/2
-                  origin-center
-                  rotate-[4deg]
-                  bg-gradient-to-b
-                  from-transparent
-                  via-[#C49A5B]
-                  to-transparent
-                  shadow-[0_0_8px_rgba(196,154,91,.65)]
-                "
+                className="pointer-events-none absolute left-1/2 top-1/2 z-40 h-[46px] w-[46px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#F3E6C5] blur-[22px]"
+                initial={{ opacity: 0, scale: 0.3 }}
+                animate={{ opacity: [0, 0.9, 0], scale: [0.3, 1.4, 2] }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                style={{ transform: "translate(-50%, -50%) translateZ(50px)" }}
               />
             )}
-
-
-            {/* =================================================
-                CRACK CENTER FLASH
-            ================================================= */}
-
-            {step >= 2 && (
-              <motion.div
-                initial={{
-                  opacity: 0,
-                  scale: 0.25,
-                }}
-                animate={{
-                  opacity: [0, 0.8, 0],
-                  scale: [0.25, 1, 1.7],
-                }}
-                transition={{
-                  duration: 0.65,
-                  ease: "easeOut",
-                }}
-                className="
-                  absolute
-                  left-1/2
-                  top-1/2
-                  z-40
-                  h-[50px]
-                  w-[50px]
-                  -translate-x-1/2
-                  -translate-y-1/2
-                  rounded-full
-                  bg-[#A47A47]/20
-                  blur-[27px]
-                "
-              />
-            )}
-
-
-            {/* =================================================
-                FINAL INWARD PULL
-            ================================================= */}
-
-            {step >= 3 && (
-              <>
-                <motion.div
-                  initial={{
-                    scaleY: 1,
-                    opacity: 1,
-                  }}
-                  animate={{
-                    scaleY: 0.08,
-                    opacity: 0,
-                  }}
-                  transition={{
-                    duration: 0.68,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  className="
-                    absolute
-                    left-1/2
-                    top-[12%]
-                    z-[70]
-                    h-[76%]
-                    w-[2px]
-                    -translate-x-1/2
-                    origin-center
-                    bg-gradient-to-b
-                    from-transparent
-                    via-[#E0BC79]
-                    to-transparent
-                    shadow-[0_0_14px_rgba(224,188,121,.85)]
-                  "
-                />
-
-                {/* INNER LIGHT */}
-
-                <motion.div
-                  initial={{
-                    opacity: 0.8,
-                    scale: 1,
-                  }}
-                  animate={{
-                    opacity: [0.8, 0.9, 0],
-                    scale: [1, 0.55, 0.08],
-                  }}
-                  transition={{
-                    duration: 0.7,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  className="
-                    absolute
-                    left-1/2
-                    top-1/2
-                    z-[80]
-                    h-[110px]
-                    w-[110px]
-                    -translate-x-1/2
-                    -translate-y-1/2
-                    rounded-full
-                    bg-[#A47A47]/25
-                    blur-[35px]
-                  "
-                />
-              </>
-            )}
-          </motion.div>
-
-
-          {/* =================================================
-              FINAL CENTER LIGHT
-          ================================================= */}
+          </motion.button>
 
           {step >= 3 && (
             <motion.div
-              initial={{
-                opacity: 0,
-                scale: 0.15,
-              }}
-              animate={{
-                opacity: [0, 0.85, 0],
-                scale: [0.15, 0.7, 1.8],
-              }}
-              transition={{
-                duration: 0.72,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="
-                absolute
-                z-[90]
-                h-[75px]
-                w-[75px]
-                rounded-full
-                bg-[#A47A47]/25
-                blur-[32px]
-              "
+              className="pointer-events-none absolute z-[60] h-[90px] w-[90px] rounded-full bg-[#E8D19A] blur-[38px]"
+              initial={{ opacity: 0, scale: 0.2 }}
+              animate={{ opacity: [0, 1, 0], scale: [0.2, 1, 2.4] }}
+              transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
             />
           )}
         </div>
 
-
-        {/* =====================================================
-            TAP INSTRUCTION
-            NO TEXT / NO COUNT
-            FINGER TAP ICON ONLY
-        ===================================================== */}
-
-        <AnimatePresence mode="wait">
-
+        <AnimatePresence>
           {step === 1 && (
-            <motion.div
-              initial={{
-                opacity: 0,
-                y: 10,
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
-              exit={{
-                opacity: 0,
-                y: -10,
-              }}
-              transition={{
-                duration: 0.5,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="
-                absolute
-                bottom-[8%]
-                flex
-                flex-col
-                items-center
-              "
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ delay: 0.6, duration: 0.8 }}
+              className="absolute bottom-[13%] font-['Cinzel_Decorative'] text-[9px] font-medium uppercase tracking-[0.38em] text-[#946F45] sm:text-[10px]"
             >
-
-              {/* =================================================
-                  PREMIUM FINGER TAP BUTTON
-              ================================================= */}
-<motion.button
-  type="button"
-  onClick={rotateLock}
-  whileTap={{ scale: 0.88 }}
-  className="
-    relative
-    mt-2
-    flex
-    h-[82px]
-    w-[82px]
-    cursor-pointer
-    items-center
-    justify-center
-    bg-transparent
-    outline-none
-  "
->
-  {/* HAND IMAGE */}
-
-  <motion.img
-    src={hand}
-    alt=""
-className="
-  relative
-  z-10
-  translate-y-[10px]
-  h-[54px]
-  w-[54px]
-  object-contain
-  drop-shadow-[0_2px_8px_rgba(164,122,71,.35)]
-"
-    animate={{
-      y: [0, -4, 0],
-      scale: [1, 1.04, 1],
-    }}
-    transition={{
-      duration: 1.4,
-      repeat: Infinity,
-      ease: "easeInOut",
-    }}
-  />
-
-  {/* TAP RIPPLE */}
-
-  <motion.span
-    className="
-      absolute
-      left-1/2
-      top-1/2
-      h-[34px]
-      w-[34px]
-      -translate-x-1/2
-      -translate-y-1/2
-      rounded-full
-      border
-      border-[#C49A5B]/45
-    "
-    animate={{
-      scale: [0.75, 1.65, 0.75],
-      opacity: [0.55, 0, 0.55],
-    }}
-    transition={{
-      duration: 1.6,
-      repeat: Infinity,
-      ease: "easeOut",
-    }}
-  />
-</motion.button>
-
-            </motion.div>
+              Break the Seal
+            </motion.p>
           )}
-
         </AnimatePresence>
-
-
-        {/* =====================================================
-            FINAL PARTICLES
-        ===================================================== */}
-
-        {step >= 2 && (
-          <div
-            className="
-              pointer-events-none
-              absolute
-              inset-0
-              overflow-hidden
-            "
-          >
-            {[...Array(10)].map((_, i) => (
-              <motion.span
-                key={i}
-                className="
-                  absolute
-                  left-1/2
-                  top-1/2
-                  text-[10px]
-                  text-[#A47A47]/55
-                "
-                initial={{
-                  opacity: 0,
-                  x: 0,
-                  y: 0,
-                  scale: 0.3,
-                }}
-                animate={{
-                  opacity: [0, 0.6, 0],
-                  x:
-                    Math.cos(i * 0.78) *
-                    (45 + i * 8),
-                  y:
-                    Math.sin(i * 0.78) *
-                    (45 + i * 8),
-                  scale: [0.3, 0.9, 0.2],
-                }}
-                transition={{
-                  duration: 0.8,
-                  delay: i * 0.025,
-                  ease: "easeOut",
-                }}
-              >
-                ·
-              </motion.span>
-            ))}
-          </div>
-        )}
-
       </div>
+
+      {step >= 2 && (
+        <div className="pointer-events-none absolute inset-0 z-[200] overflow-hidden">
+          {shards.map((s) => (
+            <motion.span
+              key={`shard-${s.id}`}
+              className="absolute left-1/2 top-1/2 rounded-[1px]"
+              style={{
+                width: `${s.size}px`,
+                height: `${s.size * 0.7}px`,
+                background: s.warm
+                  ? "linear-gradient(135deg,#F0D9A3,#C6A866)"
+                  : "linear-gradient(135deg,#80673B,#382A16)",
+                boxShadow: "0 0 6px rgba(198,168,102,0.36)",
+              }}
+              initial={{ x: 0, y: 0, opacity: 0, scale: 0.2, rotate: 0 }}
+              animate={{
+                x: [0, s.x * 0.4, s.x],
+                y: [0, s.y * 0.4 - 8, s.y + 40],
+                opacity: [0, 1, 0.9, 0],
+                scale: [0.2, 1, 0.85, 0.4],
+                rotate: [0, s.rot * 0.4, s.rot],
+              }}
+              transition={{ duration: s.duration, delay: s.delay, ease: [0.16, 0.85, 0.3, 1] }}
+            />
+          ))}
+
+          {petals.map((p) => (
+            <motion.span
+              key={`petal-${p.id}`}
+              className="absolute left-1/2 top-1/2 rounded-[60%_10%]"
+              style={{
+                width: `${p.w}px`,
+                height: `${p.h}px`,
+                background: "linear-gradient(160deg,#D9BBA2,#8C6848)",
+                opacity: 0.72,
+              }}
+              initial={{ x: 0, y: 0, opacity: 0, scale: 0.3, rotate: p.rot }}
+              animate={{
+                x: [0, p.x * 0.5, p.x],
+                y: [0, p.y * 0.5, p.y + 70],
+                opacity: [0, 0.85, 0.55, 0],
+                rotate: [p.rot, p.rot + 140, p.rot + 260],
+                scale: [0.3, 1, 0.9],
+              }}
+              transition={{ duration: p.duration + 0.4, delay: p.delay, ease: "easeOut" }}
+            />
+          ))}
+        </div>
+      )}
     </motion.div>
   );
 }
