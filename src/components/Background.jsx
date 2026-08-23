@@ -1,26 +1,40 @@
+import { useMemo } from "react";
 import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 import mosque from "../assets/mosque.png";
 
-const dustStars = Array.from({ length: 55 }, (_, i) => ({
-  id: `dust-${i}`,
-  left: `${Math.random() * 100}%`,
-  top: `${Math.random() * 65}%`,
-  size: Math.random() * 1.2 + 0.5,
-  delay: Math.random() * 5,
-  duration: 4 + Math.random() * 4,
-}));
-
-const heroStars = Array.from({ length: 8 }, (_, i) => ({
-  id: `hero-${i}`,
-  left: `${8 + Math.random() * 84}%`,
-  top: `${5 + Math.random() * 45}%`,
-  size: Math.random() * 1.2 + 2,
-  delay: Math.random() * 4,
-  duration: 5 + Math.random() * 3,
-}));
-
 export default function Background() {
+  // computed once (memoized) so re-renders never re-randomize or cause jank
+  const dustStars = useMemo(
+    () =>
+      Array.from({ length: 200 }, (_, i) => ({
+        id: `dust-${i}`,
+        left: `${Math.random() * 100}%`,
+        top: `${Math.random() * 100}%`,
+        size: Math.random() * 1.2 + 0.5,
+        delay: Math.random() * 5,
+        duration: 4 + Math.random() * 4,
+        driftX: (Math.random() - 0.5) * 22,
+        driftY: (Math.random() - 0.5) * 22,
+      })),
+    []
+  );
+
+  const heroStars = useMemo(
+    () =>
+      Array.from({ length: 66 }, (_, i) => ({
+        id: `hero-${i}`,
+        left: `${Math.random() * 100}%`,
+        top: `${Math.random() * 100}%`,
+        size: Math.random() * 1.2 + 2,
+        delay: Math.random() * 4,
+        duration: 5 + Math.random() * 3,
+        driftX: (Math.random() - 0.5) * 30,
+        driftY: (Math.random() - 0.5) * 30,
+      })),
+    []
+  );
+
   const background = (
     <div className="pointer-events-none fixed top-0 left-0 right-0 h-[100svh] z-0 overflow-hidden bg-[#030817]">
 
@@ -28,6 +42,56 @@ export default function Background() {
           PURE DEEP NAVY BASE
       ========================= */}
       <div className="absolute inset-0 bg-[#030817]" />
+
+      {/* =========================
+          CORNER L MOTIFS
+      ========================= */}
+
+
+      <svg
+        width="36"
+        height="36"
+        viewBox="0 0 44 44"
+        className="absolute top-4 right-4 z-10 rotate-90 opacity-55 sm:top-6 sm:right-6"
+      >
+        <path
+          d="M2 22 L2 2 L22 2"
+          fill="none"
+          stroke="#946F45"
+          strokeWidth="0.75"
+        />
+        <circle cx="2" cy="2" r="2" fill="#C9A661" />
+      </svg>
+
+      <svg
+        width="36"
+        height="36"
+        viewBox="0 0 44 44"
+        className="absolute bottom-4 left-4 z-10 -rotate-90 opacity-55 sm:bottom-6 sm:left-6"
+      >
+        <path
+          d="M2 22 L2 2 L22 2"
+          fill="none"
+          stroke="#946F45"
+          strokeWidth="0.75"
+        />
+        <circle cx="2" cy="2" r="2" fill="#C9A661" />
+      </svg>
+
+      <svg
+        width="36"
+        height="36"
+        viewBox="0 0 44 44"
+        className="absolute bottom-4 right-4 z-10 rotate-180 opacity-55 sm:bottom-6 sm:right-6"
+      >
+        <path
+          d="M2 22 L2 2 L22 2"
+          fill="none"
+          stroke="#946F45"
+          strokeWidth="0.75"
+        />
+        <circle cx="2" cy="2" r="2" fill="#C9A661" />
+      </svg> 
 
       {/* =========================
           SUBTLE NAVY DEPTH
@@ -53,7 +117,7 @@ export default function Background() {
       </motion.div>
 
       {/* =========================
-          DARK GOLD STAR DUST
+          DARK GOLD STAR DUST — full-screen, drifting
       ========================= */}
       <div className="absolute inset-0">
         {dustStars.map((star) => (
@@ -66,9 +130,12 @@ export default function Background() {
               width: star.size,
               height: star.size,
               boxShadow: `0 0 ${star.size * 2.5}px rgba(148,111,69,0.45)`,
+              willChange: "transform, opacity",
             }}
             animate={{
               opacity: [0.12, 0.55, 0.12],
+              x: [0, star.driftX, 0],
+              y: [0, star.driftY, 0],
             }}
             transition={{
               duration: star.duration,
@@ -81,7 +148,7 @@ export default function Background() {
       </div>
 
       {/* =========================
-          PREMIUM HERO STARS
+          PREMIUM HERO STARS — full-screen, drifting
       ========================= */}
       <div className="absolute inset-0">
         {heroStars.map((star) => (
@@ -94,10 +161,13 @@ export default function Background() {
               width: star.size,
               height: star.size,
               boxShadow: `0 0 ${star.size * 3}px rgba(164,122,71,0.55)`,
+              willChange: "transform, opacity",
             }}
             animate={{
               opacity: [0.25, 0.8, 0.25],
               scale: [0.9, 1.18, 0.9],
+              x: [0, star.driftX, 0],
+              y: [0, star.driftY, 0],
             }}
             transition={{
               duration: star.duration,
@@ -108,24 +178,6 @@ export default function Background() {
           />
         ))}
       </div>
-
-      {/* =========================
-          DARK ANTIQUE GOLD MOON
-      ========================= */}
-      <motion.div
-        className="absolute right-5 top-8 h-8 w-8 rounded-full bg-[#8B683F]"
-        animate={{
-          y: [-2, 3, -2],
-          opacity: [0.8, 1, 0.8],
-        }}
-        transition={{
-          duration: 7,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      >
-        <div className="absolute -right-2 -top-1 h-7 w-7 rounded-full bg-[#030817]" />
-      </motion.div>
 
       {/* =========================
           DISTANT MOSQUE GLOW

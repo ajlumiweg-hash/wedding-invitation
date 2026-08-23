@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import OpeningScreen from "./components/OpeningScreen";
 import backgroundMusic from "./assets/backgroundmusic.m4a";
 import Background from "./components/Background";
+import Popper from "./components/Popper";
 import FloatingCard from "./components/FloatingCard";
 import Page1 from "./pages/Page1";
 import Page2 from "./pages/Page2";
@@ -16,12 +17,99 @@ const TOTAL = PAGES.length;
 const PER_PAGE = 100 / TOTAL;
 const TRANSITION_S = 0.7;
 
+/* =========================
+   ONE-TIME PAPER BURST
+========================= */
+
+const papers = Array.from({ length: 32 }, (_, i) => {
+  const angle = (Math.PI * 2 * i) / 32;
+  const distance = 120 + Math.random() * 130;
+
+  return {
+    id: i,
+    side: i % 2 === 0 ? "left" : "right",
+    startY: Math.random() * 90 - 45,
+    x: Math.cos(angle) * distance,
+    y: Math.sin(angle) * distance,
+    rotate: Math.random() * 720 - 360,
+    delay: Math.random() * 0.35,
+    width: 4 + Math.random() * 5,
+    height: 7 + Math.random() * 8,
+  };
+});
+
+function PaperBurst() {
+  return (
+    <div className="pointer-events-none fixed inset-0 z-[99999] overflow-hidden">
+      {papers.map((paper) => (
+        <motion.span
+          key={paper.id}
+          initial={{
+            opacity: 0,
+            left: paper.side === "left" ? "-8vw" : "108vw",
+            top: `${50 + paper.startY}%`,
+            x: 0,
+            y: 0,
+            scale: 0.3,
+            rotate: paper.rotate,
+          }}
+          animate={{
+            opacity: [0, 1, 1, 1, 0],
+            left: "50%",
+            top: "50%",
+            x: paper.x,
+            y: paper.y,
+            scale: [0.3, 1, 1.1, 0.8, 0],
+            rotate: [
+              paper.rotate,
+              paper.rotate + 180,
+              paper.rotate + 360,
+              paper.rotate + 540,
+            ],
+          }}
+          transition={{
+            duration: 2.8,
+            delay: paper.delay,
+            ease: [0.16, 1, 0.3, 1],
+          }}
+          className="absolute rounded-[1px] bg-[#E4C28A] shadow-[0_0_8px_rgba(228,194,138,0.65)]"
+          style={{
+            width: `${paper.width}px`,
+            height: `${paper.height}px`,
+          }}
+        />
+      ))}
+
+      {/* Center Flash */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{
+          opacity: [0, 0.9, 0.5, 0],
+          scale: [0, 1, 1.8, 2.8],
+        }}
+        transition={{
+          duration: 0.8,
+          delay: 0.35,
+          ease: "easeOut",
+        }}
+        className="absolute left-1/2 top-1/2 h-16 w-16 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#E4C28A]/30 blur-xl"
+      />
+    </div>
+  );
+}
+
 export default function App() {
   const [opening, setOpening] = useState(true);
   const backgroundMusicRef = useRef(null);
 
   const [index, setIndex] = useState(0);
   const [showScrollArrow, setShowScrollArrow] = useState(false);
+
+  /* =========================
+     ONE-TIME PAPER EFFECT
+  ========================= */
+
+  const [showPaperBurst, setShowPaperBurst] = useState(false);
 
   /* =========================
      SETTINGS
@@ -82,19 +170,30 @@ export default function App() {
      BACKGROUND MUSIC
   ========================= */
 
-const handleOpeningComplete = useCallback(() => {
-  const audio = backgroundMusicRef.current;
+  const handleOpeningComplete = useCallback(() => {
+    setIndex(0);
+    indexRef.current = 0;
 
-  if (audio) {
-    audio.currentTime = 0;
-    audio.volume = 0.45;
-    audio.muted = false;
+    const audio = backgroundMusicRef.current;
 
-    audio.play().catch(() => {});
-  }
+    if (audio) {
+      audio.currentTime = 0;
+      audio.volume = 0.45;
+      audio.muted = false;
 
-  setOpening(false);
-}, []);
+      audio.play().catch(() => {});
+    }
+
+    setOpening(false);
+
+    /* Start paper burst only after opening screen */
+    setShowPaperBurst(true);
+
+    /* Remove paper burst completely after 3 seconds */
+    window.setTimeout(() => {
+      setShowPaperBurst(false);
+    }, 3000);
+  }, []);
 
   /* =========================
      WEBSITE VISIBILITY MUSIC
@@ -192,6 +291,8 @@ const handleOpeningComplete = useCallback(() => {
 
   useEffect(() => {
     const onWheel = (e) => {
+      if (opening) return;
+
       setShowScrollArrow(false);
 
       if (animatingRef.current) return;
@@ -214,12 +315,19 @@ const handleOpeningComplete = useCallback(() => {
     };
 
     const onTouchStart = (e) => {
+      if (opening) return;
+
       if (animatingRef.current) return;
 
       touchStartY.current = e.touches[0].clientY;
     };
 
     const onTouchEnd = (e) => {
+      if (opening) {
+        touchStartY.current = null;
+        return;
+      }
+
       if (
         touchStartY.current === null ||
         animatingRef.current
@@ -271,7 +379,7 @@ const handleOpeningComplete = useCallback(() => {
 
       clearTimeout(wheelResetTimer.current);
     };
-  }, [goTo]);
+  }, [goTo, opening]);
 
   return (
     <>
@@ -293,6 +401,9 @@ const handleOpeningComplete = useCallback(() => {
           onComplete={handleOpeningComplete}
         />
       )}
+
+      {/* ONE-TIME PAPER POPUP */}
+      {showPaperBurst && <PaperBurst />}
 
       {/* =====================================================
           MAIN PAGE CONTENT

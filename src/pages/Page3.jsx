@@ -1,7 +1,72 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const TARGET_DATE = new Date("2026-12-06T11:00:00+05:30");
+
+/* =========================================================
+   HEART POPPER — plays right when the scratch reveals,
+   just before the countdown appears. Kept lightweight
+   (memoized, few elements, no per-particle shadows) so it
+   never causes jank.
+========================================================= */
+
+function HeartBurst() {
+  const hearts = useMemo(
+    () =>
+      Array.from({ length: 26 }, (_, i) => {
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 90 + Math.random() * 220;
+
+        return {
+          id: i,
+          x: Math.cos(angle) * distance,
+          y: Math.sin(angle) * distance,
+          rotate: Math.random() * 60 - 30,
+          delay: Math.random() * 0.25,
+          size: 10 + Math.random() * 14,
+        };
+      }),
+    []
+  );
+
+  return (
+    <>
+      {hearts.map((h) => (
+        <motion.span
+          key={h.id}
+          className="absolute left-1/2 top-1/2 select-none"
+          style={{
+            fontSize: `${h.size}px`,
+            color: "#E4C28A",
+            willChange: "transform, opacity",
+          }}
+          initial={{ opacity: 0, x: 0, y: 0, scale: 0, rotate: 0 }}
+          animate={{
+            opacity: [0, 1, 1, 0],
+            x: h.x,
+            y: h.y,
+            scale: [0, 1, 1, 0.6],
+            rotate: h.rotate,
+          }}
+          transition={{
+            duration: 1.6,
+            delay: h.delay,
+            ease: [0.16, 1, 0.3, 1],
+          }}
+        >
+          ♥
+        </motion.span>
+      ))}
+
+      <motion.div
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: [0, 0.8, 0], scale: [0, 2.4, 5] }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        className="absolute left-1/2 top-1/2 h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#E4C28A]/30 blur-xl"
+      />
+    </>
+  );
+}
 
 export default function Page3() {
   const canvasRef = useRef(null);
@@ -482,7 +547,7 @@ export default function Page3() {
               }}
               className="relative left-[-0.5px] flex w-full flex-col items-center justify-center text-center"
             >
-
+              <HeartBurst />
             </motion.div>
           </motion.div>
         )}

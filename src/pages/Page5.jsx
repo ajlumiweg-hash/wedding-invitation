@@ -350,7 +350,7 @@ export default function Page5() {
           {/* WhatsApp */}
           <div className="flex flex-col items-center">
             <motion.a
-              href={`https://wa.me/919847961503?text=${encodeURIComponent("aaai love youuu kunjoottiii aaai laav youu cho much send aakkle ponnuvee oodiko .")}`}
+              href={`https://wa.me/919847961503?text=${encodeURIComponent("Assalamu Alaikum 🌙🤍\n\nI’m happy to confirm my attendance for your wedding. 💍✨\n\nMay Allah bless you both with a beautiful life together. 🤲🏻❤️")}`}
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.06 }}

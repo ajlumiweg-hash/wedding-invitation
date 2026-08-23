@@ -87,9 +87,9 @@ function FloatingCard() {
               h-[66px] w-[66px]
               cursor-pointer
               sm:bottom-5 sm:right-5
-              sm:h-[74px] sm:w-[74px]
+              sm:h-[64px] sm:w-[64px]
               md:bottom-6 md:right-6
-              md:h-[82px] md:w-[82px]
+              md:h-[62px] md:w-[62px]
             "
           >
             {/* ARROW — appears after 10 seconds */}
@@ -194,12 +194,12 @@ function FloatingCard() {
                 select-none
                 sm:bottom-6
                 sm:right-6
-                sm:h-[74px]
-                sm:w-[74px]
+                sm:h-[64px]
+                sm:w-[64px]
                 md:bottom-7
                 md:right-7
-                md:h-[82px]
-                md:w-[82px]
+                md:h-[72px]
+                md:w-[72px]
               "
             />
 
