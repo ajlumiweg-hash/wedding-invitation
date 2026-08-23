@@ -13,7 +13,10 @@ const fadeUp = {
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] },
+    transition: {
+      duration: 0.9,
+      ease: [0.16, 1, 0.3, 1],
+    },
   },
 };
 
@@ -22,7 +25,10 @@ const divider = {
   show: {
     opacity: 1,
     scaleX: 1,
-    transition: { duration: 0.8, ease: "easeOut" },
+    transition: {
+      duration: 0.8,
+      ease: [0.16, 1, 0.3, 1],
+    },
   },
 };
 
@@ -40,7 +46,7 @@ const letter = {
     y: 0,
     transition: {
       duration: 0.45,
-      ease: [0.22, 1, 0.36, 1],
+      ease: [0.16, 1, 0.3, 1],
     },
   },
 };
@@ -59,7 +65,7 @@ const withAnimation = {
     x: 0,
     transition: {
       duration: 0.75,
-      ease: [0.22, 1, 0.36, 1],
+      ease: [0.16, 1, 0.3, 1],
     },
   },
 };
@@ -148,7 +154,10 @@ function NamePopper({ active }) {
       <motion.div
         initial={{ opacity: 0, scale: 0 }}
         animate={{ opacity: [0, 1, 0.7, 0], scale: [0, 1, 4.5, 8] }}
-        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+        transition={{
+          duration: 1,
+          ease: [0.16, 1, 0.3, 1],
+        }}
         className="absolute left-1/2 top-1/2 h-16 w-16 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#E4C28A]/30 blur-2xl"
       />
 
@@ -156,7 +165,10 @@ function NamePopper({ active }) {
       <motion.div
         initial={{ opacity: 0, scale: 0 }}
         animate={{ opacity: [0, 0.9, 0], scale: [0, 2.2, 6] }}
-        transition={{ duration: 0.55, ease: "easeOut" }}
+        transition={{
+          duration: 0.55,
+          ease: [0.16, 1, 0.3, 1],
+        }}
         className="absolute left-1/2 top-1/2 h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#F7E7C1] blur-md"
       />
 
@@ -167,8 +179,17 @@ function NamePopper({ active }) {
           className="absolute left-1/2 top-1/2 block h-[3px] w-[3px] rounded-full bg-[#F7E7C1]"
           style={{ willChange: "transform, opacity" }}
           initial={{ opacity: 0, scale: 0, x: 0, y: 0 }}
-          animate={{ opacity: [0, 1, 0], scale: [0, 1.6, 0], x: s.x, y: s.y }}
-          transition={{ duration: 0.9, delay: 0.05 + s.delay, ease: "easeOut" }}
+          animate={{
+            opacity: [0, 1, 0],
+            scale: [0, 1.6, 0],
+            x: s.x,
+            y: s.y,
+          }}
+          transition={{
+            duration: 0.9,
+            delay: 0.05 + s.delay,
+            ease: [0.16, 1, 0.3, 1],
+          }}
         />
       ))}
     </div>
@@ -204,31 +225,17 @@ function AnimatedDivider() {
 }
 
 function AnimatedName({ children }) {
-  const letters = children.split("");
-
   return (
     <motion.span
-      initial="hidden"
-      animate="show"
-      variants={{
-        hidden: {},
-        show: {
-          transition: {
-            staggerChildren: 0.11,
-          },
-        },
+      initial={{ opacity: 0, y: 18 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        duration: 0.9,
+        ease: [0.16, 1, 0.3, 1],
       }}
       className="inline-block"
     >
-      {letters.map((char, index) => (
-        <motion.span
-          key={`${char}-${index}`}
-          variants={letter}
-          className="inline-block"
-        >
-          {char === " " ? "\u00A0" : char}
-        </motion.span>
-      ))}
+      {children}
     </motion.span>
   );
 }
@@ -297,16 +304,17 @@ export default function Page2() {
             show: {
               width: 75,
               opacity: 1,
-              transition: { duration: 0.9, ease: "easeOut" },
+              transition: {
+                duration: 0.9,
+                ease: [0.16, 1, 0.3, 1],
+              },
             },
           }}
           className="mb-5 h-px bg-gradient-to-r from-transparent via-[#946F45] to-transparent"
         />
 
         {/* Bride */}
-        <motion.div
-          className="mt-8 flex flex-col items-center sm:mt-10"
-        >
+        <motion.div className="mt-8 flex flex-col items-center sm:mt-10">
           <h1 className="font-['Great_Vibes'] text-[68px] leading-none text-[#946F45] sm:text-[80px] md:text-[94px]">
             {started && <AnimatedName>Jasmi</AnimatedName>}
           </h1>
@@ -325,9 +333,7 @@ export default function Page2() {
         </motion.div>
 
         {/* Groom */}
-        <motion.div
-          className="mt-6 flex flex-col items-center sm:mt-7"
-        >
+        <motion.div className="mt-6 flex flex-col items-center sm:mt-7">
           <h1 className="font-['Great_Vibes'] text-[68px] leading-none text-[#946F45] sm:text-[80px] md:text-[94px]">
             {started && <AnimatedName>Al Ameen</AnimatedName>}
           </h1>

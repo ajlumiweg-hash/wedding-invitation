@@ -179,9 +179,13 @@ export default function App() {
     if (audio) {
       audio.currentTime = 0;
       audio.volume = 0.45;
-      audio.muted = false;
 
-      audio.play().catch(() => {});
+      /* KEEP THE CURRENT MUTE STATE */
+      audio.muted = muted;
+
+      if (!muted) {
+        audio.play().catch(() => {});
+      }
     }
 
     setOpening(false);
@@ -193,7 +197,7 @@ export default function App() {
     window.setTimeout(() => {
       setShowPaperBurst(false);
     }, 3000);
-  }, []);
+  }, [muted]);
 
   /* =========================
      WEBSITE VISIBILITY MUSIC
@@ -240,6 +244,10 @@ export default function App() {
 
     audio.muted = nextMuted;
     setMuted(nextMuted);
+
+    if (!nextMuted && !opening) {
+      audio.play().catch(() => {});
+    }
   };
 
   /* =========================
@@ -447,10 +455,11 @@ export default function App() {
       <div
         ref={settingsRef}
         className="
+          pointer-events-auto
           fixed
           left-3
           top-3
-          z-[99999]
+          z-[999999]
           sm:left-5
           sm:top-5
         "
@@ -464,6 +473,7 @@ export default function App() {
           }
           whileTap={{ scale: 0.9 }}
           className="
+            pointer-events-auto
             flex
             h-[27px]
             w-[27px]
@@ -511,6 +521,7 @@ export default function App() {
                 duration: 0.18,
               }}
               className="
+                pointer-events-auto
                 absolute
                 left-0
                 top-[34px]
