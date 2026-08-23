@@ -82,19 +82,51 @@ export default function App() {
      BACKGROUND MUSIC
   ========================= */
 
-  const handleOpeningComplete = useCallback(() => {
-    setOpening(false);
+const handleOpeningComplete = useCallback(() => {
+  const audio = backgroundMusicRef.current;
 
-    const audio = backgroundMusicRef.current;
+  if (audio) {
+    audio.currentTime = 0;
+    audio.volume = 0.45;
+    audio.muted = false;
 
-    if (audio) {
-      audio.currentTime = 0;
-      audio.volume = 0.45;
-      audio.muted = false;
+    audio.play().catch(() => {});
+  }
 
-      audio.play().catch(() => {});
-    }
-  }, []);
+  setOpening(false);
+}, []);
+
+  /* =========================
+     WEBSITE VISIBILITY MUSIC
+  ========================= */
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      const audio = backgroundMusicRef.current;
+
+      if (!audio) return;
+
+      if (document.visibilityState === "hidden") {
+        audio.pause();
+      } else {
+        if (!opening && !muted) {
+          audio.play().catch(() => {});
+        }
+      }
+    };
+
+    document.addEventListener(
+      "visibilitychange",
+      handleVisibilityChange
+    );
+
+    return () => {
+      document.removeEventListener(
+        "visibilitychange",
+        handleVisibilityChange
+      );
+    };
+  }, [opening, muted]);
 
   /* =========================
      MUSIC MUTE / UNMUTE
