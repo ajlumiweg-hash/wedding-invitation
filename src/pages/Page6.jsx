@@ -61,13 +61,14 @@ function GoldDivider() {
 }
 
 export default function Page6() {
-  const GOOGLE_CALENDAR_URL =
-    "https://calendar.google.com/calendar/render?action=TEMPLATE" +
-    "&text=Wedding+Reception" +
-    "&dates=20261206T063000Z%2F20261206T073000Z" +
-    "&details=We+look+forward+to+celebrating+with+you.+Your+presence+will+make+our+celebration+even+more+memorable." +
-    "&location=Ayisha+Convention+Centre%2C+Mevaram+Road%2C+near+AKMHSS%2C+Mylapure%2C+Umayanalloor%2C+Thazhuthala%2C+Kerala+691020";
-
+const GOOGLE_CALENDAR_URL =
+  "https://calendar.google.com/calendar/render?action=TEMPLATE" +
+  "&text=Wedding+Reception" +
+  "&dates=20261206T120000%2F20261206T150000" +
+  "&ctz=Asia%2FKolkata" +
+  "&details=We+look+forward+to+celebrating+with+you.+Your+presence+will+make+our+celebration+even+more+memorable." +
+  "&location=Ayisha+Convention+Centre%2C+Mevaram+Road%2C+near+AKMHSS%2C+Mylapure%2C+Umayanalloor%2C+Thazhuthala%2C+Kerala+691020";
+    
   return (
     <section className="relative z-10 flex min-h-[100svh] w-full items-center justify-center overflow-hidden px-5 py-10 text-center">
       <motion.div
