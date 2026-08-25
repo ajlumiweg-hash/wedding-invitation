@@ -157,6 +157,7 @@ export default function Page3() {
 
     let drawing = false;
     let scratches = 0;
+    let lastPoint = null;
 
     /* =====================================================
        LOCK SCROLL WHILE SCRATCHING
@@ -372,27 +373,67 @@ export default function Page3() {
 
       const { x, y } = point(e);
 
+      const radius = Math.max(
+        15,
+        box.clientWidth * 0.035
+      );
+
       ctx.save();
 
       ctx.globalCompositeOperation =
         "destination-out";
 
-      ctx.beginPath();
+      if (lastPoint) {
+        const dx = x - lastPoint.x;
+        const dy = y - lastPoint.y;
 
-      ctx.arc(
-        x,
-        y,
-        Math.max(
-          15,
-          box.clientWidth * 0.035
-        ),
-        0,
-        Math.PI * 2
-      );
+        const distance = Math.sqrt(
+          dx * dx + dy * dy
+        );
 
-      ctx.fill();
+        const steps = Math.max(
+          1,
+          Math.ceil(distance / (radius * 0.35))
+        );
+
+        for (let i = 1; i <= steps; i++) {
+          const t = i / steps;
+
+          const px =
+            lastPoint.x + dx * t;
+
+          const py =
+            lastPoint.y + dy * t;
+
+          ctx.beginPath();
+
+          ctx.arc(
+            px,
+            py,
+            radius,
+            0,
+            Math.PI * 2
+          );
+
+          ctx.fill();
+        }
+      } else {
+        ctx.beginPath();
+
+        ctx.arc(
+          x,
+          y,
+          radius,
+          0,
+          Math.PI * 2
+        );
+
+        ctx.fill();
+      }
 
       ctx.restore();
+
+      lastPoint = { x, y };
 
       scratches++;
 
@@ -414,6 +455,8 @@ export default function Page3() {
 
       drawing = true;
 
+      lastPoint = null;
+
       scratch(e);
     };
 
@@ -423,6 +466,8 @@ export default function Page3() {
 
     const stop = () => {
       drawing = false;
+
+      lastPoint = null;
     };
 
     draw();
