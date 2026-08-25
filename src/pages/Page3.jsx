@@ -194,6 +194,16 @@ export default function Page3() {
     };
 
     /* =====================================================
+       PREVENT SCROLL WHILE SCRATCHING
+    ===================================================== */
+
+    const preventScroll = (e) => {
+      if (!drawing) return;
+
+      e.preventDefault();
+    };
+
+    /* =====================================================
        DRAW HEART
     ===================================================== */
 
@@ -438,6 +448,9 @@ export default function Page3() {
       scratches++;
 
       if (scratches > 70) {
+        drawing = false;
+        lastPoint = null;
+
         unlockScroll();
 
         setRevealed(true);
@@ -456,6 +469,10 @@ export default function Page3() {
       drawing = true;
 
       lastPoint = null;
+
+      if (e.cancelable) {
+        e.preventDefault();
+      }
 
       scratch(e);
     };
@@ -513,6 +530,14 @@ export default function Page3() {
       stop
     );
 
+    window.addEventListener(
+      "wheel",
+      preventScroll,
+      {
+        passive: false,
+      }
+    );
+
     return () => {
       unlockScroll();
 
@@ -549,6 +574,11 @@ export default function Page3() {
       window.removeEventListener(
         "touchend",
         stop
+      );
+
+      window.removeEventListener(
+        "wheel",
+        preventScroll
       );
     };
   }, [revealed]);
