@@ -4,6 +4,7 @@ import OpeningScreen from "./components/OpeningScreen";
 import backgroundMusic from "./assets/backgroundmusic.m4a";
 import Background from "./components/Background";
 import Popper from "./components/Popper";
+import { trackView } from "./lib/trackView";
 import FloatingCard from "./components/FloatingCard";
 import Page1 from "./pages/Page1";
 import Page2 from "./pages/Page2";
@@ -127,6 +128,13 @@ export default function App() {
   const wheelAccum = useRef(0);
   const wheelResetTimer = useRef(null);
   const scrollArrowTimer = useRef(null);
+
+  useEffect(() => {
+    if (opening) return;
+
+    trackView();
+  }, [opening]);
+
 
   useEffect(() => {
     indexRef.current = index;

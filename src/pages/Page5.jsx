@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, CircleX, Phone, MessageCircle } from "lucide-react";
 import { useState } from "react";
+import { supabase } from "../lib/supabase";
 
 const container = {
   hidden: {},
@@ -125,6 +126,35 @@ function RsvpButton({ icon, children, type, selected, onClick }) {
 export default function Page5() {
   const [selected, setSelected] = useState(null);
 
+const saveRsvp = async (status) => {
+  const guestId = localStorage.getItem(
+    "wedding_invitation_guest_id"
+  );
+
+  if (!guestId) {
+    console.error("Guest ID not found");
+    return;
+  }
+
+  const willAttend = status === "will_attend";
+
+  const { error } = await supabase
+    .from("invitation_guests")
+    .update({
+      will_attend: willAttend,
+      rsvp_status: status,
+      responded_at: new Date().toISOString(),
+    })
+    .eq("id", guestId);
+
+  if (error) {
+    console.error("RSVP save error:", error);
+    return;
+  }
+
+  console.log("RSVP saved:", status);
+};
+
   return (
     <section className="relative z-10 flex min-h-[100svh] w-full items-center justify-center overflow-hidden px-5 py-10 text-center">
       <motion.div
@@ -164,7 +194,10 @@ export default function Page5() {
           <RsvpButton
             type="yes"
             selected={selected}
-            onClick={() => setSelected("yes")}
+            onClick={() => {
+              setSelected("yes");
+              saveRsvp("will_attend");
+            }}
             icon={
               <CheckCircle2
                 size={17}
@@ -178,7 +211,10 @@ export default function Page5() {
           <RsvpButton
             type="no"
             selected={selected}
-            onClick={() => setSelected("no")}
+            onClick={() => {
+              setSelected("no");
+              saveRsvp("cant_attend");
+            }}
             icon={
               <CircleX
                 size={17}
