@@ -254,13 +254,13 @@ export default function Page5() {
                     repeat: Infinity,
                     ease: "easeInOut",
                   }}
-                  className="text-[14px] text-[#C8D8FF]"
+                  className="text-[14px] text-[#39FF88]"
                 >
                   ✦
                 </motion.span>
 
                 <span
-                  className="text-[11px] text-[#A8B7D6]"
+                  className="text-[11px] text-[#39FF88]"
                   style={{
                     fontFamily: "'Cormorant Garamond', serif",
                   }}
@@ -279,7 +279,7 @@ export default function Page5() {
                     ease: "easeInOut",
                     delay: 0.2,
                   }}
-                  className="text-[14px] text-[#C8D8FF]"
+                  className="text-[14px] text-[#39FF88]"
                 >
                   ✦
                 </motion.span>
@@ -307,13 +307,13 @@ export default function Page5() {
                     repeat: Infinity,
                     ease: "easeInOut",
                   }}
-                  className="text-[14px] text-[#A8B7D6]"
+                  className="text-[14px] text-[#FF4545]"
                 >
                   ♡
                 </motion.span>
 
                 <span
-                  className="text-[11px] text-[#A8B7D6]"
+                  className="text-[11px] text-[#FF4545]"
                   style={{
                     fontFamily: "'Cormorant Garamond', serif",
                   }}
@@ -331,7 +331,7 @@ export default function Page5() {
                     ease: "easeInOut",
                     delay: 0.3,
                   }}
-                  className="text-[14px] text-[#A8B7D6]"
+                  className="text-[14px] text-[#FF4545]"
                 >
                   ♡
                 </motion.span>
