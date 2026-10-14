@@ -1,4 +1,3 @@
-
 import { motion, AnimatePresence } from "framer-motion";
 
 import { CheckCircle2, CircleX, Phone, MessageCircle } from "lucide-react";
@@ -98,9 +97,9 @@ function RsvpButton({ icon, children, type, selected, onClick }) {
       }
       className={`relative flex w-full max-w-[300px] items-center justify-center gap-3 overflow-hidden rounded-full border px-5 py-2.5 text-[12px] transition-all duration-500 sm:max-w-[320px] sm:py-3 sm:text-[13px] ${
         isSelected && isYes
-          ? "border-[#C8D8FF] bg-[#07152F]/35 text-[#FFFFFF] shadow-[0_0_12px_rgba(200,216,255,0.35),0_0_30px_rgba(200,216,255,0.15)]"
+          ? "border-[#39FF88] bg-[#39FF88]/15 text-[#39FF88] shadow-[0_0_12px_rgba(57,255,136,0.65),0_0_30px_rgba(57,255,136,0.35)]"
           : isSelected && !isYes
-            ? "border-[#A8B7D6] bg-[#0B1D3D]/35 text-[#FFFFFF] shadow-[0_0_12px_rgba(168,183,214,0.35),0_0_30px_rgba(168,183,214,0.15)]"
+            ? "border-[#FF4545] bg-[#FF4545]/15 text-[#FF4545] shadow-[0_0_12px_rgba(255,69,69,0.65),0_0_30px_rgba(255,69,69,0.35)]"
             : isYes
               ? "border-[#C8D8FF]/80 bg-[#C8D8FF]/20 text-[#C8D8FF] shadow-[0_0_18px_rgba(200,216,255,0.18)]"
               : "border-[#C8D8FF]/70 bg-[#0B1D3D]/10 text-[#C8D8FF]"
@@ -114,7 +113,7 @@ function RsvpButton({ icon, children, type, selected, onClick }) {
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           className={`absolute inset-0 rounded-full ${
-            isYes ? "bg-[#C8D8FF]/10" : "bg-[#A8B7D6]/10"
+            isYes ? "bg-[#39FF88]/10" : "bg-[#FF4545]/10"
           }`}
         />
       )}
