@@ -1,4 +1,3 @@
-
 import { motion, useInView } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
 
@@ -91,7 +90,7 @@ function useConfettiParticles(count, spreadMin, spreadMax) {
           width: 3 + Math.random() * 4,
           height: 7 + Math.random() * 8,
           scale: 0.7 + Math.random() * 0.5,
-          color: Math.random() > 0.5 ? "#C8D8FF" : "#A8B7D6",
+          color: Math.random() > 0.5 ? "#E4C28A" : "#D6A85F",
         };
       }),
     [count, spreadMin, spreadMax]
@@ -151,7 +150,7 @@ function NamePopper({ active }) {
         />
       ))}
 
-      {/* soft blue burst glow */}
+      {/* soft golden burst glow */}
       <motion.div
         initial={{ opacity: 0, scale: 0 }}
         animate={{ opacity: [0, 1, 0.7, 0], scale: [0, 1, 4.5, 8] }}
@@ -159,7 +158,7 @@ function NamePopper({ active }) {
           duration: 1,
           ease: [0.16, 1, 0.3, 1],
         }}
-        className="absolute left-1/2 top-1/2 h-16 w-16 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#C8D8FF]/30 blur-2xl"
+        className="absolute left-1/2 top-1/2 h-16 w-16 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#E4C28A]/30 blur-2xl"
       />
 
       {/* quick flash */}
@@ -170,14 +169,14 @@ function NamePopper({ active }) {
           duration: 0.55,
           ease: [0.16, 1, 0.3, 1],
         }}
-        className="absolute left-1/2 top-1/2 h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#FFFFFF] blur-md"
+        className="absolute left-1/2 top-1/2 h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#F7E7C1] blur-md"
       />
 
       {/* sparks */}
       {sparks.map((s) => (
         <motion.span
           key={s.id}
-          className="absolute left-1/2 top-1/2 block h-[3px] w-[3px] rounded-full bg-[#FFFFFF]"
+          className="absolute left-1/2 top-1/2 block h-[3px] w-[3px] rounded-full bg-[#F7E7C1]"
           style={{ willChange: "transform, opacity" }}
           initial={{ opacity: 0, scale: 0, x: 0, y: 0 }}
           animate={{
@@ -203,12 +202,12 @@ function AnimatedDivider() {
       variants={divider}
       initial="hidden"
       animate="show"
-      className="mt-5 flex items-center gap-3 text-[#C8D8FF]"
+      className="mt-5 flex items-center gap-3 text-[#B8894F]"
     >
-      <span className="h-px w-8 bg-[#C8D8FF] sm:w-10" />
+      <span className="h-px w-8 bg-[#6F5034] sm:w-10" />
 
       <motion.span
-        className="text-[10px] text-[#C8D8FF]"
+        className="text-[10px] text-[#D6A85F]"
         animate={{ opacity: [0.5, 1, 0.5], scale: [1, 1.15, 1] }}
         transition={{
           duration: 2.6,
@@ -220,7 +219,7 @@ function AnimatedDivider() {
         ♡
       </motion.span>
 
-      <span className="h-px w-8 bg-[#C8D8FF] sm:w-10" />
+      <span className="h-px w-8 bg-[#6F5034] sm:w-10" />
     </motion.div>
   );
 }
@@ -293,7 +292,7 @@ export default function Page2() {
           variants={fadeUp}
           className="flex flex-col items-center"
         >
-          <p className="font-serif text-[17px] tracking-wide text-[#A8B7D6] sm:text-lg md:text-xl">
+          <p className="font-serif text-[17px] tracking-wide text-[#946F45] sm:text-lg md:text-xl">
             Together Forever
           </p>
         </motion.div>
@@ -311,12 +310,12 @@ export default function Page2() {
               },
             },
           }}
-          className="mb-5 h-px bg-gradient-to-r from-transparent via-[#C8D8FF] to-transparent"
+          className="mb-5 h-px bg-gradient-to-r from-transparent via-[#946F45] to-transparent"
         />
 
         {/* Bride */}
         <motion.div className="mt-8 flex flex-col items-center sm:mt-10">
-          <h1 className="font-['Great_Vibes'] text-[68px] leading-none text-[#FFFFFF] sm:text-[80px] md:text-[94px]">
+          <h1 className="font-['Great_Vibes'] text-[68px] leading-none text-[#946F45] sm:text-[80px] md:text-[94px]">
             {started && <AnimatedName>Jasmi</AnimatedName>}
           </h1>
         </motion.div>
@@ -328,14 +327,14 @@ export default function Page2() {
           variants={withAnimation}
           className="mt-5 flex flex-col items-center sm:mt-4"
         >
-          <p className="text-[9px] font-medium tracking-[0.28em] text-[#C8D8FF] sm:text-[10px] md:text-[11px]">
+          <p className="text-[9px] font-medium tracking-[0.28em] text-[#946F45] sm:text-[10px] md:text-[11px]">
             WITH
           </p>
         </motion.div>
 
         {/* Groom */}
         <motion.div className="mt-6 flex flex-col items-center sm:mt-7">
-          <h1 className="font-['Great_Vibes'] text-[68px] leading-none text-[#FFFFFF] sm:text-[80px] md:text-[94px]">
+          <h1 className="font-['Great_Vibes'] text-[68px] leading-none text-[#946F45] sm:text-[80px] md:text-[94px]">
             {started && <AnimatedName>Al Ameen</AnimatedName>}
           </h1>
 
@@ -345,7 +344,7 @@ export default function Page2() {
         {/* Bottom Writing */}
         <motion.div
           variants={fadeUp}
-          className="mt-5 flex flex-col items-center font-serif text-[11px] leading-[1.9] text-[#A8B7D6] sm:mt-7 sm:text-xs md:text-sm"
+          className="mt-5 flex flex-col items-center font-serif text-[11px] leading-[1.9] text-[#946F45] sm:mt-7 sm:text-xs md:text-sm"
         >
           <p>Two hearts, one</p>
           <p>beautiful journey</p>

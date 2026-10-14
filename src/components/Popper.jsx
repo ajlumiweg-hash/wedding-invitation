@@ -41,8 +41,8 @@ export default function Popper() {
                   height: p.size * 1.8,
                   background:
                     Math.random() > 0.5
-                      ? "#6EA8F5"
-                      : "#F8F7FF",
+                      ? "#E4C28A"
+                      : "#F7E7C1",
                 }}
                 initial={{
                   x: 0,
@@ -84,8 +84,8 @@ export default function Popper() {
                   height: p.size * 1.8,
                   background:
                     Math.random() > 0.5
-                      ? "#6EA8F5"
-                      : "#F8F7FF",
+                      ? "#E4C28A"
+                      : "#F7E7C1",
                 }}
                 initial={{
                   x: 0,
