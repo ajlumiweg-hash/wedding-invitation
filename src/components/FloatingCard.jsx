@@ -231,10 +231,10 @@ function FloatingCard() {
                 relative z-20
                 flex items-center justify-center
                 w-full
-                max-w-[300px]
-                max-h-[82vh]
-                sm:max-w-[330px]
-                md:max-w-[370px]
+                max-w-[360px]
+                max-h-[86vh]
+                sm:max-w-[390px]
+                md:max-w-[430px]
               "
             >
               <img
@@ -242,7 +242,7 @@ function FloatingCard() {
                 alt="Invitation"
                 draggable={false}
                 className="
-                  max-h-[82vh]
+                  max-h-[86vh]
                   w-auto
                   max-w-full
                   rounded-2xl
