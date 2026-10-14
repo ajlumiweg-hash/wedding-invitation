@@ -36,18 +36,15 @@ export default function Background() {
   );
 
   const background = (
-    <div className="pointer-events-none fixed top-0 left-0 right-0 h-[100svh] z-0 overflow-hidden bg-[#030817]">
-
+    <div className="pointer-events-none fixed top-0 left-0 right-0 h-[100svh] z-0 overflow-hidden bg-[#07152F]">
       {/* =========================
           PURE DEEP NAVY BASE
       ========================= */}
-      <div className="absolute inset-0 bg-[#030817]" />
+      <div className="absolute inset-0 bg-[#07152F]" />
 
       {/* =========================
           CORNER L MOTIFS
       ========================= */}
-
-
       <svg
         width="36"
         height="36"
@@ -57,10 +54,10 @@ export default function Background() {
         <path
           d="M2 22 L2 2 L22 2"
           fill="none"
-          stroke="#946F45"
+          stroke="#C8D8FF"
           strokeWidth="0.75"
         />
-        <circle cx="2" cy="2" r="2" fill="#C9A661" />
+        <circle cx="2" cy="2" r="2" fill="#C8D8FF" />
       </svg>
 
       <svg
@@ -72,10 +69,10 @@ export default function Background() {
         <path
           d="M2 22 L2 2 L22 2"
           fill="none"
-          stroke="#946F45"
+          stroke="#C8D8FF"
           strokeWidth="0.75"
         />
-        <circle cx="2" cy="2" r="2" fill="#C9A661" />
+        <circle cx="2" cy="2" r="2" fill="#C8D8FF" />
       </svg>
 
       <svg
@@ -87,16 +84,16 @@ export default function Background() {
         <path
           d="M2 22 L2 2 L22 2"
           fill="none"
-          stroke="#946F45"
+          stroke="#C8D8FF"
           strokeWidth="0.75"
         />
-        <circle cx="2" cy="2" r="2" fill="#C9A661" />
-      </svg> 
+        <circle cx="2" cy="2" r="2" fill="#C8D8FF" />
+      </svg>
 
       {/* =========================
           SUBTLE NAVY DEPTH
       ========================= */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_25%,rgba(20,31,60,0.28),transparent_48%),linear-gradient(180deg,#030817_0%,#040B1D_55%,#020612_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_25%,rgba(23,43,104,0.18),transparent_48%),linear-gradient(180deg,#050B1C_0%,#091631_55%,#050B1C_100%)]" />
 
       {/* =========================
           VERY SOFT ATMOSPHERE
@@ -113,23 +110,23 @@ export default function Background() {
           ease: "easeInOut",
         }}
       >
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_18%,rgba(85,67,42,0.07),transparent_42%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_18%,rgba(110,168,245,0.05),transparent_42%)]" />
       </motion.div>
 
       {/* =========================
-          DARK GOLD STAR DUST — full-screen, drifting
+          SUBTLE STAR DUST
       ========================= */}
       <div className="absolute inset-0">
         {dustStars.map((star) => (
           <motion.span
             key={star.id}
-            className="absolute rounded-full bg-[#8A683F]"
+            className="absolute rounded-full bg-[#8FAFEA]"
             style={{
               left: star.left,
               top: star.top,
               width: star.size,
               height: star.size,
-              boxShadow: `0 0 ${star.size * 2.5}px rgba(148,111,69,0.45)`,
+              boxShadow: `0 0 ${star.size * 2.5}px rgba(200,216,255,0.35)`,
               willChange: "transform, opacity",
             }}
             animate={{
@@ -148,19 +145,19 @@ export default function Background() {
       </div>
 
       {/* =========================
-          PREMIUM HERO STARS — full-screen, drifting
+          PREMIUM HERO STARS
       ========================= */}
       <div className="absolute inset-0">
         {heroStars.map((star) => (
           <motion.span
             key={star.id}
-            className="absolute rounded-full bg-[#A47A47]"
+            className="absolute rounded-full bg-[#C8D8FF]"
             style={{
               left: star.left,
               top: star.top,
               width: star.size,
               height: star.size,
-              boxShadow: `0 0 ${star.size * 3}px rgba(164,122,71,0.55)`,
+              boxShadow: `0 0 ${star.size * 3}px rgba(200,216,255,0.45)`,
               willChange: "transform, opacity",
             }}
             animate={{
@@ -182,7 +179,7 @@ export default function Background() {
       {/* =========================
           DISTANT MOSQUE GLOW
       ========================= */}
-      <div className="absolute bottom-0 left-1/2 h-40 w-[65%] -translate-x-1/2 bg-[radial-gradient(ellipse_at_center_bottom,rgba(148,111,69,0.06),transparent_72%)]" />
+      <div className="absolute bottom-0 left-1/2 h-40 w-[65%] -translate-x-1/2 bg-[radial-gradient(ellipse_at_center_bottom,rgba(200,216,255,0.06),transparent_72%)]" />
 
       {/* =========================
           DISTANT MOSQUE
@@ -216,17 +213,22 @@ export default function Background() {
       {/* =========================
           BOTTOM NAVY DEPTH
       ========================= */}
-      <div className="absolute inset-x-0 bottom-0 h-[32%] bg-gradient-to-t from-[#020612] via-[#030817]/75 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-[32%] bg-gradient-to-t from-[#050B1C] via-[#050B1C]/75 to-transparent" />
 
       {/* =========================
-          CLEAN CINEMATIC VIGNETTE
+          PREMIUM DARK EDGE SHADOW
       ========================= */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_42%,rgba(1,5,15,0.62)_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(0,0,0,0.18)_60%,rgba(0,0,0,0.55)_100%)]" />
+
+      {/* =========================
+          EXTRA DARK FOUR CORNERS
+      ========================= */}
+      <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(0,0,0,0.32)_0%,transparent_30%),linear-gradient(225deg,rgba(0,0,0,0.32)_0%,transparent_30%),linear-gradient(45deg,rgba(0,0,0,0.32)_0%,transparent_30%),linear-gradient(315deg,rgba(0,0,0,0.32)_0%,transparent_30%)]" />
 
       {/* =========================
           CRYSTAL CLEAR TOP DARKNESS
       ========================= */}
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(1,5,15,0.18),transparent_35%,transparent_70%,rgba(1,5,15,0.2))]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,11,28,0.18),transparent_35%,transparent_70%,rgba(5,11,28,0.2))]" />
     </div>
   );
 

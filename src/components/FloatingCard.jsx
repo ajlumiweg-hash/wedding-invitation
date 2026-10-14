@@ -127,8 +127,8 @@ function FloatingCard() {
                     -translate-x-1/2
                     text-[15px]
                     leading-none
-                    text-[#ae8960]
-                    drop-shadow-[0_0_8px_rgba(196,154,91,.45)]
+                    text-[#9CCBFF]
+                    drop-shadow-[0_0_8px_rgba(156,203,255,.45)]
                     sm:-top-9
                     sm:text-[24px]
                   "
@@ -268,7 +268,7 @@ function FloatingCard() {
                 text-[9px]
                 uppercase
                 tracking-[0.22em]
-                text-[#946F45]
+                text-[#F8F7FF]
                 sm:bottom-8
                 sm:text-xs
               "

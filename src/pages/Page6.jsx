@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 
 const container = {
@@ -37,10 +38,10 @@ function GoldDivider() {
       variants={divider}
       className="mt-4 flex items-center justify-center gap-3"
     >
-      <span className="h-px w-8 bg-[#6F5034] sm:w-10" />
+      <span className="h-px w-8 bg-[#C8D8FF] sm:w-10" />
 
       <motion.span
-        className="text-[9px] text-[#D6A85F] sm:text-[10px]"
+        className="text-[9px] text-[#C8D8FF] sm:text-[10px]"
         animate={{
           opacity: [0.5, 1, 0.5],
           scale: [1, 1.15, 1],
@@ -55,20 +56,20 @@ function GoldDivider() {
         ✦
       </motion.span>
 
-      <span className="h-px w-8 bg-[#6F5034] sm:w-10" />
+      <span className="h-px w-8 bg-[#C8D8FF] sm:w-10" />
     </motion.div>
   );
 }
 
 export default function Page6() {
-const GOOGLE_CALENDAR_URL =
-  "https://calendar.google.com/calendar/render?action=TEMPLATE" +
-  "&text=Wedding+Reception" +
-  "&dates=20261206T120000%2F20261206T150000" +
-  "&ctz=Asia%2FKolkata" +
-  "&details=We+look+forward+to+celebrating+with+you.+Your+presence+will+make+our+celebration+even+more+memorable." +
-  "&location=Ayisha+Convention+Centre%2C+Mevaram+Road%2C+near+AKMHSS%2C+Mylapure%2C+Umayanalloor%2C+Thazhuthala%2C+Kerala+691020";
-    
+  const GOOGLE_CALENDAR_URL =
+    "https://calendar.google.com/calendar/render?action=TEMPLATE" +
+    "&text=Wedding+Reception" +
+    "&dates=20261206T120000%2F20261206T150000" +
+    "&ctz=Asia%2FKolkata" +
+    "&details=We+look+forward+to+celebrating+with+you.+Your+presence+will+make+our+celebration+even+more+memorable." +
+    "&location=Ayisha+Convention+Centre%2C+Mevaram+Road%2C+near+AKMHSS%2C+Mylapure%2C+Umayanalloor%2C+Thazhuthala%2C+Kerala+691020";
+
   return (
     <section className="relative z-10 flex min-h-[100svh] w-full items-center justify-center overflow-hidden px-5 py-10 text-center">
       <motion.div
@@ -78,7 +79,6 @@ const GOOGLE_CALENDAR_URL =
         viewport={{ once: true, amount: 0.35 }}
         className="mx-auto flex w-full max-w-[430px] flex-col items-center justify-center"
       >
-
         {/* Thank You - Animate Once When Section Appears */}
         <motion.div
           className="p-5 flex items-center justify-center"
@@ -114,7 +114,7 @@ const GOOGLE_CALENDAR_URL =
                   },
                 },
               }}
-              className="font-['Great_Vibes'] text-[58px] leading-none text-[#946F45] sm:text-[78px]"
+              className="font-['Great_Vibes'] text-[58px] leading-none text-[#FFFFFF] sm:text-[78px]"
             >
               {letter === " " ? "\u00A0" : letter}
             </motion.span>
@@ -124,7 +124,7 @@ const GOOGLE_CALENDAR_URL =
         {/* Message */}
         <motion.div
           variants={fadeUp}
-          className="mt-1 max-w-[280px] text-[11px] leading-[1.75] text-[#946F45] sm:max-w-[310px] sm:text-xs"
+          className="mt-1 max-w-[280px] text-[11px] leading-[1.75] text-[#FFFFFF] sm:max-w-[310px] sm:text-xs"
           style={{
             fontFamily: "'Cormorant Garamond', serif",
           }}
@@ -140,7 +140,7 @@ const GOOGLE_CALENDAR_URL =
         {/* Final Message */}
         <motion.div
           variants={fadeUp}
-          className="mt-5 max-w-[270px] text-[11px] leading-[1.75] text-[#946F45] sm:text-xs"
+          className="mt-5 max-w-[270px] text-[11px] leading-[1.75] text-[#A8B7D6] sm:text-xs"
           style={{
             fontFamily: "'Cormorant Garamond', serif",
           }}
@@ -168,17 +168,17 @@ const GOOGLE_CALENDAR_URL =
             gap-2
             rounded-full
             border
-            border-[#946F45]/70
-            bg-[#946F45]/10
+            border-[#C8D8FF]/70
+            bg-[#C8D8FF]/10
             px-5
             py-2
             text-[9px]
             uppercase
             tracking-[0.14em]
-            text-[#946F45]
+            text-[#FFFFFF]
             transition-colors
             duration-300
-            hover:bg-[#946F45]/10
+            hover:bg-[#C8D8FF]/20
             sm:mt-8
             sm:px-6
             sm:py-2.5
@@ -188,7 +188,7 @@ const GOOGLE_CALENDAR_URL =
             fontFamily: "'Cormorant Garamond', serif",
           }}
         >
-          <span className="text-[14px] leading-none">
+          <span className="text-[14px] leading-none text-[#C8D8FF]">
             ♡
           </span>
 
@@ -213,7 +213,6 @@ const GOOGLE_CALENDAR_URL =
             ))}
           </span>
         </motion.a>
-
       </motion.div>
     </section>
   );

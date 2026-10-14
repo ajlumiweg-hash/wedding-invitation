@@ -1,6 +1,10 @@
+
 import { motion, AnimatePresence } from "framer-motion";
+
 import { CheckCircle2, CircleX, Phone, MessageCircle } from "lucide-react";
+
 import { useState } from "react";
+
 import { supabase } from "../lib/supabase";
 
 const container = {
@@ -40,10 +44,10 @@ function GoldDivider() {
       variants={divider}
       className="mt-3 flex items-center justify-center gap-3"
     >
-      <span className="h-px w-8 bg-[#6F5034] sm:w-10" />
+      <span className="h-px w-8 bg-[#C8D8FF] sm:w-10" />
 
       <motion.span
-        className="text-[9px] text-[#D6A85F] sm:text-[10px]"
+        className="text-[9px] text-[#C8D8FF] sm:text-[10px]"
         animate={{
           opacity: [0.5, 1, 0.5],
           scale: [1, 1.15, 1],
@@ -58,7 +62,7 @@ function GoldDivider() {
         ♡
       </motion.span>
 
-      <span className="h-px w-8 bg-[#6F5034] sm:w-10" />
+      <span className="h-px w-8 bg-[#C8D8FF] sm:w-10" />
     </motion.div>
   );
 }
@@ -94,12 +98,12 @@ function RsvpButton({ icon, children, type, selected, onClick }) {
       }
       className={`relative flex w-full max-w-[300px] items-center justify-center gap-3 overflow-hidden rounded-full border px-5 py-2.5 text-[12px] transition-all duration-500 sm:max-w-[320px] sm:py-3 sm:text-[13px] ${
         isSelected && isYes
-          ? "border-[#7ED957] bg-[#315D27]/35 text-[#B9F59F] shadow-[0_0_12px_rgba(126,217,87,0.35),0_0_30px_rgba(126,217,87,0.15)]"
+          ? "border-[#C8D8FF] bg-[#07152F]/35 text-[#FFFFFF] shadow-[0_0_12px_rgba(200,216,255,0.35),0_0_30px_rgba(200,216,255,0.15)]"
           : isSelected && !isYes
-            ? "border-[#D85C5C] bg-[#652525]/35 text-[#FFB0B0] shadow-[0_0_12px_rgba(216,92,92,0.35),0_0_30px_rgba(216,92,92,0.15)]"
+            ? "border-[#A8B7D6] bg-[#0B1D3D]/35 text-[#FFFFFF] shadow-[0_0_12px_rgba(168,183,214,0.35),0_0_30px_rgba(168,183,214,0.15)]"
             : isYes
-              ? "border-[#B8894F]/80 bg-[#946F45]/20 text-[#D6A85F] shadow-[0_0_18px_rgba(148,111,69,0.18)]"
-              : "border-[#946F45]/70 bg-[#6F5034]/10 text-[#B8894F]"
+              ? "border-[#C8D8FF]/80 bg-[#C8D8FF]/20 text-[#C8D8FF] shadow-[0_0_18px_rgba(200,216,255,0.18)]"
+              : "border-[#C8D8FF]/70 bg-[#0B1D3D]/10 text-[#C8D8FF]"
       }`}
       style={{
         fontFamily: "'Cormorant Garamond', serif",
@@ -110,7 +114,7 @@ function RsvpButton({ icon, children, type, selected, onClick }) {
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           className={`absolute inset-0 rounded-full ${
-            isYes ? "bg-[#7ED957]/10" : "bg-[#D85C5C]/10"
+            isYes ? "bg-[#C8D8FF]/10" : "bg-[#A8B7D6]/10"
           }`}
         />
       )}
@@ -126,34 +130,34 @@ function RsvpButton({ icon, children, type, selected, onClick }) {
 export default function Page5() {
   const [selected, setSelected] = useState(null);
 
-const saveRsvp = async (status) => {
-  const guestId = localStorage.getItem(
-    "wedding_invitation_guest_id"
-  );
+  const saveRsvp = async (status) => {
+    const guestId = localStorage.getItem(
+      "wedding_invitation_guest_id"
+    );
 
-  if (!guestId) {
-    console.error("Guest ID not found");
-    return;
-  }
+    if (!guestId) {
+      console.error("Guest ID not found");
+      return;
+    }
 
-  const willAttend = status === "will_attend";
+    const willAttend = status === "will_attend";
 
-  const { error } = await supabase
-    .from("invitation_guests")
-    .update({
-      will_attend: willAttend,
-      rsvp_status: status,
-      responded_at: new Date().toISOString(),
-    })
-    .eq("id", guestId);
+    const { error } = await supabase
+      .from("invitation_guests")
+      .update({
+        will_attend: willAttend,
+        rsvp_status: status,
+        responded_at: new Date().toISOString(),
+      })
+      .eq("id", guestId);
 
-  if (error) {
-    console.error("RSVP save error:", error);
-    return;
-  }
+    if (error) {
+      console.error("RSVP save error:", error);
+      return;
+    }
 
-  console.log("RSVP saved:", status);
-};
+    console.log("RSVP saved:", status);
+  };
 
   return (
     <section className="relative z-10 flex min-h-[100svh] w-full items-center justify-center overflow-hidden px-5 py-10 text-center">
@@ -169,7 +173,7 @@ const saveRsvp = async (status) => {
           className="flex flex-col items-center"
         >
           <h1
-            className="text-[25px] leading-none text-[#946F45] sm:text-[29px]"
+            className="text-[25px] leading-none text-[#FFFFFF] sm:text-[29px]"
             style={{
               fontFamily: "'Cormorant Garamond', serif",
             }}
@@ -178,7 +182,7 @@ const saveRsvp = async (status) => {
           </h1>
 
           <p
-            className="mt-1 text-[13px] text-[#B8894F] sm:text-[15px]"
+            className="mt-1 text-[13px] text-[#C8D8FF] sm:text-[15px]"
             style={{
               fontFamily: "'Cormorant Garamond', serif",
             }}
@@ -251,13 +255,13 @@ const saveRsvp = async (status) => {
                     repeat: Infinity,
                     ease: "easeInOut",
                   }}
-                  className="text-[14px] text-[#7ED957]"
+                  className="text-[14px] text-[#C8D8FF]"
                 >
                   ✦
                 </motion.span>
 
                 <span
-                  className="text-[11px] text-[#9FE486]"
+                  className="text-[11px] text-[#A8B7D6]"
                   style={{
                     fontFamily: "'Cormorant Garamond', serif",
                   }}
@@ -276,7 +280,7 @@ const saveRsvp = async (status) => {
                     ease: "easeInOut",
                     delay: 0.2,
                   }}
-                  className="text-[14px] text-[#7ED957]"
+                  className="text-[14px] text-[#C8D8FF]"
                 >
                   ✦
                 </motion.span>
@@ -304,13 +308,13 @@ const saveRsvp = async (status) => {
                     repeat: Infinity,
                     ease: "easeInOut",
                   }}
-                  className="text-[14px] text-[#D85C5C]"
+                  className="text-[14px] text-[#A8B7D6]"
                 >
                   ♡
                 </motion.span>
 
                 <span
-                  className="text-[11px] text-[#D99191]"
+                  className="text-[11px] text-[#A8B7D6]"
                   style={{
                     fontFamily: "'Cormorant Garamond', serif",
                   }}
@@ -328,7 +332,7 @@ const saveRsvp = async (status) => {
                     ease: "easeInOut",
                     delay: 0.3,
                   }}
-                  className="text-[14px] text-[#D85C5C]"
+                  className="text-[14px] text-[#A8B7D6]"
                 >
                   ♡
                 </motion.span>
@@ -343,7 +347,7 @@ const saveRsvp = async (status) => {
           className="mt-1 flex w-full flex-col items-center sm:mt-2"
         >
           <p
-            className="text-[9px] font-medium tracking-[0.3em] text-[#6F5034] sm:text-[10px]"
+            className="text-[9px] font-medium tracking-[0.3em] text-[#C8D8FF] sm:text-[10px]"
             style={{
               fontFamily: "'Cormorant Garamond', serif",
             }}
@@ -365,7 +369,7 @@ const saveRsvp = async (status) => {
               href="tel:+919847961503"
               whileHover={{ scale: 1.06 }}
               whileTap={{ scale: 0.94 }}
-              className="flex h-12 w-12 items-center justify-center rounded-full border border-[#946F45]/80 bg-[#946F45]/10 text-[#D6A85F] shadow-[0_0_16px_rgba(148,111,69,0.15)] sm:h-14 sm:w-14"
+              className="flex h-12 w-12 items-center justify-center rounded-full border border-[#C8D8FF]/80 bg-[#C8D8FF]/10 text-[#C8D8FF] shadow-[0_0_16px_rgba(200,216,255,0.15)] sm:h-14 sm:w-14"
             >
               <Phone
                 size={20}
@@ -374,7 +378,7 @@ const saveRsvp = async (status) => {
             </motion.a>
 
             <span
-              className="mt-2 text-[10px] text-[#946F45] sm:text-[11px]"
+              className="mt-2 text-[10px] text-[#FFFFFF] sm:text-[11px]"
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
               }}
@@ -391,7 +395,7 @@ const saveRsvp = async (status) => {
               rel="noopener noreferrer"
               whileHover={{ scale: 1.06 }}
               whileTap={{ scale: 0.94 }}
-              className="flex h-12 w-12 items-center justify-center rounded-full border border-[#B8894F]/80 bg-[#946F45]/10 text-[#D6A85F] shadow-[0_0_16px_rgba(148,111,69,0.15)] sm:h-14 sm:w-14"
+              className="flex h-12 w-12 items-center justify-center rounded-full border border-[#C8D8FF]/80 bg-[#C8D8FF]/10 text-[#C8D8FF] shadow-[0_0_16px_rgba(200,216,255,0.15)] sm:h-14 sm:w-14"
             >
               <MessageCircle
                 size={21}
@@ -400,7 +404,7 @@ const saveRsvp = async (status) => {
             </motion.a>
 
             <span
-              className="mt-2 text-[10px] text-[#946F45] sm:text-[11px]"
+              className="mt-2 text-[10px] text-[#FFFFFF] sm:text-[11px]"
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
               }}
@@ -416,7 +420,7 @@ const saveRsvp = async (status) => {
           className="mt-7 flex flex-col items-center sm:mt-8"
         >
           <p
-            className="text-[10px] leading-[1.7] text-[#946F45] sm:text-[11px]"
+            className="text-[10px] leading-[1.7] text-[#FFFFFF] sm:text-[11px]"
             style={{
               fontFamily: "'Cormorant Garamond', serif",
             }}
@@ -425,7 +429,7 @@ const saveRsvp = async (status) => {
           </p>
 
           <motion.span
-            className="mt-1 text-[12px] text-[#D6A85F]"
+            className="mt-1 text-[12px] text-[#C8D8FF]"
             animate={{
               opacity: [0.45, 1, 0.45],
               scale: [1, 1.1, 1],

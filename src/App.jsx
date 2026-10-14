@@ -73,7 +73,7 @@ function PaperBurst() {
             delay: paper.delay,
             ease: [0.16, 1, 0.3, 1],
           }}
-          className="absolute rounded-[1px] bg-[#E4C28A] shadow-[0_0_8px_rgba(228,194,138,0.65)]"
+          className="absolute rounded-[1px] bg-[#C8D8FF] shadow-[0_0_8px_rgba(200,216,255,0.45)]"
           style={{
             width: `${paper.width}px`,
             height: `${paper.height}px`,
@@ -93,7 +93,7 @@ function PaperBurst() {
           delay: 0.35,
           ease: "easeOut",
         }}
-        className="absolute left-1/2 top-1/2 h-16 w-16 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#E4C28A]/30 blur-xl"
+        className="absolute left-1/2 top-1/2 h-16 w-16 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#C8D8FF]/30 blur-xl"
       />
     </div>
   );
@@ -134,7 +134,6 @@ export default function App() {
 
     trackView();
   }, [opening]);
-
 
   useEffect(() => {
     indexRef.current = index;
@@ -489,10 +488,10 @@ export default function App() {
             justify-center
             rounded-full
             border
-            border-[#A47A47]/30
-            bg-[#030817]/70
+            border-[#C8D8FF]/30
+            bg-[#07152F]/70
             text-[13px]
-            text-[#C49A5B]/75
+            text-[#C8D8FF]/75
             shadow-[0_2px_12px_rgba(0,0,0,.35)]
             backdrop-blur-sm
             outline-none
@@ -538,8 +537,8 @@ export default function App() {
                 gap-1.5
                 rounded-full
                 border
-                border-[#A47A47]/25
-                bg-[#030817]/90
+                border-[#C8D8FF]/25
+                bg-[#07152F]/90
                 px-2
                 py-1.5
                 shadow-[0_5px_20px_rgba(0,0,0,.45)]
@@ -561,7 +560,7 @@ export default function App() {
                   rounded-full
                   text-[10px]
                   font-semibold
-                  text-[#C49A5B]/80
+                  text-[#C8D8FF]/80
                   outline-none
                 "
                 aria-label="Zoom out"
@@ -584,7 +583,7 @@ export default function App() {
                   rounded-full
                   text-[10px]
                   font-semibold
-                  text-[#C49A5B]/80
+                  text-[#C8D8FF]/80
                   outline-none
                 "
                 aria-label="Zoom in"
@@ -606,7 +605,7 @@ export default function App() {
                   justify-center
                   rounded-full
                   text-[12px]
-                  text-[#C49A5B]/80
+                  text-[#C8D8FF]/80
                   outline-none
                 "
                 aria-label={
@@ -668,7 +667,7 @@ export default function App() {
               text-[6px]
               uppercase
               tracking-[0.3em]
-              text-[#E4C28A]
+              text-[#C8D8FF]
               opacity-80
               sm:text-xs
             "
@@ -681,7 +680,7 @@ export default function App() {
               mt-1
               text-sm
               leading-none
-              text-[#E4C28A]
+              text-[#C8D8FF]
               sm:text-3xl
             "
           >

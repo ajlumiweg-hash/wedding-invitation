@@ -34,7 +34,7 @@ function HeartBurst() {
           className="absolute left-1/2 top-1/2 select-none"
           style={{
             fontSize: `${h.size}px`,
-            color: "#FF0000",
+            color: "#C8D8FF",
             willChange: "transform, opacity",
           }}
           initial={{
@@ -74,7 +74,7 @@ function HeartBurst() {
           duration: 0.7,
           ease: "easeOut",
         }}
-        className="absolute left-1/2 top-1/2 h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#E4C28A]/30 blur-xl"
+        className="absolute left-1/2 top-1/2 h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#C8D8FF]/30 blur-xl"
       />
     </>
   );
@@ -125,7 +125,6 @@ export default function Page3() {
     update();
 
     const timer = setInterval(update, 1000);
-
     return () => clearInterval(timer);
   }, [revealed]);
 
@@ -154,7 +153,6 @@ export default function Page3() {
     if (!canvas || !box || revealed) return;
 
     const ctx = canvas.getContext("2d");
-
     let drawing = false;
     let scratches = 0;
     let lastPoint = null;
@@ -164,33 +162,22 @@ export default function Page3() {
     ===================================================== */
 
     const previousBodyOverflow = document.body.style.overflow;
-    const previousHtmlOverflow =
-      document.documentElement.style.overflow;
-
-    const previousBodyOverscroll =
-      document.body.style.overscrollBehavior;
-
-    const previousHtmlOverscroll =
-      document.documentElement.style.overscrollBehavior;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+    const previousBodyOverscroll = document.body.style.overscrollBehavior;
+    const previousHtmlOverscroll = document.documentElement.style.overscrollBehavior;
 
     const lockScroll = () => {
       document.body.style.overflow = "hidden";
       document.documentElement.style.overflow = "hidden";
-
       document.body.style.overscrollBehavior = "none";
       document.documentElement.style.overscrollBehavior = "none";
     };
 
     const unlockScroll = () => {
       document.body.style.overflow = previousBodyOverflow;
-      document.documentElement.style.overflow =
-        previousHtmlOverflow;
-
-      document.body.style.overscrollBehavior =
-        previousBodyOverscroll;
-
-      document.documentElement.style.overscrollBehavior =
-        previousHtmlOverscroll;
+      document.documentElement.style.overflow = previousHtmlOverflow;
+      document.body.style.overscrollBehavior = previousBodyOverscroll;
+      document.documentElement.style.overscrollBehavior = previousHtmlOverscroll;
     };
 
     /* =====================================================
@@ -199,7 +186,6 @@ export default function Page3() {
 
     const preventScroll = (e) => {
       if (!drawing) return;
-
       e.preventDefault();
     };
 
@@ -209,33 +195,24 @@ export default function Page3() {
 
     const draw = () => {
       const { width, height } = box.getBoundingClientRect();
-
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
       canvas.width = width * dpr;
       canvas.height = height * dpr;
-
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
 
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
       ctx.clearRect(0, 0, width, height);
 
       const size = Math.min(width, height);
-
       const scale = size / 512;
-
       const x = (width - size) / 2;
       const y = (height - size) / 2;
 
       const heart = new Path2D();
 
-      heart.moveTo(
-        x + 256 * scale,
-        y + 425 * scale
-      );
-
+      heart.moveTo(x + 256 * scale, y + 425 * scale);
       heart.bezierCurveTo(
         x + 220 * scale,
         y + 390 * scale,
@@ -244,7 +221,6 @@ export default function Page3() {
         x + 45 * scale,
         y + 155 * scale
       );
-
       heart.bezierCurveTo(
         x + 45 * scale,
         y + 75 * scale,
@@ -253,7 +229,6 @@ export default function Page3() {
         x + 180 * scale,
         y + 45 * scale
       );
-
       heart.bezierCurveTo(
         x + 220 * scale,
         y + 50 * scale,
@@ -262,7 +237,6 @@ export default function Page3() {
         x + 256 * scale,
         y + 105 * scale
       );
-
       heart.bezierCurveTo(
         x + 267 * scale,
         y + 75 * scale,
@@ -271,7 +245,6 @@ export default function Page3() {
         x + 332 * scale,
         y + 45 * scale
       );
-
       heart.bezierCurveTo(
         x + 397 * scale,
         y + 35 * scale,
@@ -280,7 +253,6 @@ export default function Page3() {
         x + 467 * scale,
         y + 155 * scale
       );
-
       heart.bezierCurveTo(
         x + 467 * scale,
         y + 270 * scale,
@@ -291,7 +263,6 @@ export default function Page3() {
       );
 
       ctx.save();
-
       ctx.clip(heart);
 
       const gradient = ctx.createLinearGradient(
@@ -301,25 +272,18 @@ export default function Page3() {
         y + size
       );
 
-      gradient.addColorStop(0, "#7A1630");
-      gradient.addColorStop(0.5, "#420814");
-      gradient.addColorStop(1, "#16030A");
+
+      gradient.addColorStop(0, "#B51F46");
+      gradient.addColorStop(0.5, "#8F1637");
+      gradient.addColorStop(1, "#5E0B25");
+
 
       ctx.fillStyle = gradient;
-
-      ctx.fillRect(
-        x,
-        y,
-        size,
-        size
-      );
+      ctx.fillRect(x, y, size, size);
 
       for (let i = 0; i < 80; i++) {
         ctx.beginPath();
-
-        ctx.strokeStyle =
-          "rgba(230,190,110,0.22)";
-
+        ctx.strokeStyle = "rgba(255,220,230,0.28)";
         ctx.lineWidth = 1;
 
         ctx.moveTo(
@@ -337,18 +301,11 @@ export default function Page3() {
 
       ctx.restore();
 
-      ctx.strokeStyle =
-        "rgba(225,180,100,.85)";
-
+      ctx.strokeStyle = "rgba(255,105,140,0.95)";
       ctx.lineWidth = 1;
-
       ctx.shadowBlur = 10;
-
-      ctx.shadowColor =
-        "rgba(225,180,100,.6)";
-
+      ctx.shadowColor = "rgba(255,70,110,0.6)";
       ctx.stroke(heart);
-
       ctx.shadowBlur = 0;
     };
 
@@ -360,15 +317,8 @@ export default function Page3() {
       const rect = canvas.getBoundingClientRect();
 
       return {
-        x:
-          (e.touches?.[0]?.clientX ??
-            e.clientX) -
-          rect.left,
-
-        y:
-          (e.touches?.[0]?.clientY ??
-            e.clientY) -
-          rect.top,
+        x: (e.touches?.[0]?.clientX ?? e.clientX) - rect.left,
+        y: (e.touches?.[0]?.clientY ?? e.clientY) - rect.top,
       };
     };
 
@@ -382,69 +332,35 @@ export default function Page3() {
       e.preventDefault();
 
       const { x, y } = point(e);
-
-      const radius = Math.max(
-        15,
-        box.clientWidth * 0.035
-      );
+      const radius = Math.max(15, box.clientWidth * 0.035);
 
       ctx.save();
-
-      ctx.globalCompositeOperation =
-        "destination-out";
+      ctx.globalCompositeOperation = "destination-out";
 
       if (lastPoint) {
         const dx = x - lastPoint.x;
         const dy = y - lastPoint.y;
-
-        const distance = Math.sqrt(
-          dx * dx + dy * dy
-        );
-
-        const steps = Math.max(
-          1,
-          Math.ceil(distance / (radius * 0.35))
-        );
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        const steps = Math.max(1, Math.ceil(distance / (radius * 0.35)));
 
         for (let i = 1; i <= steps; i++) {
           const t = i / steps;
-
-          const px =
-            lastPoint.x + dx * t;
-
-          const py =
-            lastPoint.y + dy * t;
+          const px = lastPoint.x + dx * t;
+          const py = lastPoint.y + dy * t;
 
           ctx.beginPath();
-
-          ctx.arc(
-            px,
-            py,
-            radius,
-            0,
-            Math.PI * 2
-          );
-
+          ctx.arc(px, py, radius, 0, Math.PI * 2);
           ctx.fill();
         }
       } else {
         ctx.beginPath();
-
-        ctx.arc(
-          x,
-          y,
-          radius,
-          0,
-          Math.PI * 2
-        );
-
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
         ctx.fill();
       }
 
       ctx.restore();
 
       lastPoint = { x, y };
-
       scratches++;
 
       if (scratches > 70) {
@@ -452,9 +368,7 @@ export default function Page3() {
         lastPoint = null;
 
         unlockScroll();
-
         setRevealed(true);
-
         setShowRevealPopup(true);
       }
     };
@@ -465,9 +379,7 @@ export default function Page3() {
 
     const start = (e) => {
       lockScroll();
-
       drawing = true;
-
       lastPoint = null;
 
       if (e.cancelable) {
@@ -483,103 +395,40 @@ export default function Page3() {
 
     const stop = () => {
       drawing = false;
-
       lastPoint = null;
     };
 
     draw();
 
-    window.addEventListener(
-      "resize",
-      draw
-    );
+    window.addEventListener("resize", draw);
+    canvas.addEventListener("mousedown", start);
+    canvas.addEventListener("mousemove", scratch);
+    window.addEventListener("mouseup", stop);
 
-    canvas.addEventListener(
-      "mousedown",
-      start
-    );
+    canvas.addEventListener("touchstart", start, {
+      passive: false,
+    });
+    canvas.addEventListener("touchmove", scratch, {
+      passive: false,
+    });
 
-    canvas.addEventListener(
-      "mousemove",
-      scratch
-    );
-
-    window.addEventListener(
-      "mouseup",
-      stop
-    );
-
-    canvas.addEventListener(
-      "touchstart",
-      start,
-      {
-        passive: false,
-      }
-    );
-
-    canvas.addEventListener(
-      "touchmove",
-      scratch,
-      {
-        passive: false,
-      }
-    );
-
-    window.addEventListener(
-      "touchend",
-      stop
-    );
-
-    window.addEventListener(
-      "wheel",
-      preventScroll,
-      {
-        passive: false,
-      }
-    );
+    window.addEventListener("touchend", stop);
+    window.addEventListener("wheel", preventScroll, {
+      passive: false,
+    });
 
     return () => {
       unlockScroll();
 
-      window.removeEventListener(
-        "resize",
-        draw
-      );
+      window.removeEventListener("resize", draw);
+      canvas.removeEventListener("mousedown", start);
+      canvas.removeEventListener("mousemove", scratch);
+      window.removeEventListener("mouseup", stop);
 
-      canvas.removeEventListener(
-        "mousedown",
-        start
-      );
-
-      canvas.removeEventListener(
-        "mousemove",
-        scratch
-      );
-
-      window.removeEventListener(
-        "mouseup",
-        stop
-      );
-
-      canvas.removeEventListener(
-        "touchstart",
-        start
-      );
-
-      canvas.removeEventListener(
-        "touchmove",
-        scratch
-      );
-
-      window.removeEventListener(
-        "touchend",
-        stop
-      );
-
-      window.removeEventListener(
-        "wheel",
-        preventScroll
-      );
+      canvas.removeEventListener("touchstart", start);
+      canvas.removeEventListener("touchmove", scratch);
+      window.removeEventListener("touchend", stop);
+      window.removeEventListener("wheel", preventScroll);
     };
   }, [revealed]);
 
@@ -591,57 +440,16 @@ export default function Page3() {
   ];
 
   return (
-    <section
-      className="
-        relative
-        z-10
-        flex
-        min-h-[100svh]
-        w-full
-        items-center
-        justify-center
-        overflow-hidden
-        px-4
-        py-8
-        text-center
-        sm:px-5
-        sm:py-10
-      "
-    >
-      <div
-        className="
-          flex
-          w-full
-          max-w-[520px]
-          flex-col
-          items-center
-        "
-      >
-
-        {/* =================================================
-            TITLE
-        ================================================= */}
+    <section className="relative z-10 flex min-h-[100svh] w-full items-center justify-center overflow-hidden px-4 py-8 text-center sm:px-5 sm:py-10">
+      <div className="flex w-full max-w-[520px] flex-col items-center">
+        {/* TITLE */}
 
         <motion.div
-          initial={{
-            opacity: 0,
-            y: -15,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
+          initial={{ opacity: 0, y: -15 }}
+          animate={{ opacity: 1, y: 0 }}
           className="w-full text-center"
         >
-          <h2
-            className="
-              font-['Great_Vibes']
-              text-[30px]
-              leading-none
-              text-[#946F45]
-              sm:text-[42px]
-            "
-          >
+          <h2 className="font-['Great_Vibes'] text-[30px] leading-none text-[#C8D8FF] sm:text-[42px]">
             Scratch &amp; Reveal
           </h2>
 
@@ -653,7 +461,6 @@ export default function Page3() {
                 width: 0,
                 opacity: 0,
               },
-
               show: {
                 width: 75,
                 opacity: 1,
@@ -663,113 +470,34 @@ export default function Page3() {
                 },
               },
             }}
-            className="
-              mx-auto
-              mb-5
-              h-px
-              bg-gradient-to-r
-              from-transparent
-              via-[#946F45]
-              to-transparent
-              sm:mb-6
-            "
+            className="mx-auto mb-5 h-px bg-gradient-to-r from-transparent via-[#C8D8FF] to-transparent sm:mb-6"
           />
         </motion.div>
 
-        {/* =================================================
-            HEART
-        ================================================= */}
+        {/* HEART */}
 
         <motion.div
           ref={boxRef}
-          initial={{
-            opacity: 0,
-            scale: 0.94,
-          }}
-          animate={{
-            opacity: 1,
-            scale: 1,
-          }}
-          transition={{
-            duration: 0.8,
-          }}
-          className="
-            relative
-            mx-auto
-            -mt-2
-            aspect-square
-            w-[min(88vw,420px)]
-            max-w-[420px]
-            translate-x-[5px]
-            sm:-mt-3
-            sm:w-[min(90vw,420px)]
-            md:translate-x-0
-          "
+          initial={{ opacity: 0, scale: 0.94 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8 }}
+          className="relative mx-auto -mt-2 aspect-square w-[min(88vw,420px)] max-w-[420px] translate-x-[5px] sm:-mt-3 sm:w-[min(90vw,420px)] md:translate-x-0"
         >
-
           {/* DATE */}
 
-          <div
-            className="
-              absolute
-              inset-0
-              z-[1]
-              flex
-              items-center
-              justify-center
-            "
-          >
-            <div
-              className="
-                -translate-y-[11vw]
-                text-center
-                sm:-translate-y-13
-              "
-            >
-
-              <div
-                className="
-                  font-['Cormorant_Garamond']
-                  text-[13vw]
-                  font-bold
-                  leading-none
-                  text-[#946F45]
-                  drop-shadow-[0_0_8px_rgba(228,194,138,.5)]
-                  sm:text-[42px]
-                "
-              >
+          <div className="absolute inset-0 z-[1] flex items-center justify-center">
+            <div className="-translate-y-[11vw] text-center sm:-translate-y-13">
+              <div className="font-['Cormorant_Garamond'] text-[13vw] font-bold leading-none text-[#FFFFFF] drop-shadow-[0_0_8px_rgba(200,216,255,.5)] sm:text-[42px]">
                 06
               </div>
 
-              <div
-                className="
-                  mt-1
-                  font-['Cormorant_Garamond']
-                  text-[5.5vw]
-                  font-bold
-                  leading-none
-                  tracking-[.12em]
-                  text-[#946F45]
-                  sm:text-[15px]
-                "
-              >
+              <div className="mt-1 font-['Cormorant_Garamond'] text-[5.5vw] font-bold leading-none tracking-[.12em] text-[#FFFFFF] sm:text-[15px]">
                 December
               </div>
 
-              <div
-                className="
-                  font-['Cormorant_Garamond']
-                  text-[8vw]
-                  font-bold
-                  leading-none
-                  tracking-[.08em]
-                  text-[#946F45]
-                  sm:text-[15px]
-                "
-              >
+              <div className="font-['Cormorant_Garamond'] text-[8vw] font-bold leading-none tracking-[.08em] text-[#FFFFFF] sm:text-[15px]">
                 2026
               </div>
-
             </div>
           </div>
 
@@ -778,237 +506,99 @@ export default function Page3() {
           {!revealed && (
             <canvas
               ref={canvasRef}
-              className="
-                absolute
-                inset-0
-                z-[2]
-                h-full
-                w-full
-                -translate-y-[8px]
-                touch-none
-                sm:-translate-y-[10px]
-              "
+              className="absolute inset-0 z-[2] h-full w-full -translate-y-[8px] touch-none sm:-translate-y-[10px]"
             />
           )}
         </motion.div>
 
-        {/* =================================================
-            INSTRUCTION
-        ================================================= */}
+        {/* INSTRUCTION */}
 
         {!revealed && (
           <motion.div
-            initial={{
-              opacity: 0,
-            }}
-            animate={{
-              opacity: 1,
-            }}
-            transition={{
-              delay: 0.6,
-            }}
-            className="
-              -mt-2
-              w-full
-              text-center
-              sm:-mt-3
-              md:-mt-5
-            "
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+            className="-mt-2 w-full text-center sm:-mt-3 md:-mt-5"
           />
         )}
 
-        {/* =================================================
-            COUNTDOWN
-        ================================================= */}
+        {/* COUNTDOWN */}
 
         {revealed && (
           <motion.div
-            initial={{
-              opacity: 0,
-              y: 15,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{
               delay: 0.2,
               duration: 0.7,
             }}
-            className="
-              -mt-[17vw]
-              w-full
-              max-w-[440px]
-              px-1
-              sm:-mt-1
-              sm:px-0
-            "
+            className="-mt-[17vw] w-full max-w-[440px] px-1 sm:-mt-1 sm:px-0"
           >
-
             {/* HEADING */}
 
-            <p
-              className="
-                mb-4
-                text-center
-                font-['Montserrat']
-                text-[7px]
-                font-medium
-                uppercase
-                tracking-[.30em]
-                text-[#946F45]
-                sm:mb-5
-                sm:text-[9px]
-                sm:tracking-[.38em]
-              "
-            >
+            <p className="mb-4 text-center font-['Montserrat'] text-[7px] font-medium uppercase tracking-[.30em] text-[#C8D8FF] sm:mb-5 sm:text-[9px] sm:tracking-[.38em]">
               COUNTDOWN TO OUR WEDDING
             </p>
 
-            <div
-              className="
-                flex
-                w-full
-                items-center
-                justify-center
-              "
-            >
+            <div className="flex w-full items-center justify-center">
+              {countdown.map(([value, label], index) => (
+                <div
+                  key={label}
+                  className="relative flex min-w-0 flex-1 flex-col items-center justify-center"
+                >
+                  {/* NUMBER */}
 
-              {countdown.map(
-                ([value, label], index) => (
-                  <div
-                    key={label}
-                    className="
-                      relative
-                      flex
-                      min-w-0
-                      flex-1
-                      flex-col
-                      items-center
-                      justify-center
-                    "
+                  <motion.div
+                    key={value}
+                    initial={{
+                      opacity: 0,
+                      y: 6,
+                      scale: 0.94,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      y: 0,
+                      scale: 1,
+                    }}
+                    transition={{
+                      duration: 0.35,
+                      ease: "easeOut",
+                    }}
+                    className="whitespace-nowrap font-['Cormorant_Garamond'] text-[35px] font-normal leading-none tracking-[-.045em] text-[#C8D8FF] drop-shadow-[0_2px_10px_rgba(200,216,255,.20)] xs:text-[38px] sm:text-[47px]"
                   >
+                    {String(value).padStart(2, "0")}
+                  </motion.div>
 
-                    {/* NUMBER */}
+                  {/* LABEL */}
 
-                    <motion.div
-                      key={value}
-                      initial={{
-                        opacity: 0,
-                        y: 6,
-                        scale: 0.94,
-                      }}
-                      animate={{
-                        opacity: 1,
-                        y: 0,
-                        scale: 1,
-                      }}
-                      transition={{
-                        duration: 0.35,
-                        ease: "easeOut",
-                      }}
-                      className="
-                        whitespace-nowrap
-                        font-['Cormorant_Garamond']
-                        text-[35px]
-                        font-normal
-                        leading-none
-                        tracking-[-.045em]
-                        text-[#C99A55]
-                        drop-shadow-[0_2px_10px_rgba(201,154,85,.20)]
-                        xs:text-[38px]
-                        sm:text-[47px]
-                      "
-                    >
-                      {String(value).padStart(
-                        2,
-                        "0"
-                      )}
-                    </motion.div>
-
-                    {/* LABEL */}
-
-                    <div
-                      className="
-                        mt-1
-                        whitespace-nowrap
-                        font-['Montserrat']
-                        text-[5px]
-                        font-medium
-                        uppercase
-                        tracking-[.22em]
-                        text-[#A97B42]
-                        xs:text-[6px]
-                        sm:mt-2
-                        sm:text-[7px]
-                        sm:tracking-[.32em]
-                      "
-                    >
-                      {label}
-                    </div>
-
-                    {/* SEPARATOR */}
-
-                    {index <
-                      countdown.length - 1 && (
-                      <span
-                        className="
-                          absolute
-                          right-[-1px]
-                          top-[11px]
-                          font-['Playfair_Display']
-                          text-[16px]
-                          font-light
-                          text-[#946F45]/45
-                          sm:top-[17px]
-                          sm:right-0
-                          sm:text-[23px]
-                        "
-                      >
-                        :
-                      </span>
-                    )}
-
+                  <div className="mt-1 whitespace-nowrap font-['Montserrat'] text-[5px] font-medium uppercase tracking-[.22em] text-[#C8D8FF] xs:text-[6px] sm:mt-2 sm:text-[7px] sm:tracking-[.32em]">
+                    {label}
                   </div>
-                )
-              )}
 
+                  {/* SEPARATOR */}
+
+                  {index < countdown.length - 1 && (
+                    <span className="absolute right-[-1px] top-[11px] font-['Playfair_Display'] text-[16px] font-light text-[#C8D8FF]/60 sm:top-[17px] sm:right-0 sm:text-[23px]">
+                      :
+                    </span>
+                  )}
+                </div>
+              ))}
             </div>
           </motion.div>
         )}
       </div>
 
-      {/* =================================================
-          LOVE REVEAL POPUP
-      ================================================= */}
+      {/* LOVE REVEAL POPUP */}
 
       <AnimatePresence>
         {showRevealPopup && (
           <motion.div
-            className="
-              pointer-events-none
-              fixed
-              inset-0
-              z-[100]
-              flex
-              items-center
-              justify-center
-              overflow-hidden
-              px-4
-              sm:px-6
-            "
-            initial={{
-              opacity: 0,
-            }}
-            animate={{
-              opacity: 1,
-            }}
-            exit={{
-              opacity: 0,
-            }}
-            transition={{
-              duration: 0.35,
-            }}
+            className="pointer-events-none fixed inset-0 z-[100] flex items-center justify-center overflow-hidden px-4 sm:px-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35 }}
           >
             <motion.div
               initial={{
@@ -1031,16 +621,7 @@ export default function Page3() {
                 stiffness: 180,
                 damping: 16,
               }}
-              className="
-                relative
-                left-0
-                flex
-                w-full
-                flex-col
-                items-center
-                justify-center
-                text-center
-              "
+              className="relative left-0 flex w-full flex-col items-center justify-center text-center"
             >
               <HeartBurst />
             </motion.div>
