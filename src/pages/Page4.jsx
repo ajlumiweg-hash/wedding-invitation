@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { CalendarDays, Clock3, MapPin } from "lucide-react";
 import auditorium from "../assets/auditorium.png";
@@ -39,10 +40,10 @@ function GoldDivider() {
       variants={divider}
       className="mt-3 flex items-center justify-center gap-3"
     >
-      <span className="h-px w-8 bg-[#6F5034] sm:w-10" />
+      <span className="h-px w-8 bg-[#C8D8FF] sm:w-10" />
 
       <motion.span
-        className="text-[9px] text-[#D6A85F] sm:text-[10px]"
+        className="text-[9px] text-[#C8D8FF] sm:text-[10px]"
         animate={{
           opacity: [0.5, 1, 0.5],
           scale: [1, 1.15, 1],
@@ -57,7 +58,7 @@ function GoldDivider() {
         ♡
       </motion.span>
 
-      <span className="h-px w-8 bg-[#6F5034] sm:w-10" />
+      <span className="h-px w-8 bg-[#C8D8FF] sm:w-10" />
     </motion.div>
   );
 }
@@ -76,12 +77,12 @@ export default function Page4() {
       >
         {/* Title */}
         <motion.div variants={fadeUp} className="flex flex-col items-center">
-          <span className="mb-1 text-[13px] text-[#D6A85F]">
+          <span className="mb-1 text-[13px] text-[#C8D8FF]">
             ❧
           </span>
 
           <h1
-            className="text-[25px] leading-none text-[#946F45] sm:text-[29px]"
+            className="text-[25px] leading-none text-[#FFFFFF] sm:text-[29px]"
             style={{ fontFamily: "'Cormorant Garamond', serif" }}
           >
             Wedding Venue
@@ -95,22 +96,22 @@ export default function Page4() {
           variants={fadeUp}
           className="relative mt-5 w-full max-w-[370px] px-2 sm:mt-6"
         >
-          <div className="relative rounded-[4px] border border-[#946F45] p-[4px] shadow-[0_8px_25px_rgba(0,0,0,0.35)]">
-            <div className="relative overflow-hidden rounded-[2px] border border-[#6F5034]">
+          <div className="relative rounded-[4px] border border-[#C8D8FF] p-[4px] shadow-[0_8px_25px_rgba(0,0,0,0.35)]">
+            <div className="relative overflow-hidden rounded-[2px] border border-[#C8D8FF]/60">
               <img
                 src={auditorium}
                 alt="Ayisha Convention Centre"
                 className="block aspect-[16/8.8] w-full object-cover"
               />
 
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#040B1D]/30 via-transparent to-[#040B1D]/5" />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#07152F]/30 via-transparent to-[#07152F]/5" />
             </div>
 
             {/* Corner Details */}
-            <span className="absolute left-1 top-1 h-3 w-3 border-l border-t border-[#B8894F]" />
-            <span className="absolute right-1 top-1 h-3 w-3 border-r border-t border-[#B8894F]" />
-            <span className="absolute bottom-1 left-1 h-3 w-3 border-b border-l border-[#B8894F]" />
-            <span className="absolute bottom-1 right-1 h-3 w-3 border-b border-r border-[#B8894F]" />
+            <span className="absolute left-1 top-1 h-3 w-3 border-l border-t border-[#C8D8FF]" />
+            <span className="absolute right-1 top-1 h-3 w-3 border-r border-t border-[#C8D8FF]" />
+            <span className="absolute bottom-1 left-1 h-3 w-3 border-b border-l border-[#C8D8FF]" />
+            <span className="absolute bottom-1 right-1 h-3 w-3 border-b border-r border-[#C8D8FF]" />
           </div>
         </motion.div>
 
@@ -122,11 +123,11 @@ export default function Page4() {
           <MapPin
             size={17}
             strokeWidth={1.5}
-            className="mt-0.5 shrink-0 text-[#B8894F]"
+            className="mt-0.5 shrink-0 text-[#C8D8FF]"
           />
 
           <p
-            className="text-[10px] leading-[1.55] text-[#946F45] sm:text-[11px]"
+            className="text-[10px] leading-[1.55] text-[#FFFFFF] sm:text-[11px]"
             style={{ fontFamily: "'Cormorant Garamond', serif" }}
           >
             Mevaram Road, near AKMHSS,
@@ -146,11 +147,11 @@ export default function Page4() {
         >
           <GoldDivider />
 
-          <div className="mt-3 flex items-center gap-2 text-[#946F45]">
+          <div className="mt-3 flex items-center gap-2 text-[#FFFFFF]">
             <CalendarDays
               size={17}
               strokeWidth={1.5}
-              className="text-[#B8894F]"
+              className="text-[#C8D8FF]"
             />
 
             <p
@@ -168,7 +169,7 @@ export default function Page4() {
           className="mt-3 flex flex-col items-center"
         >
           <p
-            className="text-[8px] font-medium tracking-[0.25em] text-[#6F5034] sm:text-[9px]"
+            className="text-[8px] font-medium tracking-[0.25em] text-[#C8D8FF] sm:text-[9px]"
             style={{ fontFamily: "'Cormorant Garamond', serif" }}
           >
             SUNDAY AT
@@ -178,11 +179,11 @@ export default function Page4() {
             <Clock3
               size={16}
               strokeWidth={1.5}
-              className="text-[#B8894F]"
+              className="text-[#C8D8FF]"
             />
 
             <p
-              className="text-[16px] leading-none text-[#946F45] sm:text-[18px]"
+              className="text-[16px] leading-none text-[#FFFFFF] sm:text-[18px]"
               style={{ fontFamily: "'Cormorant Garamond', serif" }}
             >
               12:00 PM
@@ -198,7 +199,7 @@ export default function Page4() {
           rel="noopener noreferrer"
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.96 }}
-          className="mt-5 flex items-center gap-2 rounded-full border border-[#946F45]/80 bg-[#946F45]/10 px-5 py-2 text-[9px] uppercase tracking-[0.16em] text-[#B8894F] transition-colors duration-300 hover:bg-[#946F45]/20 sm:mt-6 sm:px-6 sm:py-2.5 sm:text-[10px]"
+          className="mt-5 flex items-center gap-2 rounded-full border border-[#C8D8FF]/80 bg-[#C8D8FF]/10 px-5 py-2 text-[9px] uppercase tracking-[0.16em] text-[#C8D8FF] transition-colors duration-300 hover:bg-[#C8D8FF]/20 sm:mt-6 sm:px-6 sm:py-2.5 sm:text-[10px]"
           style={{ fontFamily: "'Cormorant Garamond', serif" }}
         >
           <MapPin size={13} strokeWidth={1.7} />

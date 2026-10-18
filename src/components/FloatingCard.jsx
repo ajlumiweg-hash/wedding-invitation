@@ -127,8 +127,8 @@ function FloatingCard() {
                     -translate-x-1/2
                     text-[15px]
                     leading-none
-                    text-[#ae8960]
-                    drop-shadow-[0_0_8px_rgba(196,154,91,.45)]
+                    text-[#9CCBFF]
+                    drop-shadow-[0_0_8px_rgba(156,203,255,.45)]
                     sm:-top-9
                     sm:text-[24px]
                   "
@@ -231,10 +231,10 @@ function FloatingCard() {
                 relative z-20
                 flex items-center justify-center
                 w-full
-                max-w-[360px]
-                max-h-[86vh]
-                sm:max-w-[390px]
-                md:max-w-[430px]
+                max-w-[300px]
+                max-h-[82vh]
+                sm:max-w-[330px]
+                md:max-w-[370px]
               "
             >
               <img
@@ -242,7 +242,7 @@ function FloatingCard() {
                 alt="Invitation"
                 draggable={false}
                 className="
-                  max-h-[86vh]
+                  max-h-[82vh]
                   w-auto
                   max-w-full
                   rounded-2xl
@@ -268,7 +268,7 @@ function FloatingCard() {
                 text-[9px]
                 uppercase
                 tracking-[0.22em]
-                text-[#946F45]
+                text-[#F8F7FF]
                 sm:bottom-8
                 sm:text-xs
               "
