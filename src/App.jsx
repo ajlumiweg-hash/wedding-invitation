@@ -128,6 +128,7 @@ export default function App() {
   const wheelAccum = useRef(0);
   const wheelResetTimer = useRef(null);
   const scrollArrowTimer = useRef(null);
+  const scrollArrowDismissedRef = useRef(false);
 
   useEffect(() => {
     if (opening) return;
@@ -684,7 +685,7 @@ export default function App() {
               sm:text-3xl
             "
           >
-            ↓
+            ⌄
           </span>
         </motion.div>
       )}
